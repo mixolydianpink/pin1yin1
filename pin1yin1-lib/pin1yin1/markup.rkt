@@ -1,0 +1,28 @@
+#lang racket/base
+
+(provide attr
+         string->html-fragment)
+
+(require (only-in racket/function
+                  const)
+
+         pin1yin1/parse
+         (submod pin1yin1/parse char))
+
+(define (attr name value)
+  (if value
+      `((,name ,value))
+      '()))
+
+(define (string->html-fragment str)
+  (parse-string!
+   (multi/p (or/p (map/p (const 'NewLine) newline/p)
+                  (map/p (const 'Tab) (eq/p #\tab))
+                  (map/p (const #x3000) (eq/p #\u3000)) ; Full-width space
+                  (map/p list->string
+                         (multi+/p (right/p (not/p null
+                                                   (or/p newline/p
+                                                         (eq/p #\tab)
+                                                         (eq/p #\u3000)))
+                                            any/p)))))
+   str))
