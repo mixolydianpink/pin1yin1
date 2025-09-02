@@ -18,17 +18,18 @@
          pin1yin1/pst
          pin1yin1/zhupin)
 
-(struct syllable (segments tone erized? capitalized?) #:transparent
+(struct syllable (segments tone erization capitalized?) #:transparent
   #:guard
-  (λ (segments tone erized? capitalized? name)
+  (λ (segments tone erization capitalized? name)
     (if (and (and (list? segments)
                   (andmap char? segments)
                   (some? (pst-ref zhupin-pst segments)))
              (member tone '(0 1 2 3 4))
-             (boolean? erized?)
+             (member erization '(bare parenthesized none))
              (boolean? capitalized?)
-             (not (and (equal? '(#\e #\r) segments) erized?)))
-        (values segments tone erized? capitalized?)
+             (not (and (equal? '(#\e #\r) segments)
+                       (not (equal? 'none erization)))))
+        (values segments tone erization capitalized?)
         (error (format "Bad ~a." name)))))
 
 (struct polysyllable (syllables) #:transparent

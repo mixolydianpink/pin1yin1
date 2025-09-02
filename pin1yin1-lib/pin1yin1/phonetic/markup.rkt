@@ -74,9 +74,10 @@
                       (span ,(syllable->zhuyin-tone-mark syllable)))]
               [else
                core])
-           ,@(if (syllable-erized? syllable)
-                 `("ㄦ")
-                 '()))))
+           ,@(case (syllable-erization syllable)
+               [(bare) '("ㄦ")]
+               [(parenthesized) '("（ㄦ）")]
+               [(none) '()]))))
 
 (define (polysyllable->pinyin/html-fragment #:syllable->pinyin/html-fragment syllable->pinyin/html-fragment
                                             polysyllable)

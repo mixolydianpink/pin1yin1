@@ -21,17 +21,19 @@
 
 (define (syllable/p #:allow-capitalized? allow-capitalized?
                     #:implicit-neutral-tone? implicit-neutral-tone?)
-  (let ([capitalized?+segments+erized?/p
+  (let ([capitalized?+segments+erization/p
          (bind/p (λ (initial-char)
                    (let ([capitalized? (char-upper-case? initial-char)])
                      (bind/p (match-λ [(cons segments _)
                                        (if (equal? '(#\e #\r) segments)
-                                           (pure/p (list capitalized? segments #f))
-                                           (map/p (λ (erized?)
-                                                    (list capitalized? segments erized?))
-                                                  (or/p (map/p (const #t)
+                                           (pure/p (list capitalized? segments 'none))
+                                           (map/p (λ (erization)
+                                                    (list capitalized? segments erization))
+                                                  (or/p (map/p (const 'bare)
                                                                (eq/p #\r))
-                                                        (pure/p #f))))])
+                                                        (map/p (const 'parenthesized)
+                                                               (eq/p #\( #\r #\)))
+                                                        (pure/p 'none))))])
                              (pst/p #:pst zhupin-pst
                                     #:prefix
                                     (list (if capitalized?
@@ -49,14 +51,14 @@
                           [(#\5) 0]))
                       (one-of/p '(#\1 #\2 #\3 #\4 #\5)))
                (pure/p #f))])
-    (bind/p (match-λ [(list capitalized? segments erized?)
+    (bind/p (match-λ [(list capitalized? segments erization)
                       (bind/p (λ (tone)
                                 (if (or (and capitalized? (not allow-capitalized?))
                                         (and (not tone) (not implicit-neutral-tone?)))
                                     never/p
-                                    (pure/p (syllable segments (or tone 0) erized? capitalized?))))
+                                    (pure/p (syllable segments (or tone 0) erization capitalized?))))
                               tone/p)])
-            capitalized?+segments+erized?/p)))
+            capitalized?+segments+erization/p)))
 
 (define (polysyllable/p #:implicit-neutral-tone? implicit-neutral-tone?
                         syllable/p)

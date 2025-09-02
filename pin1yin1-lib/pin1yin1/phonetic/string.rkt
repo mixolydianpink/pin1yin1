@@ -32,7 +32,10 @@
     (let ([pinyin (string-append pre
                                  marked
                                  post
-                                 (if (syllable-erized? syllable) "r" ""))])
+                                 (case (syllable-erization syllable)
+                                   [(bare) "r"]
+                                   [(parenthesized) "(r)"]
+                                   [(none) ""]))])
       (string-append (if (and (not suppress-leading-apostrophe?)
                               (member (car (syllable-segments syllable)) '(#\a #\e #\o) char=?))
                          "'"
@@ -57,9 +60,10 @@
                            (and (not explicit-first-tone?) (= 1 tone)))
                        ""
                        (syllable->zhuyin-tone-mark syllable))
-                   (if (syllable-erized? syllable)
-                       "ㄦ"
-                       ""))))
+                   (case (syllable-erization syllable)
+                     [(bare) "ㄦ"]
+                     [(parenthesized) "（ㄦ）"]
+                     [(none) ""]))))
 
 (define (polysyllable->pinyin #:syllable->pinyin syllable->pinyin
                               polysyllable)

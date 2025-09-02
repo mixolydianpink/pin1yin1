@@ -31,9 +31,6 @@
                 (test-equal? "Syllable separation"
                              (pin1yin1->pinyin "Chang2an1")
                              "Cháng'ān")
-                (test-equal? "Erhua"
-                             (pin1yin1->pinyin "dianr3")
-                             "diǎnr")
                 (test-equal? "Hyphenated"
                              (pin1yin1->pinyin "Zhong1guo2-Mei3guo2")
                              "Zhōngguó‑Měiguó")
@@ -61,6 +58,9 @@
                             (test-equal? "Within word"
                                          (pin1yin1->pinyin "di4-12")
                                          "dì‑12"))
+                (test-equal? "Erhua"
+                             (pin1yin1->pinyin "nar4_dian(r)3")
+                             "nàr diǎn(r)")
                 (test-equal? "Implicit word-final neutral tone"
                              (pin1yin1->pinyin #:implicit-neutral-tone? #t
                                                "xian1sheng")
@@ -113,9 +113,6 @@
                              (pin1yin1->zhuyin #:prefix-neutral-tone? #t
                                                "jue2de5")
                              "ㄐㄩㄝˊ˙ㄉㄜ")
-                (test-equal? "Erhua"
-                             (pin1yin1->zhuyin "dianr3")
-                             "ㄉㄧㄢˇㄦ")
                 (test-equal? "Hyphenated (elided)"
                              (pin1yin1->zhuyin "Zhong1guo2-Mei3guo2")
                              "ㄓㄨㄥㄍㄨㄛˊㄇㄟˇㄍㄨㄛˊ")
@@ -143,6 +140,9 @@
                             (test-equal? "Within word"
                                          (pin1yin1->zhuyin "di4-12")
                                          "ㄉㄧˋ12"))
+                (test-equal? "Erhua"
+                             (pin1yin1->zhuyin "nar4_dian(r)3")
+                             "ㄋㄚˋㄦ ㄉㄧㄢˇ（ㄦ）")
                 (test-equal? "Implicit word-final neutral tone"
                              (pin1yin1->zhuyin #:implicit-neutral-tone? #t
                                                "xian1sheng")
