@@ -7,13 +7,12 @@
 
 (require (only-in racket/function
                   curry)
-         racket/match
 
          pin1yin1/markup
          pin1yin1/non-phonetic
+         pin1yin1/non-phonetic/markup
          pin1yin1/non-phonetic/parse
          pin1yin1/non-phonetic/string
-         pin1yin1/option
          pin1yin1/parse
          pin1yin1/pin1yin1/markup
          pin1yin1/pin1yin1/parse)
@@ -36,13 +35,7 @@
                                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
                                                        #:non-phonetic->html-fragment
                                                        (curry non-phonetic->
-                                                              #:literal->
-                                                              (match-λ
-                                                               [(literal (some lang) content)
-                                                                `((span (,@(attr 'lang lang))
-                                                                        ,@(string->html-fragment content)))]
-                                                               [(literal (none) content)
-                                                                (string->html-fragment content)])
+                                                              #:literal-> literal->html-fragment
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
@@ -72,13 +65,7 @@
                                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
                                                        #:non-phonetic->html-fragment
                                                        (curry non-phonetic->
-                                                              #:literal->
-                                                              (match-λ
-                                                               [(literal (some lang) content)
-                                                                `((span (,@(attr 'lang lang))
-                                                                        ,@(string->html-fragment content)))]
-                                                               [(literal (none) content)
-                                                                (string->html-fragment content)])
+                                                              #:literal-> literal->html-fragment
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
