@@ -109,10 +109,6 @@
                 (test-equal? "'v' in place of 'ü'"
                              (pin1yin1->zhuyin "nv3")
                              "ㄋㄩˇ")
-                (test-equal? "Prefix neutral tone mark"
-                             (pin1yin1->zhuyin #:prefix-neutral-tone? #t
-                                               "jue2de5")
-                             "ㄐㄩㄝˊ˙ㄉㄜ")
                 (test-equal? "Hyphenated (elided)"
                              (pin1yin1->zhuyin "Zhong1guo2-Mei3guo2")
                              "ㄓㄨㄥㄍㄨㄛˊㄇㄟˇㄍㄨㄛˊ")
@@ -151,6 +147,10 @@
                              (pin1yin1->zhuyin #:explicit-first-tone? #t
                                                "xian1sheng5")
                              "ㄒㄧㄢˉㄕㄥ˙")
+                (test-equal? "Prefix neutral tone mark"
+                             (pin1yin1->zhuyin #:prefix-neutral-tone? #t
+                                               "jue2de5")
+                             "ㄐㄩㄝˊ˙ㄉㄜ")
                 (test-suite "Literal string"
                             (test-equal? "Literal string with |…|"
                                          (pin1yin1->zhuyin "|Albert\r\n|_de5")
