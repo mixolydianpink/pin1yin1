@@ -19,7 +19,7 @@
 
 (define (pin1yin1-string->pinyin/html-fragment #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
-                                               #:punctuation [punctuation 'en]
+                                               #:punctuation [punctuation 'zh-Latn]
                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                #:syllable-second-tone-class [syllable-second-tone-class #f]
                                                #:syllable-third-tone-class [syllable-third-tone-class #f]
@@ -81,7 +81,7 @@
                                       #:lang [lang #f #|"zh-Latn"|#]
                                       #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                       #:explicit-neutral-tone? [explicit-neutral-tone? #f]
-                                      #:punctuation [punctuation 'en]
+                                      #:punctuation [punctuation 'zh-Latn]
                                       #:syllable-first-tone-class [syllable-first-tone-class #f]
                                       #:syllable-second-tone-class [syllable-second-tone-class #f]
                                       #:syllable-third-tone-class [syllable-third-tone-class #f]

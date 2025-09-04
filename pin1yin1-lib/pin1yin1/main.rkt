@@ -162,8 +162,8 @@
                                          (pin1yin1->zhuyin "#en-US|Hello|")
                                          "Hello"))
                 (test-suite "Punctuation style"
-                            (test-equal? "English"
-                                         (pin1yin1->zhuyin #:punctuation 'en
+                            (test-equal? "Chinese (Latn)"
+                                         (pin1yin1->zhuyin #:punctuation 'zh-Latn
                                                            "|你好| (ni3_hao3)")
                                          "你好 (ㄋㄧˇ ㄏㄠˇ)")
                             (test-equal? "Chinese (TW) (with non-explicit spaces)"

@@ -16,7 +16,7 @@
 
 (define (pin1yin1-string->pinyin #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                  #:explicit-neutral-tone? [explicit-neutral-tone? #f]
-                                 #:punctuation [punctuation 'en]
+                                 #:punctuation [punctuation 'zh-Latn]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
                                                        #:complex->string

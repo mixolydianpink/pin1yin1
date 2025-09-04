@@ -11,19 +11,19 @@
 (define (->punctuation->string sym)
   (λ (punctuation)
     (string-append* (map (case sym
-                           [(en) punctuation->en]
+                           [(zh-Latn) punctuation->zh-Latn]
                            [(zh-TW) punctuation->zh-TW]
                            [(zh-TW+space) (+space punctuation->zh-TW)]
                            [(zh-CN) punctuation->zh-CN]
                            [(zh-CN+space) (+space punctuation->zh-CN)])
                          punctuation))))
 
-(define (punctuation->en punctuation)
+(define (punctuation->zh-Latn punctuation)
   (match (assoc punctuation punctuation-table)
-    [(list* _ _ en _)
-     en]
+    [(list* _ _ zh-Latn _)
+     zh-Latn]
     [#f
-     (error "Unrecognized English whitespace/punctuation: "
+     (error "Unrecognized Chinese (Latn) whitespace/punctuation: "
             punctuation)]))
 
 (define (punctuation->zh-TW punctuation)
