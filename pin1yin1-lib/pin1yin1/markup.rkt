@@ -21,11 +21,13 @@
          (parse-string!
           (multi/p (or/p (map/p (const 'NewLine) newline/p)
                          (map/p (const 'Tab) (eq/p #\tab))
+                         (map/p (const 'ZeroWidthSpace) (eq/p #\u200B))
                          (map/p (const #x3000) (eq/p #\u3000)) ; Full-width space
                          (map/p list->string
                                 (multi+/p (right/p (not/p null
                                                           (or/p newline/p
                                                                 (eq/p #\tab)
+                                                                (eq/p #\u200B)
                                                                 (eq/p #\u3000)))
                                                    any/p)))))
           str)])
