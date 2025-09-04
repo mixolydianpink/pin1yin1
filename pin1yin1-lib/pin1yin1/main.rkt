@@ -88,6 +88,10 @@
                                          (pin1yin1->pinyin #:punctuation 'zh-TW+space
                                                            "Ta1 shuo1: [Ni3_hao3!]")
                                          "Tā shuō： 「Nǐ hǎo！」")
+                            (test-equal? "Chinese (TW) (with non-explicit spaces as zero width)"
+                                         (pin1yin1->pinyin #:punctuation 'zh-TW+space/zero-width
+                                                           "Ta1 shuo1: [Ni3_hao3!]")
+                                         "Tā\u200Bshuō：\u200B「Nǐ hǎo！」")
                             (test-equal? "Chinese (CN)"
                                          (pin1yin1->pinyin #:punctuation 'zh-CN
                                                            "|你好| (ni3_hao3)")
@@ -95,7 +99,11 @@
                             (test-equal? "Chinese (CN) (with non-explicit spaces)"
                                          (pin1yin1->pinyin #:punctuation 'zh-CN+space
                                                            "Ta1 shuo1: [Ni3_hao3!]")
-                                         "Tā shuō： “Nǐ hǎo！”"))))
+                                         "Tā shuō： “Nǐ hǎo！”")
+                            (test-equal? "Chinese (CN) (with non-explicit spaces as zero width)"
+                                         (pin1yin1->pinyin #:punctuation 'zh-CN+space/zero-width
+                                                           "Ta1 shuo1: [Ni3_hao3!]")
+                                         "Tā\u200Bshuō：\u200B“Nǐ hǎo！”"))))
 
   (define ->zhuyin/t
     (test-suite "Convert pin1yin1 to ㄓㄨˋㄧㄣ"
@@ -170,6 +178,10 @@
                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space
                                                            "Ta1 shuo1: [Ni3_hao3!]")
                                          "ㄊㄚ ㄕㄨㄛ： 「ㄋㄧˇ ㄏㄠˇ！」")
+                            (test-equal? "Chinese (TW) (with non-explicit spaces as zero width)"
+                                         (pin1yin1->zhuyin #:punctuation 'zh-TW+space/zero-width
+                                                           "Ta1 shuo1: [Ni3_hao3!]")
+                                         "ㄊㄚ\u200Bㄕㄨㄛ：\u200B「ㄋㄧˇ ㄏㄠˇ！」")
                             (test-equal? "Chinese (CN)"
                                          (pin1yin1->zhuyin #:punctuation 'zh-CN
                                                            "|你好| (ni3_hao3)")
@@ -177,7 +189,11 @@
                             (test-equal? "Chinese (CN) (with non-explicit spaces)"
                                          (pin1yin1->zhuyin #:punctuation 'zh-CN+space
                                                            "Ta1 shuo1: [Ni3_hao3!]")
-                                         "ㄊㄚ ㄕㄨㄛ： “ㄋㄧˇ ㄏㄠˇ！”"))))
+                                         "ㄊㄚ ㄕㄨㄛ： “ㄋㄧˇ ㄏㄠˇ！”")
+                            (test-equal? "Chinese (CN) (with non-explicit spaces as zero width)"
+                                         (pin1yin1->zhuyin #:punctuation 'zh-CN+space/zero-width
+                                                           "Ta1 shuo1: [Ni3_hao3!]")
+                                         "ㄊㄚ\u200Bㄕㄨㄛ：\u200B“ㄋㄧˇ ㄏㄠˇ！”"))))
 
   (define ->pinyin/html/t
     (test-suite "Convert pin1yin1 to pinyin as HTML"

@@ -14,8 +14,10 @@
                            [(zh-Latn) punctuation->zh-Latn]
                            [(zh-TW) punctuation->zh-TW]
                            [(zh-TW+space) (+space punctuation->zh-TW)]
+                           [(zh-TW+space/zero-width) (+space #:space "\u200B" punctuation->zh-TW)]
                            [(zh-CN) punctuation->zh-CN]
-                           [(zh-CN+space) (+space punctuation->zh-CN)])
+                           [(zh-CN+space) (+space punctuation->zh-CN)]
+                           [(zh-CN+space/zero-width) (+space #:space "\u200B" punctuation->zh-CN)])
                          punctuation))))
 
 (define (punctuation->zh-Latn punctuation)
@@ -42,8 +44,9 @@
      (error "Unrecognized Chinese (CN) whitespace/punctuation: "
             punctuation)]))
 
-(define (+space punctuation->string)
+(define (+space #:space [space " "]
+                punctuation->string)
   (λ (punctuation)
     (if (equal? 'space punctuation)
-        " "
+        space
         (punctuation->string punctuation))))
