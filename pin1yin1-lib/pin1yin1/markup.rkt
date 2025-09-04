@@ -14,15 +14,23 @@
       `((,name ,value))
       '()))
 
-(define (string->html-fragment str)
-  (parse-string!
-   (multi/p (or/p (map/p (const 'NewLine) newline/p)
-                  (map/p (const 'Tab) (eq/p #\tab))
-                  (map/p (const #x3000) (eq/p #\u3000)) ; Full-width space
-                  (map/p list->string
-                         (multi+/p (right/p (not/p null
-                                                   (or/p newline/p
-                                                         (eq/p #\tab)
-                                                         (eq/p #\u3000)))
-                                            any/p)))))
-   str))
+(define (string->html-fragment #:class [class #f]
+                               #:lang [lang #f]
+                               str)
+  (let ([content
+         (parse-string!
+          (multi/p (or/p (map/p (const 'NewLine) newline/p)
+                         (map/p (const 'Tab) (eq/p #\tab))
+                         (map/p (const #x3000) (eq/p #\u3000)) ; Full-width space
+                         (map/p list->string
+                                (multi+/p (right/p (not/p null
+                                                          (or/p newline/p
+                                                                (eq/p #\tab)
+                                                                (eq/p #\u3000)))
+                                                   any/p)))))
+          str)])
+    (if (or class lang)
+        `((span (,@(attr 'class class)
+                 ,@(attr 'lang lang))
+                ,@content))
+        content)))
