@@ -91,7 +91,7 @@
 
 (define (complex->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
                          complex)
-  (complex->string #:sep "‑"
+  (complex->string #:sep "-"
                    #:polysyllable->string
                    (curry polysyllable->pinyin
                           #:syllable->pinyin

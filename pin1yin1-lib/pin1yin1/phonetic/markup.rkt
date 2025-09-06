@@ -111,7 +111,7 @@
                                        #:syllable-fourth-tone-class syllable-fourth-tone-class
                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
                                        complex)
-  (complex->html-fragment #:sep (some #x2011)
+  (complex->html-fragment #:sep (some "-")
                           #:polysyllable->html-fragment
                           (curry polysyllable->pinyin/html-fragment
                                  #:syllable->pinyin/html-fragment

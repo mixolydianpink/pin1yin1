@@ -33,7 +33,7 @@
                              "Cháng'ān")
                 (test-equal? "Hyphenated"
                              (pin1yin1->pinyin "Zhong1guo2-Mei3guo2")
-                             "Zhōngguó‑Měiguó")
+                             "Zhōngguó-Měiguó")
                 (test-suite "Punctuation and whitespace"
                             (test-equal? "Whitespace"
                                          (pin1yin1->pinyin "\r \r\n#z#\tni3_hao3 ma5#s#\n")
@@ -50,14 +50,14 @@
                                          "APP shǎntuì le")
                             (test-equal? "Within word"
                                          (pin1yin1->pinyin "T-xu4shan1")
-                                         "T‑xùshān"))
+                                         "T-xùshān"))
                 (test-suite "Numerals"
                             (test-equal? "As word"
                                          (pin1yin1->pinyin "1990")
                                          "1990")
                             (test-equal? "Within word"
                                          (pin1yin1->pinyin "di4-12")
-                                         "dì‑12"))
+                                         "dì-12"))
                 (test-equal? "Erhua"
                              (pin1yin1->pinyin "nar4_dian(r)3")
                              "nàr diǎn(r)")
