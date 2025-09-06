@@ -12,6 +12,7 @@
   (λ (punctuation)
     (string-append* (map (case sym
                            [(zh-Latn) punctuation->zh-Latn]
+                           [(zh-Latn+fullwidth-space) (+fullspace punctuation->zh-Latn)]
                            [(zh-TW) punctuation->zh-TW]
                            [(zh-TW+space) (+space punctuation->zh-TW)]
                            [(zh-TW+space/zero-width) (+space #:space "\u200B" punctuation->zh-TW)]
@@ -49,4 +50,11 @@
   (λ (punctuation)
     (if (equal? 'space punctuation)
         space
+        (punctuation->string punctuation))))
+
+(define (+fullspace #:fullspace [fullspace "\u3000"]
+                    punctuation->string)
+  (λ (punctuation)
+    (if (equal? 'fullspace punctuation)
+        fullspace
         (punctuation->string punctuation))))

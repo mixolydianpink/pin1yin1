@@ -80,6 +80,10 @@
                                          (pin1yin1->pinyin "#en-US|Hello|")
                                          "Hello"))
                 (test-suite "Punctuation style"
+                            (test-equal? "Chinese (Latn) (with fullwidth space)"
+                                         (pin1yin1->pinyin #:punctuation 'zh-Latn+fullwidth-space
+                                                           "|Hello| (ni3#s#hao3)")
+                                         "Hello (nǐ\u3000hǎo)")
                             (test-equal? "Chinese (TW)"
                                          (pin1yin1->pinyin #:punctuation 'zh-TW
                                                            "|你好| (ni3_hao3)")
@@ -172,8 +176,12 @@
                 (test-suite "Punctuation style"
                             (test-equal? "Chinese (Latn)"
                                          (pin1yin1->zhuyin #:punctuation 'zh-Latn
-                                                           "|你好| (ni3_hao3)")
+                                                           "|你好| (ni3#s#hao3)")
                                          "你好 (ㄋㄧˇ ㄏㄠˇ)")
+                            (test-equal? "Chinese (Latn) (with fullwidth space)"
+                                         (pin1yin1->zhuyin #:punctuation 'zh-Latn+fullwidth-space
+                                                           "|Hello| (ni3#s#hao3)")
+                                         "Hello (ㄋㄧˇ\u3000ㄏㄠˇ)")
                             (test-equal? "Chinese (TW) (with non-explicit spaces)"
                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space
                                                            "Ta1 shuo1: [Ni3_hao3!]")
