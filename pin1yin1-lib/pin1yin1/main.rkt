@@ -39,8 +39,8 @@
                                          (pin1yin1->pinyin "\r \r\n#z#\tni3_hao3 ma5#s#\n")
                                          "\n \n\u200B\tnǐ hǎo ma \n")
                             (test-equal? "Punctuation"
-                                         (pin1yin1->pinyin "....!?,\\:;/~()[]{}")
-                                         "….!?,,:;/~()“”‘’")
+                                         (pin1yin1->pinyin "....!?,\\:;/---~()[]{}")
+                                         "….!?,,:;/—~()“”‘’")
                             (test-equal? "Punctuation and whitespace"
                                          (pin1yin1->pinyin "Ta1 shuo1: [Wo3_hen3 e4!]")
                                          "Tā shuō: “Wǒ hěn è!”"))
@@ -129,8 +129,8 @@
                                          (pin1yin1->zhuyin "\r \r\n#z#\tni3_hao3 ma5#s#\n")
                                          "\n\n\u200B\tㄋㄧˇ ㄏㄠˇㄇㄚ˙\u3000\n")
                             (test-equal? "Punctuation"
-                                         (pin1yin1->zhuyin "....!?,\\:;/~()[]{}")
-                                         "⋯⋯。！？，、：；/～（）「」『』")
+                                         (pin1yin1->zhuyin "....!?,\\:;/---~()[]{}")
+                                         "⋯⋯。！？，、：；/⸺～（）「」『』")
                             (test-equal? "Punctuation and whitespace"
                                          (pin1yin1->zhuyin "Ta1 shuo1: [Wo3_hen3 e4!]")
                                          "ㄊㄚㄕㄨㄛ：「ㄨㄛˇ ㄏㄣˇㄜˋ！」"))
