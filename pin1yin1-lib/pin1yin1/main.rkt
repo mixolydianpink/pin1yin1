@@ -36,8 +36,8 @@
                              "Zhōngguó‑Měiguó")
                 (test-suite "Punctuation and whitespace"
                             (test-equal? "Whitespace"
-                                         (pin1yin1->pinyin "\r \r\n\tni3_hao3 ma5#s#\n")
-                                         "\n \n\tnǐ hǎo ma \n")
+                                         (pin1yin1->pinyin "\r \r\n#z#\tni3_hao3 ma5#s#\n")
+                                         "\n \n\u200B\tnǐ hǎo ma \n")
                             (test-equal? "Punctuation"
                                          (pin1yin1->pinyin "....!?,\\:;/~()[]{}")
                                          "….!?,,:;/~()“”‘’")
@@ -122,8 +122,8 @@
                              "ㄓㄨㄥㄍㄨㄛˊㄇㄟˇㄍㄨㄛˊ")
                 (test-suite "Punctuation and whitespace"
                             (test-equal? "Whitespace"
-                                         (pin1yin1->zhuyin "\r \r\n\tni3_hao3 ma5#s#\n")
-                                         "\n\n\tㄋㄧˇ ㄏㄠˇㄇㄚ˙\u3000\n")
+                                         (pin1yin1->zhuyin "\r \r\n#z#\tni3_hao3 ma5#s#\n")
+                                         "\n\n\u200B\tㄋㄧˇ ㄏㄠˇㄇㄚ˙\u3000\n")
                             (test-equal? "Punctuation"
                                          (pin1yin1->zhuyin "....!?,\\:;/~()[]{}")
                                          "⋯⋯。！？，、：；/～（）「」『』")
