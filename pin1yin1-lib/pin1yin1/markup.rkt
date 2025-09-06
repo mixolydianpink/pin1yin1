@@ -21,8 +21,8 @@
          (parse-string!
           (multi/p (or/p (map/p (const 'NewLine) newline/p)
                          (map/p (const 'Tab) (eq/p #\tab))
-                         (map/p (const 'ZeroWidthSpace) (eq/p #\u200B))
-                         (map/p (const #x3000) (eq/p #\u3000)) ; Full-width space
+                         (map/p (const #x200B) (eq/p #\u200B)) ; Zero-width space
+                         (map/p (const #x3000) (eq/p #\u3000)) ; Fullwidth (ideographic) space
                          (map/p list->string
                                 (multi+/p (right/p (not/p null
                                                           (or/p newline/p
