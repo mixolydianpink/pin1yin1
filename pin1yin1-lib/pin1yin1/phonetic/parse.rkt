@@ -21,36 +21,42 @@
 
 (define (syllable/p #:allow-capitalized? allow-capitalized?
                     #:implicit-neutral-tone? implicit-neutral-tone?)
-  (let ([capitalized?+segments+erization/p
-         (bind/p (λ (initial-char)
-                   (let ([capitalized? (char-upper-case? initial-char)])
-                     (bind/p (match-λ [(cons segments _)
-                                       (if (equal? '(#\e #\r) segments)
-                                           (pure/p (list capitalized? segments 'none))
-                                           (map/p (λ (erization)
-                                                    (list capitalized? segments erization))
-                                                  (or/p (map/p (const 'bare)
-                                                               (eq/p #\r))
-                                                        (map/p (const 'parenthesized)
-                                                               (eq/p #\( #\r #\)))
-                                                        (pure/p 'none))))])
-                             (pst/p #:pst zhupin-pst
-                                    #:prefix
-                                    (list (if capitalized?
-                                              (char-downcase initial-char)
-                                              initial-char))
-                                    (if/p char?)))))
-                 (if/p char?))]
-        [tone/p
-         (or/p (map/p (λ (c)
-                        (case c
-                          [(#\1) 1]
-                          [(#\2) 2]
-                          [(#\3) 3]
-                          [(#\4) 4]
-                          [(#\5) 0]))
-                      (one-of/p '(#\1 #\2 #\3 #\4 #\5)))
-               (pure/p #f))])
+  (let* ([char/p
+          (or/p (map/p (const #\Ê)
+                       (eq/p #\E #\^))
+                (map/p (const #\ê)
+                       (eq/p #\e #\^))
+                (if/p char?))]
+         [capitalized?+segments+erization/p
+          (bind/p (λ (initial-char)
+                    (let ([capitalized? (char-upper-case? initial-char)])
+                      (bind/p (match-λ [(cons segments _)
+                                        (if (equal? '(#\e #\r) segments)
+                                            (pure/p (list capitalized? segments 'none))
+                                            (map/p (λ (erization)
+                                                     (list capitalized? segments erization))
+                                                   (or/p (map/p (const 'bare)
+                                                                (eq/p #\r))
+                                                         (map/p (const 'parenthesized)
+                                                                (eq/p #\( #\r #\)))
+                                                         (pure/p 'none))))])
+                              (pst/p #:pst zhupin-pst
+                                     #:prefix
+                                     (list (if capitalized?
+                                               (char-downcase initial-char)
+                                               initial-char))
+                                     char/p))))
+                  char/p)]
+         [tone/p
+          (or/p (map/p (λ (c)
+                         (case c
+                           [(#\1) 1]
+                           [(#\2) 2]
+                           [(#\3) 3]
+                           [(#\4) 4]
+                           [(#\5) 0]))
+                       (one-of/p '(#\1 #\2 #\3 #\4 #\5)))
+                (pure/p #f))])
     (bind/p (match-λ [(list capitalized? segments erization)
                       (bind/p (λ (tone)
                                 (if (or (and capitalized? (not allow-capitalized?))

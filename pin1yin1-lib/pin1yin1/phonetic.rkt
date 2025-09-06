@@ -55,15 +55,17 @@
   (match-let ([(list pre unmarked post)
                (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable))))])
     (list pre
-          (string
-           (string-ref (case unmarked
-                         [("a") "aāáǎà"]
-                         [("e") "eēéěè"]
-                         [("i") "iīíǐì"]
-                         [("o") "oōóǒò"]
-                         [("u") "uūúǔù"]
-                         [("ü") "üǖǘǚǜ"])
-                       (syllable-tone syllable)))
+          (vector-ref (case unmarked
+                        [("a") #("a" "ā" "á" "ǎ" "à")]
+                        [("e") #("e" "ē" "é" "ě" "è")]
+                        [("ê") #("ê" "ê̄" "ế" "ê̌" "ề")]
+                        [("i") #("i" "ī" "í" "ǐ" "ì")]
+                        [("o") #("o" "ō" "ó" "ǒ" "ò")]
+                        [("u") #("u" "ū" "ú" "ǔ" "ù")]
+                        [("ü") #("ü" "ǖ" "ǘ" "ǚ" "ǜ")]
+                        [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
+                        [("n") #("n" "n̄" "ń" "ň" "ǹ")])
+                      (syllable-tone syllable))
           post)))
 
 (define (syllable->zhuyin-core syllable)
