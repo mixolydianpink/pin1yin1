@@ -14,6 +14,10 @@
                                   (multi+/p non-phonetic/p))))
 
 (define (make-pin1yin1/p #:implicit-neutral-tone? implicit-neutral-tone?
+                         #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                         #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
                          #:non-phonetic/p non-phonetic/p)
-  (pin1yin1/p #:complex/p (make-complex/p #:implicit-neutral-tone? implicit-neutral-tone?)
+  (pin1yin1/p #:complex/p (make-complex/p #:implicit-neutral-tone? implicit-neutral-tone?
+                                          #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                                          #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?)
               #:non-phonetic/p non-phonetic/p))

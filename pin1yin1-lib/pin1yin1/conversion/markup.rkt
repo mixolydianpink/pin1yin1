@@ -18,6 +18,8 @@
          pin1yin1/pin1yin1/parse)
 
 (define (pin1yin1-string->pinyin/html-fragment #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                               #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
+                                               #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                                #:punctuation [punctuation 'zh-Latn]
                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
@@ -39,13 +41,20 @@
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
-                                        (make-pin1yin1/p #:implicit-neutral-tone? implicit-neutral-tone?
+                                        (make-pin1yin1/p #:implicit-neutral-tone?
+                                                         implicit-neutral-tone?
+                                                         #:interpret-v-as-u-umlaut?
+                                                         interpret-v-as-u-umlaut?
+                                                         #:interpret-e^-as-e-circumflex?
+                                                         interpret-e^-as-e-circumflex?
                                                          #:non-phonetic/p non-phonetic/p))
                                (eos/p null))
                        (pure/p #f))
                  str))
 
 (define (pin1yin1-string->zhuyin/html-fragment  #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                                #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
+                                                #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                                 #:explicit-first-tone? [explicit-first-tone? #f]
                                                 #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                                 #:punctuation [punctuation 'zh-TW]
@@ -69,7 +78,12 @@
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
-                                        (make-pin1yin1/p #:implicit-neutral-tone? implicit-neutral-tone?
+                                        (make-pin1yin1/p #:implicit-neutral-tone?
+                                                         implicit-neutral-tone?
+                                                         #:interpret-v-as-u-umlaut?
+                                                         interpret-v-as-u-umlaut?
+                                                         #:interpret-e^-as-e-circumflex?
+                                                         interpret-e^-as-e-circumflex?
                                                          #:non-phonetic/p non-phonetic/p))
                                (eos/p null))
                        (pure/p #f))
@@ -80,6 +94,8 @@
                                       #:class [class #f]
                                       #:lang [lang #f #|"zh-Latn"|#]
                                       #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
+                                      #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                       #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                       #:punctuation [punctuation 'zh-Latn]
                                       #:syllable-first-tone-class [syllable-first-tone-class #f]
@@ -106,6 +122,8 @@
                                       #:class [class #f]
                                       #:lang [lang #f #|"zh-TW"|#]
                                       #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
+                                      #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                       #:explicit-first-tone? [explicit-first-tone? #f]
                                       #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                       #:punctuation [punctuation 'zh-TW]

@@ -479,7 +479,6 @@
   (let ([comparator
          (λ (a b)
            (cond
-             [(and (char=? #\v a) (char=? #\ü b)) 'eq]
              [(char=? a b) 'eq]
              [(char<? a b) 'lt]
              [(char>? a b) 'gt]))])

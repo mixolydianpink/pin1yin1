@@ -7,7 +7,8 @@
 
 (require (only-in racket/function
                   conjoin
-                  const)
+                  const
+                  curry)
          (only-in racket/list
                   empty)
          racket/match
@@ -19,14 +20,26 @@
          pin1yin1/pst/parse
          pin1yin1/zhupin)
 
-(define (syllable/p #:allow-capitalized? allow-capitalized?
+(define (syllable/p #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                    #:allow-capitalized? allow-capitalized?
                     #:implicit-neutral-tone? implicit-neutral-tone?)
-  (let* ([char/p
-          (or/p (map/p (const #\Ê)
-                       (eq/p #\E #\^))
-                (map/p (const #\ê)
-                       (eq/p #\e #\^))
+  (let* ([first/p
+          (or/p (if interpret-e^-as-e-circumflex?
+                    (or/p (map/p (const #\Ê)
+                                 (eq/p #\E #\^))
+                          (map/p (const #\ê)
+                                 (eq/p #\e #\^)))
+                    never/p)
                 (if/p char?))]
+         [subsequent/p
+          (or/p (if interpret-v-as-u-umlaut?
+                    (or/p (map/p (const #\Ü)
+                                 (eq/p #\V))
+                          (map/p (const #\ü)
+                                 (eq/p #\v)))
+                    never/p)
+                first/p)]
          [capitalized?+segments+erization/p
           (bind/p (λ (initial-char)
                     (let ([capitalized? (char-upper-case? initial-char)])
@@ -45,8 +58,8 @@
                                      (list (if capitalized?
                                                (char-downcase initial-char)
                                                initial-char))
-                                     char/p))))
-                  char/p)]
+                                     subsequent/p))))
+                  first/p)]
          [tone/p
           (or/p (map/p (λ (c)
                          (case c
@@ -107,6 +120,10 @@
            (sep-by/p #:sep/p (eq/p #\-)
                      polysyllable/capitals/numerals/p))))
 
-(define (make-complex/p #:implicit-neutral-tone? implicit-neutral-tone?)
+(define (make-complex/p #:implicit-neutral-tone? implicit-neutral-tone?
+                        #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                        #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?)
   (complex/p (polysyllable/p #:implicit-neutral-tone? implicit-neutral-tone?
-                             syllable/p)))
+                             (curry syllable/p
+                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?))))
