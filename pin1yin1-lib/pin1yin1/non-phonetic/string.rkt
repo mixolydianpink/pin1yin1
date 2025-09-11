@@ -9,17 +9,15 @@
          (submod pin1yin1/non-phonetic internal))
 
 (define (->punctuation->string sym)
-  (λ (punctuation)
-    (string-append* (map (case sym
-                           [(zh-Latn) punctuation->zh-Latn]
-                           [(zh-Latn+fullwidth-space) (+fullspace punctuation->zh-Latn)]
-                           [(zh-TW) punctuation->zh-TW]
-                           [(zh-TW+space) (+space punctuation->zh-TW)]
-                           [(zh-TW+space/zero-width) (+space #:space "\u200B" punctuation->zh-TW)]
-                           [(zh-CN) punctuation->zh-CN]
-                           [(zh-CN+space) (+space punctuation->zh-CN)]
-                           [(zh-CN+space/zero-width) (+space #:space "\u200B" punctuation->zh-CN)])
-                         punctuation))))
+  (case sym
+    [(zh-Latn) punctuation->zh-Latn]
+    [(zh-Latn+fullwidth-space) (+fullspace punctuation->zh-Latn)]
+    [(zh-TW) punctuation->zh-TW]
+    [(zh-TW+space) (+space punctuation->zh-TW)]
+    [(zh-TW+space/zero-width) (+space #:space "\u200B" punctuation->zh-TW)]
+    [(zh-CN) punctuation->zh-CN]
+    [(zh-CN+space) (+space punctuation->zh-CN)]
+    [(zh-CN+space/zero-width) (+space #:space "\u200B" punctuation->zh-CN)]))
 
 (define (punctuation->zh-Latn punctuation)
   (match (assoc punctuation punctuation-table)

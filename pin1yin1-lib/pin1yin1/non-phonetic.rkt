@@ -50,5 +50,5 @@
   (match non-phonetic
     [(? literal? literal)
      (literal-> literal)]
-    [(? list? punctuation)
+    [(? symbol? punctuation)
      (punctuation-> punctuation)]))

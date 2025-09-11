@@ -30,10 +30,8 @@
                                            (right/p (not/p null
                                                            (eq/p #\#))
                                                     (if/p char?))))))]
-         [punctuation/p (multi+/p (right/p (not/p null
-                                                  literal/p)
-                                           (apply or/p (for/list ([row punctuation-table])
-                                                         (match-let ([(list* sym parser _) row])
-                                                           (map/p (const sym) parser))))))])
+         [punctuation/p (apply or/p (for/list ([row punctuation-table])
+                                      (match-let ([(list* sym parser _) row])
+                                        (map/p (const sym) parser))))])
     (or/p literal/p
           punctuation/p)))
