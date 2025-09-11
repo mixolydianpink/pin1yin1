@@ -81,8 +81,19 @@
              (list (capitalize pre) marked post)])
           (list pre marked post)))))
 
-(define (syllable->zhuyin-core syllable)
-  (car (some-value (pst-ref zhupin-pst (syllable-segments syllable)))))
+(define (syllable->zhuyin-core #:syllabic-m? syllabic-m?
+                               #:syllabic-n? syllabic-n?
+                               #:syllabic-ng? syllabic-ng?
+                               syllable)
+  (match (car (some-value (pst-ref zhupin-pst (syllable-segments syllable))))
+    ["ㄇ"
+     (if syllabic-m? "ㆬ" "ㄇ")]
+    ["ㄋ"
+     (if syllabic-n? "ㄯ" "ㄋ")]
+    ["ㄫ"
+     (if syllabic-ng? "ㆭ" "ㄫ")]
+    [core
+     core]))
 
 (define (syllable->zhuyin-tone-mark syllable)
   (case (syllable-tone syllable)

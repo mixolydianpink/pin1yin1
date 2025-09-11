@@ -41,8 +41,15 @@
 
 (define (syllable->zhuyin #:explicit-first-tone? explicit-first-tone?
                           #:prefix-neutral-tone? prefix-neutral-tone?
+                          #:syllabic-m? syllabic-m?
+                          #:syllabic-n? syllabic-n?
+                          #:syllabic-ng? syllabic-ng?
                           syllable)
-  (let ([core (syllable->zhuyin-core syllable)]
+  (let ([core
+         (syllable->zhuyin-core #:syllabic-m? syllabic-m?
+                                #:syllabic-n? syllabic-n?
+                                #:syllabic-ng? syllabic-ng?
+                                syllable)]
         [tone (syllable-tone syllable)])
     (string-append (if (and prefix-neutral-tone? (= 0 tone))
                        (syllable->zhuyin-tone-mark syllable)
@@ -94,6 +101,9 @@
 
 (define (complex->zhuyin #:explicit-first-tone? explicit-first-tone?
                          #:prefix-neutral-tone? prefix-neutral-tone?
+                         #:syllabic-m? syllabic-m?
+                         #:syllabic-n? syllabic-n?
+                         #:syllabic-ng? syllabic-ng?
                          complex)
   (complex->string #:sep ""
                    #:polysyllable->string
@@ -101,6 +111,9 @@
                           #:syllable->zhuyin
                           (curry syllable->zhuyin
                                  #:explicit-first-tone? explicit-first-tone?
-                                 #:prefix-neutral-tone? prefix-neutral-tone?))
+                                 #:prefix-neutral-tone? prefix-neutral-tone?
+                                 #:syllabic-m? syllabic-m?
+                                 #:syllabic-n? syllabic-n?
+                                 #:syllabic-ng? syllabic-ng?))
                    #:string->string identity
                    complex))

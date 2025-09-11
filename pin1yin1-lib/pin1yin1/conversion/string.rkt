@@ -45,13 +45,19 @@
                                  #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                  #:explicit-first-tone? [explicit-first-tone? #f]
                                  #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                 #:syllabic-m? [syllabic-m? #f]
+                                 #:syllabic-n? [syllabic-n? #f]
+                                 #:syllabic-ng? [syllabic-ng? #f]
                                  #:punctuation [punctuation 'zh-TW]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
                                                        #:complex->string
                                                        (curry complex->zhuyin
                                                               #:explicit-first-tone? explicit-first-tone?
-                                                              #:prefix-neutral-tone? prefix-neutral-tone?)
+                                                              #:prefix-neutral-tone? prefix-neutral-tone?
+                                                              #:syllabic-m? syllabic-m?
+                                                              #:syllabic-n? syllabic-n?
+                                                              #:syllabic-ng? syllabic-ng?)
                                                        #:non-phonetic->string
                                                        (curry non-phonetic->
                                                               #:literal-> literal-content

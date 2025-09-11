@@ -57,6 +57,9 @@
                                                 #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                                 #:explicit-first-tone? [explicit-first-tone? #f]
                                                 #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                                #:syllabic-m? [syllabic-m? #f]
+                                                #:syllabic-n? [syllabic-n? #f]
+                                                #:syllabic-ng? [syllabic-ng? #f]
                                                 #:punctuation [punctuation 'zh-TW]
                                                 #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                 #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -67,6 +70,9 @@
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->zhuyin/html-fragment
                                                        #:explicit-first-tone? explicit-first-tone?
                                                        #:prefix-neutral-tone? prefix-neutral-tone?
+                                                       #:syllabic-m? syllabic-m?
+                                                       #:syllabic-n? syllabic-n?
+                                                       #:syllabic-ng? syllabic-ng?
                                                        #:syllable-first-tone-class syllable-first-tone-class
                                                        #:syllable-second-tone-class syllable-second-tone-class
                                                        #:syllable-third-tone-class syllable-third-tone-class
@@ -126,6 +132,9 @@
                                       #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                       #:explicit-first-tone? [explicit-first-tone? #f]
                                       #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                      #:syllabic-m? [syllabic-m? #f]
+                                      #:syllabic-n? [syllabic-n? #f]
+                                      #:syllabic-ng? [syllabic-ng? #f]
                                       #:punctuation [punctuation 'zh-TW]
                                       #:syllable-first-tone-class [syllable-first-tone-class #f]
                                       #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -136,6 +145,9 @@
   (let ([fragment (pin1yin1-string->zhuyin/html-fragment #:implicit-neutral-tone? implicit-neutral-tone?
                                                          #:explicit-first-tone? explicit-first-tone?
                                                          #:prefix-neutral-tone? prefix-neutral-tone?
+                                                         #:syllabic-m? syllabic-m?
+                                                         #:syllabic-n? syllabic-n?
+                                                         #:syllabic-ng? syllabic-ng?
                                                          #:punctuation punctuation
                                                          #:syllable-first-tone-class syllable-first-tone-class
                                                          #:syllable-second-tone-class syllable-second-tone-class

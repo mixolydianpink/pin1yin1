@@ -37,6 +37,9 @@
 
 (define (pin1yin1->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
                                         #:prefix-neutral-tone? prefix-neutral-tone?
+                                        #:syllabic-m? syllabic-m?
+                                        #:syllabic-n? syllabic-n?
+                                        #:syllabic-ng? syllabic-ng?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -48,6 +51,9 @@
                            (curry complex->zhuyin/html-fragment
                                   #:explicit-first-tone? explicit-first-tone?
                                   #:prefix-neutral-tone? prefix-neutral-tone?
+                                  #:syllabic-m? syllabic-m?
+                                  #:syllabic-n? syllabic-n?
+                                  #:syllabic-ng? syllabic-ng?
                                   #:syllable-first-tone-class syllable-first-tone-class
                                   #:syllable-second-tone-class syllable-second-tone-class
                                   #:syllable-third-tone-class syllable-third-tone-class
