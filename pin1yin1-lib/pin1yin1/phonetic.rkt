@@ -52,21 +52,34 @@
         (error (format "Bad ~a." name)))))
 
 (define (syllable->pinyin-parts syllable)
+  (define (capitalize str)
+    (match (string->list str)
+      [(cons first rest)
+       (list->string (cons (char-upcase first) rest))]
+      [empty
+       ""]))
   (match-let ([(list pre unmarked post)
                (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable))))])
-    (list pre
-          (vector-ref (case unmarked
-                        [("a") #("a" "ā" "á" "ǎ" "à")]
-                        [("e") #("e" "ē" "é" "ě" "è")]
-                        [("ê") #("ê" "ê̄" "ế" "ê̌" "ề")]
-                        [("i") #("i" "ī" "í" "ǐ" "ì")]
-                        [("o") #("o" "ō" "ó" "ǒ" "ò")]
-                        [("u") #("u" "ū" "ú" "ǔ" "ù")]
-                        [("ü") #("ü" "ǖ" "ǘ" "ǚ" "ǜ")]
-                        [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
-                        [("n") #("n" "n̄" "ń" "ň" "ǹ")])
-                      (syllable-tone syllable))
-          post)))
+    (let ([capitalized? (syllable-capitalized? syllable)]
+          [marked
+           (vector-ref (case unmarked
+                         [("a") #("a" "ā" "á" "ǎ" "à")]
+                         [("e") #("e" "ē" "é" "ě" "è")]
+                         [("ê") #("ê" "ê̄" "ế" "ê̌" "ề")]
+                         [("i") #("i" "ī" "í" "ǐ" "ì")]
+                         [("o") #("o" "ō" "ó" "ǒ" "ò")]
+                         [("u") #("u" "ū" "ú" "ǔ" "ù")]
+                         [("ü") #("ü" "ǖ" "ǘ" "ǚ" "ǜ")]
+                         [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
+                         [("n") #("n" "n̄" "ń" "ň" "ǹ")])
+                       (syllable-tone syllable))])
+      (if capitalized?
+          (case pre
+            [("")
+             (list pre (capitalize marked) post)]
+            [else
+             (list (capitalize pre) marked post)])
+          (list pre marked post)))))
 
 (define (syllable->zhuyin-core syllable)
   (car (some-value (pst-ref zhupin-pst (syllable-segments syllable)))))

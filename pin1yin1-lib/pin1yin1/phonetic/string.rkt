@@ -22,12 +22,6 @@
 (define (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
-  (define (capitalize str)
-    (match (string->list str)
-      [(cons first rest)
-       (list->string (cons (char-upcase first) rest))]
-      [empty
-       ""]))
   (match-let ([(list pre marked post) (syllable->pinyin-parts syllable)])
     (let ([pinyin (string-append pre
                                  marked
@@ -43,9 +37,7 @@
                      (if (and explicit-neutral-tone? (= 0 (syllable-tone syllable)))
                          "·"
                          "")
-                     (if (syllable-capitalized? syllable)
-                         (capitalize pinyin)
-                         pinyin)))))
+                     pinyin))))
 
 (define (syllable->zhuyin #:explicit-first-tone? explicit-first-tone?
                           #:prefix-neutral-tone? prefix-neutral-tone?
