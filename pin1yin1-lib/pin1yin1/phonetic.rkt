@@ -81,11 +81,15 @@
              (list (capitalize pre) marked post)])
           (list pre marked post)))))
 
-(define (syllable->zhuyin-core #:syllabic-m? syllabic-m?
+(define (syllable->zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
+                               #:syllabic-m? syllabic-m?
                                #:syllabic-n? syllabic-n?
                                #:syllabic-ng? syllabic-ng?
                                syllable)
   (match (car (some-value (pst-ref zhupin-pst (syllable-segments syllable))))
+    [(and initial
+          (or "ㄓ" "ㄔ" "ㄕ" "ㄖ" "ㄗ" "ㄘ" "ㄙ"))
+     (if explicit-empty-rhyme? (string-append initial "ㄭ") initial)]
     ["ㄇ"
      (if syllabic-m? "ㆬ" "ㄇ")]
     ["ㄋ"

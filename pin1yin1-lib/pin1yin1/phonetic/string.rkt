@@ -41,12 +41,14 @@
 
 (define (syllable->zhuyin #:explicit-first-tone? explicit-first-tone?
                           #:prefix-neutral-tone? prefix-neutral-tone?
+                          #:explicit-empty-rhyme? explicit-empty-rhyme?
                           #:syllabic-m? syllabic-m?
                           #:syllabic-n? syllabic-n?
                           #:syllabic-ng? syllabic-ng?
                           syllable)
   (let ([core
-         (syllable->zhuyin-core #:syllabic-m? syllabic-m?
+         (syllable->zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                #:syllabic-m? syllabic-m?
                                 #:syllabic-n? syllabic-n?
                                 #:syllabic-ng? syllabic-ng?
                                 syllable)]
@@ -101,6 +103,7 @@
 
 (define (complex->zhuyin #:explicit-first-tone? explicit-first-tone?
                          #:prefix-neutral-tone? prefix-neutral-tone?
+                         #:explicit-empty-rhyme? explicit-empty-rhyme?
                          #:syllabic-m? syllabic-m?
                          #:syllabic-n? syllabic-n?
                          #:syllabic-ng? syllabic-ng?
@@ -112,6 +115,7 @@
                           (curry syllable->zhuyin
                                  #:explicit-first-tone? explicit-first-tone?
                                  #:prefix-neutral-tone? prefix-neutral-tone?
+                                 #:explicit-empty-rhyme? explicit-empty-rhyme?
                                  #:syllabic-m? syllabic-m?
                                  #:syllabic-n? syllabic-n?
                                  #:syllabic-ng? syllabic-ng?))
