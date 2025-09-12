@@ -4,9 +4,9 @@
          syllable->zhuyin
          polysyllable->pinyin
          polysyllable->zhuyin
-         complex->string
-         complex->pinyin
-         complex->zhuyin)
+         compound->string
+         compound->pinyin
+         compound->zhuyin)
 
 (require (only-in racket/function
                   curry
@@ -80,44 +80,44 @@
   (string-append* (for/list ([syllable (polysyllable-syllables polysyllable)])
                     (syllable->zhuyin syllable))))
 
-(define (complex->string #:sep sep
-                         #:polysyllable->string polysyllable->string
-                         #:string->string string->string
-                         complex)
-  (string-append* (add-between (for/list ([polysyllable-or-string (complex-polysyllables-and-strings complex)])
+(define (compound->string #:sep sep
+                          #:polysyllable->string polysyllable->string
+                          #:string->string string->string
+                          compound)
+  (string-append* (add-between (for/list ([polysyllable-or-string (compound-polysyllables-and-strings compound)])
                                  (match polysyllable-or-string
                                    [(? polysyllable? polysyllable) (polysyllable->string polysyllable)]
                                    [(? string? str) (string->string str)]))
                                sep)))
 
-(define (complex->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
-                         complex)
-  (complex->string #:sep "-"
-                   #:polysyllable->string
-                   (curry polysyllable->pinyin
-                          #:syllable->pinyin
-                          (curry syllable->pinyin
-                                 #:explicit-neutral-tone? explicit-neutral-tone?))
-                   #:string->string identity
-                   complex))
+(define (compound->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
+                          compound)
+  (compound->string #:sep "-"
+                    #:polysyllable->string
+                    (curry polysyllable->pinyin
+                           #:syllable->pinyin
+                           (curry syllable->pinyin
+                                  #:explicit-neutral-tone? explicit-neutral-tone?))
+                    #:string->string identity
+                    compound))
 
-(define (complex->zhuyin #:explicit-first-tone? explicit-first-tone?
-                         #:prefix-neutral-tone? prefix-neutral-tone?
-                         #:explicit-empty-rhyme? explicit-empty-rhyme?
-                         #:syllabic-m? syllabic-m?
-                         #:syllabic-n? syllabic-n?
-                         #:syllabic-ng? syllabic-ng?
-                         complex)
-  (complex->string #:sep ""
-                   #:polysyllable->string
-                   (curry polysyllable->zhuyin
-                          #:syllable->zhuyin
-                          (curry syllable->zhuyin
-                                 #:explicit-first-tone? explicit-first-tone?
-                                 #:prefix-neutral-tone? prefix-neutral-tone?
-                                 #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                 #:syllabic-m? syllabic-m?
-                                 #:syllabic-n? syllabic-n?
-                                 #:syllabic-ng? syllabic-ng?))
-                   #:string->string identity
-                   complex))
+(define (compound->zhuyin #:explicit-first-tone? explicit-first-tone?
+                          #:prefix-neutral-tone? prefix-neutral-tone?
+                          #:explicit-empty-rhyme? explicit-empty-rhyme?
+                          #:syllabic-m? syllabic-m?
+                          #:syllabic-n? syllabic-n?
+                          #:syllabic-ng? syllabic-ng?
+                          compound)
+  (compound->string #:sep ""
+                    #:polysyllable->string
+                    (curry polysyllable->zhuyin
+                           #:syllable->zhuyin
+                           (curry syllable->zhuyin
+                                  #:explicit-first-tone? explicit-first-tone?
+                                  #:prefix-neutral-tone? prefix-neutral-tone?
+                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                  #:syllabic-m? syllabic-m?
+                                  #:syllabic-n? syllabic-n?
+                                  #:syllabic-ng? syllabic-ng?))
+                    #:string->string identity
+                    compound))

@@ -2,7 +2,7 @@
 
 (provide syllable/p
          polysyllable/p
-         complex/p)
+         compound/p)
 
 (require (only-in racket/function
                   conjoin
@@ -107,7 +107,7 @@
 (define capitals (string->list "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 (define numerals (string->list "0123456789"))
 
-(define (complex/p polysyllable/p)
+(define (compound/p polysyllable/p)
   (define (capital? ch) (if (member ch capitals char=?) #t #f))
   (define (numeral? ch) (if (member ch numerals char=?) #t #f))
   (let ([polysyllable/capitals/numerals/p
@@ -115,6 +115,6 @@
                (map/p list->string
                       (or/p (multi+/p (if/p (conjoin char? capital?)))
                             (multi+/p (if/p (conjoin char? numeral?))))))])
-    (map/p complex
+    (map/p compound
            (sep-by/p #:sep/p (eq/p #\-)
                      polysyllable/capitals/numerals/p))))

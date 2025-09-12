@@ -9,20 +9,20 @@
 
          pin1yin1/phonetic)
 
-(define (pin1yin1-map #:complex-> complex->
+(define (pin1yin1-map #:compound-> compound->
                       #:non-phonetic-> non-phonetic->
                       pin1yin1)
-  (map (match-λ [(? complex? complex)
-                 (complex-> complex)]
+  (map (match-λ [(? compound? compound)
+                 (compound-> compound)]
                 [non-phonetic
                  (non-phonetic-> non-phonetic)])
        pin1yin1))
 
-(define (pin1yin1-append-map #:complex->list complex->list
+(define (pin1yin1-append-map #:compound->list compound->list
                              #:non-phonetic->list non-phonetic->list
                              pin1yin1)
-  (append-map (match-λ [(? complex? complex)
-                        (complex->list complex)]
+  (append-map (match-λ [(? compound? compound)
+                        (compound->list compound)]
                        [non-phonetic
                         (non-phonetic->list non-phonetic)])
               pin1yin1))

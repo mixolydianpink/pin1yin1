@@ -2,7 +2,7 @@
 
 (provide (struct-out syllable)
          (struct-out polysyllable)
-         (struct-out complex)
+         (struct-out compound)
 
          syllable-pinyin-parts
          syllable-zhuyin-core
@@ -41,7 +41,7 @@
         (values syllables)
         (error (format "Bad ~a." name)))))
 
-(struct complex (polysyllables-and-strings) #:transparent
+(struct compound (polysyllables-and-strings) #:transparent
   #:guard
   (λ (polysyllables-and-strings name)
     (if (and (list? polysyllables-and-strings)

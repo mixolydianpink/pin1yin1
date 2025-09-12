@@ -4,9 +4,9 @@
          syllable->zhuyin/span
          polysyllable->pinyin/html-fragment
          polysyllable->zhuyin/html-fragment
-         complex->html-fragment
-         complex->pinyin/html-fragment
-         complex->zhuyin/html-fragment)
+         compound->html-fragment
+         compound->pinyin/html-fragment
+         compound->zhuyin/html-fragment)
 
 (require (only-in racket/function
                   curry)
@@ -101,11 +101,11 @@
                                             polysyllable)
   (append-map syllable->zhuyin/html-fragment (polysyllable-syllables polysyllable)))
 
-(define (complex->html-fragment #:sep sep
-                                #:polysyllable->html-fragment polysyllable->html-fragment
-                                #:string->html-fragment string->html-fragment
-                                complex)
-  (flatten1 (add-between (for/list ([polysyllable-or-string (complex-polysyllables-and-strings complex)])
+(define (compound->html-fragment #:sep sep
+                                 #:polysyllable->html-fragment polysyllable->html-fragment
+                                 #:string->html-fragment string->html-fragment
+                                 compound)
+  (flatten1 (add-between (for/list ([polysyllable-or-string (compound-polysyllables-and-strings compound)])
                            (match polysyllable-or-string
                              [(? polysyllable? polysyllable)
                               (polysyllable->html-fragment polysyllable)]
@@ -113,56 +113,56 @@
                               (string->html-fragment string)]))
                          (option-map list sep))))
 
-(define (complex->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
-                                       #:syllable-first-tone-class syllable-first-tone-class
-                                       #:syllable-second-tone-class syllable-second-tone-class
-                                       #:syllable-third-tone-class syllable-third-tone-class
-                                       #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                       #:syllable-neutral-tone-class syllable-neutral-tone-class
-                                       complex)
-  (complex->html-fragment #:sep (some "-")
-                          #:polysyllable->html-fragment
-                          (curry polysyllable->pinyin/html-fragment
-                                 #:syllable->pinyin/html-fragment
-                                 (compose list
-                                          (curry syllable->pinyin/span
-                                                 #:explicit-neutral-tone? explicit-neutral-tone?
-                                                 #:first-tone-class syllable-first-tone-class
-                                                 #:second-tone-class syllable-second-tone-class
-                                                 #:third-tone-class syllable-third-tone-class
-                                                 #:fourth-tone-class syllable-fourth-tone-class
-                                                 #:neutral-tone-class syllable-neutral-tone-class)))
-                          #:string->html-fragment string->html-fragment
-                          complex))
+(define (compound->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
+                                        #:syllable-first-tone-class syllable-first-tone-class
+                                        #:syllable-second-tone-class syllable-second-tone-class
+                                        #:syllable-third-tone-class syllable-third-tone-class
+                                        #:syllable-fourth-tone-class syllable-fourth-tone-class
+                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
+                                        compound)
+  (compound->html-fragment #:sep (some "-")
+                           #:polysyllable->html-fragment
+                           (curry polysyllable->pinyin/html-fragment
+                                  #:syllable->pinyin/html-fragment
+                                  (compose list
+                                           (curry syllable->pinyin/span
+                                                  #:explicit-neutral-tone? explicit-neutral-tone?
+                                                  #:first-tone-class syllable-first-tone-class
+                                                  #:second-tone-class syllable-second-tone-class
+                                                  #:third-tone-class syllable-third-tone-class
+                                                  #:fourth-tone-class syllable-fourth-tone-class
+                                                  #:neutral-tone-class syllable-neutral-tone-class)))
+                           #:string->html-fragment string->html-fragment
+                           compound))
 
-(define (complex->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
-                                       #:prefix-neutral-tone? prefix-neutral-tone?
-                                       #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                       #:syllabic-m? syllabic-m?
-                                       #:syllabic-n? syllabic-n?
-                                       #:syllabic-ng? syllabic-ng?
-                                       #:syllable-first-tone-class syllable-first-tone-class
-                                       #:syllable-second-tone-class syllable-second-tone-class
-                                       #:syllable-third-tone-class syllable-third-tone-class
-                                       #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                       #:syllable-neutral-tone-class syllable-neutral-tone-class
-                                       complex)
-  (complex->html-fragment #:sep (none)
-                          #:polysyllable->html-fragment
-                          (curry polysyllable->zhuyin/html-fragment
-                                 #:syllable->zhuyin/html-fragment
-                                 (compose list
-                                          (curry syllable->zhuyin/span
-                                                 #:explicit-first-tone? explicit-first-tone?
-                                                 #:prefix-neutral-tone? prefix-neutral-tone?
-                                                 #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                                 #:syllabic-m? syllabic-m?
-                                                 #:syllabic-n? syllabic-n?
-                                                 #:syllabic-ng? syllabic-ng?
-                                                 #:first-tone-class syllable-first-tone-class
-                                                 #:second-tone-class syllable-second-tone-class
-                                                 #:third-tone-class syllable-third-tone-class
-                                                 #:fourth-tone-class syllable-fourth-tone-class
-                                                 #:neutral-tone-class syllable-neutral-tone-class)))
-                          #:string->html-fragment string->html-fragment
-                          complex))
+(define (compound->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
+                                        #:prefix-neutral-tone? prefix-neutral-tone?
+                                        #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                        #:syllabic-m? syllabic-m?
+                                        #:syllabic-n? syllabic-n?
+                                        #:syllabic-ng? syllabic-ng?
+                                        #:syllable-first-tone-class syllable-first-tone-class
+                                        #:syllable-second-tone-class syllable-second-tone-class
+                                        #:syllable-third-tone-class syllable-third-tone-class
+                                        #:syllable-fourth-tone-class syllable-fourth-tone-class
+                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
+                                        compound)
+  (compound->html-fragment #:sep (none)
+                           #:polysyllable->html-fragment
+                           (curry polysyllable->zhuyin/html-fragment
+                                  #:syllable->zhuyin/html-fragment
+                                  (compose list
+                                           (curry syllable->zhuyin/span
+                                                  #:explicit-first-tone? explicit-first-tone?
+                                                  #:prefix-neutral-tone? prefix-neutral-tone?
+                                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                                  #:syllabic-m? syllabic-m?
+                                                  #:syllabic-n? syllabic-n?
+                                                  #:syllabic-ng? syllabic-ng?
+                                                  #:first-tone-class syllable-first-tone-class
+                                                  #:second-tone-class syllable-second-tone-class
+                                                  #:third-tone-class syllable-third-tone-class
+                                                  #:fourth-tone-class syllable-fourth-tone-class
+                                                  #:neutral-tone-class syllable-neutral-tone-class)))
+                           #:string->html-fragment string->html-fragment
+                           compound))

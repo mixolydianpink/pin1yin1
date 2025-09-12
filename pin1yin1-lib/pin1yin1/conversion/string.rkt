@@ -22,8 +22,8 @@
                                  #:punctuation [punctuation 'zh-Latn]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
-                                                       #:complex->string
-                                                       (curry complex->pinyin
+                                                       #:compound->string
+                                                       (curry compound->pinyin
                                                               #:explicit-neutral-tone? explicit-neutral-tone?)
                                                        #:non-phonetic->string
                                                        (curry non-phonetic->
@@ -66,8 +66,8 @@
                                  #:punctuation [punctuation 'zh-TW]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
-                                                       #:complex->string
-                                                       (curry complex->zhuyin
+                                                       #:compound->string
+                                                       (curry compound->zhuyin
                                                               #:explicit-first-tone? explicit-first-tone?
                                                               #:prefix-neutral-tone? prefix-neutral-tone?
                                                               #:explicit-empty-rhyme? explicit-empty-rhyme?
