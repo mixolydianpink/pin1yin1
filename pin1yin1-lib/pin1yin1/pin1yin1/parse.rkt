@@ -11,8 +11,7 @@
                     #:non-phonetic/p non-phonetic/p)
   (map/p flatten1
          (alternating-symmetric/p complex/p
-                                  (map/p flatten1
-                                         (multi+/p non-phonetic/p)))))
+                                  non-phonetic/p)))
 
 (define (make-pin1yin1/p #:implicit-neutral-tone? implicit-neutral-tone?
                          #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
