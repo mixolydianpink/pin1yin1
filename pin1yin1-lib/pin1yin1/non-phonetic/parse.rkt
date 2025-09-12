@@ -5,6 +5,8 @@
 (require (only-in racket/function
                   const
                   curry)
+         (only-in racket/list
+                  empty)
          racket/match
 
          pin1yin1/non-phonetic
@@ -30,8 +32,16 @@
                                            (right/p (not/p null
                                                            (eq/p #\#))
                                                     (if/p char?))))))]
-         [punctuation/p (apply or/p (for/list ([row punctuation-table])
-                                      (match-let ([(list* sym parser _) row])
-                                        (map/p (const sym) parser))))])
-    (or/p literal/p
+         [literal-or-empty/p
+          (map/p (match-λ
+                  [(literal _ "")
+                   empty]
+                  [literal
+                   literal])
+                 literal/p)]
+         [punctuation/p
+          (apply or/p (for/list ([row punctuation-table])
+                        (match-let ([(list* sym parser _) row])
+                          (map/p (const sym) parser))))])
+    (or/p literal-or-empty/p
           punctuation/p)))
