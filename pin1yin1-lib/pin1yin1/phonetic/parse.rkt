@@ -2,8 +2,7 @@
 
 (provide syllable/p
          polysyllable/p
-         complex/p
-         make-complex/p)
+         complex/p)
 
 (require (only-in racket/function
                   conjoin
@@ -119,11 +118,3 @@
     (map/p complex
            (sep-by/p #:sep/p (eq/p #\-)
                      polysyllable/capitals/numerals/p))))
-
-(define (make-complex/p #:implicit-neutral-tone? implicit-neutral-tone?
-                        #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                        #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?)
-  (complex/p (polysyllable/p #:implicit-neutral-tone? implicit-neutral-tone?
-                             (curry syllable/p
-                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?))))
