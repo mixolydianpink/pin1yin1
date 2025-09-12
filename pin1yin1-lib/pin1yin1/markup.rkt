@@ -1,7 +1,8 @@
 #lang racket/base
 
 (provide attr
-         string->html-fragment)
+         string->html-fragment
+         html-fragment->html)
 
 (require (only-in racket/function
                   const)
@@ -36,3 +37,11 @@
                  ,@(attr 'lang lang))
                 ,@content))
         content)))
+
+(define (html-fragment->html #:tag tag
+                             #:class [class #f]
+                             #:lang [lang #f]
+                             fragment)
+  `(,tag (,@(attr 'class class)
+          ,@(attr 'lang lang))
+         ,@fragment))

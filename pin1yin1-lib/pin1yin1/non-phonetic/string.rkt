@@ -1,25 +1,10 @@
 #lang racket/base
 
-(provide ->whitespace->
-         ->punctuation->string)
+(provide ->punctuation->string)
 
 (require racket/match
 
          (submod pin1yin1/non-phonetic internal))
-
-(define (->whitespace-> #:space space
-                        #:underscore underscore
-                        #:zero-width-space zero-width-space
-                        #:fullwidth-space fullwidth-space
-                        #:tab tab
-                        #:newline newline)
-  (match-λ
-   ['space space]
-   ['underscore underscore]
-   ['zero-width-space zero-width-space]
-   ['fullwidth-space fullwidth-space]
-   ['tab tab]
-   ['newline newline]))
 
 (define (->punctuation->string sym)
   (case sym

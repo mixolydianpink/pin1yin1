@@ -2,6 +2,7 @@
 
 (provide (struct-out literal)
 
+         ->whitespace->
          non-phonetic->)
 
 (module+ internal
@@ -29,6 +30,20 @@
   (if (assoc sym whitespace-table)
       #t
       #f))
+
+(define (->whitespace-> #:space space
+                        #:underscore underscore
+                        #:zero-width-space zero-width-space
+                        #:fullwidth-space fullwidth-space
+                        #:tab tab
+                        #:newline newline)
+  (match-λ
+   ['space space]
+   ['underscore underscore]
+   ['zero-width-space zero-width-space]
+   ['fullwidth-space fullwidth-space]
+   ['tab tab]
+   ['newline newline]))
 
 (define punctuation-table
   `([ellipsis                 ,(or/p (eq/p #\…)
