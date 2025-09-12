@@ -18,6 +18,7 @@
                                  #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                  #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                  #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                 #:space [space 'halfwidth]
                                  #:punctuation [punctuation 'zh-Latn]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
@@ -27,6 +28,18 @@
                                                        #:non-phonetic->string
                                                        (curry non-phonetic->
                                                               #:literal-> literal-content
+                                                              #:whitespace->
+                                                              (->whitespace-> #:space
+                                                                              (case space
+                                                                                [(none) ""]
+                                                                                [(zero-width) "\u200B"]
+                                                                                [(halfwidth) " "]
+                                                                                [(fullwidth) "\u3000"])
+                                                                              #:underscore " "
+                                                                              #:zero-width-space "\u200B"
+                                                                              #:fullwidth-space "\u3000"
+                                                                              #:tab "\t"
+                                                                              #:newline "\n")
                                                               #:punctuation->
                                                               (->punctuation->string punctuation))))
                                         (make-pin1yin1/p #:implicit-neutral-tone?
@@ -49,6 +62,7 @@
                                  #:syllabic-m? [syllabic-m? #f]
                                  #:syllabic-n? [syllabic-n? #f]
                                  #:syllabic-ng? [syllabic-ng? #f]
+                                 #:space [space 'none]
                                  #:punctuation [punctuation 'zh-TW]
                                  str)
   (parse-string! (or/p (left/p (apply/p (pure/p (curry pin1yin1->string
@@ -63,6 +77,18 @@
                                                        #:non-phonetic->string
                                                        (curry non-phonetic->
                                                               #:literal-> literal-content
+                                                              #:whitespace->
+                                                              (->whitespace-> #:space
+                                                                              (case space
+                                                                                [(none) ""]
+                                                                                [(zero-width) "\u200B"]
+                                                                                [(halfwidth) " "]
+                                                                                [(fullwidth) "\u3000"])
+                                                                              #:underscore " "
+                                                                              #:zero-width-space "\u200B"
+                                                                              #:fullwidth-space "\u3000"
+                                                                              #:tab "\t"
+                                                                              #:newline "\n")
                                                               #:punctuation->
                                                               (->punctuation->string punctuation))))
                                         (make-pin1yin1/p #:implicit-neutral-tone?

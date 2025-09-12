@@ -19,16 +19,16 @@
                                str)
   (let ([content
          (parse-string!
-          (multi/p (or/p (map/p (const 'NewLine) newline/p)
-                         (map/p (const 'Tab) (eq/p #\tab))
-                         (map/p (const #x200B) (eq/p #\u200B)) ; Zero-width space
+          (multi/p (or/p (map/p (const #x200B) (eq/p #\u200B)) ; Zero-width space
                          (map/p (const #x3000) (eq/p #\u3000)) ; Fullwidth (ideographic) space
+                         (map/p (const 'Tab) (eq/p #\tab))
+                         (map/p (const 'NewLine) newline/p)
                          (map/p list->string
                                 (multi+/p (right/p (not/p null
-                                                          (or/p newline/p
+                                                          (or/p (eq/p #\u200B)
+                                                                (eq/p #\u3000)
                                                                 (eq/p #\tab)
-                                                                (eq/p #\u200B)
-                                                                (eq/p #\u3000)))
+                                                                newline/p))
                                                    any/p)))))
           str)])
     (if (or class lang)

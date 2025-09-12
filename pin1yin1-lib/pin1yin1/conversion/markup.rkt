@@ -21,6 +21,7 @@
                                                #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                                #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                               #:space [space 'halfwidth]
                                                #:punctuation [punctuation 'zh-Latn]
                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -38,6 +39,18 @@
                                                        #:non-phonetic->html-fragment
                                                        (curry non-phonetic->
                                                               #:literal-> literal->html-fragment
+                                                              #:whitespace->
+                                                              (->whitespace-> #:space
+                                                                              (case space
+                                                                                [(none) '()]
+                                                                                [(zero-width) '(#x200B)]
+                                                                                [(halfwidth) '(" ")]
+                                                                                [(fullwidth) '(#x3000)])
+                                                                              #:underscore '(" ")
+                                                                              #:zero-width-space '(#x200B)
+                                                                              #:fullwidth-space '(#x3000)
+                                                                              #:tab '(Tab)
+                                                                              #:newline '(NewLine))
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
@@ -61,6 +74,7 @@
                                                 #:syllabic-m? [syllabic-m? #f]
                                                 #:syllabic-n? [syllabic-n? #f]
                                                 #:syllabic-ng? [syllabic-ng? #f]
+                                                #:space [space 'none]
                                                 #:punctuation [punctuation 'zh-TW]
                                                 #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                 #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -83,6 +97,18 @@
                                                        #:non-phonetic->html-fragment
                                                        (curry non-phonetic->
                                                               #:literal-> literal->html-fragment
+                                                              #:whitespace->
+                                                              (->whitespace-> #:space
+                                                                              (case space
+                                                                                [(none) '()]
+                                                                                [(zero-width) '(#x200B)]
+                                                                                [(halfwidth) '(" ")]
+                                                                                [(fullwidth) '(#x3000)])
+                                                                              #:underscore '(" ")
+                                                                              #:zero-width-space '(#x200B)
+                                                                              #:fullwidth-space '(#x3000)
+                                                                              #:tab '(Tab)
+                                                                              #:newline '(NewLine))
                                                               #:punctuation->
                                                               (compose string->html-fragment
                                                                        (->punctuation->string punctuation)))))
@@ -105,6 +131,7 @@
                                       #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                       #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                       #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                      #:space [space 'halfwidth]
                                       #:punctuation [punctuation 'zh-Latn]
                                       #:syllable-first-tone-class [syllable-first-tone-class #f]
                                       #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -114,6 +141,7 @@
                                       str)
   (let ([fragment (pin1yin1-string->pinyin/html-fragment #:implicit-neutral-tone? implicit-neutral-tone?
                                                          #:explicit-neutral-tone? explicit-neutral-tone?
+                                                         #:space space
                                                          #:punctuation punctuation
                                                          #:syllable-first-tone-class syllable-first-tone-class
                                                          #:syllable-second-tone-class syllable-second-tone-class
@@ -138,6 +166,7 @@
                                       #:syllabic-m? [syllabic-m? #f]
                                       #:syllabic-n? [syllabic-n? #f]
                                       #:syllabic-ng? [syllabic-ng? #f]
+                                      #:space [space 'none]
                                       #:punctuation [punctuation 'zh-TW]
                                       #:syllable-first-tone-class [syllable-first-tone-class #f]
                                       #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -152,6 +181,7 @@
                                                          #:syllabic-m? syllabic-m?
                                                          #:syllabic-n? syllabic-n?
                                                          #:syllabic-ng? syllabic-ng?
+                                                         #:space space
                                                          #:punctuation punctuation
                                                          #:syllable-first-tone-class syllable-first-tone-class
                                                          #:syllable-second-tone-class syllable-second-tone-class

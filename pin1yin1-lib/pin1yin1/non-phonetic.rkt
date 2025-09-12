@@ -5,7 +5,8 @@
          non-phonetic->)
 
 (module+ internal
-  (provide punctuation-table))
+  (provide whitespace-table
+           punctuation-table))
 
 (require racket/match
 
@@ -14,41 +15,55 @@
 
 (struct literal (lang content) #:transparent)
 
+(define whitespace-table
+  `([space                   . ,(eq/p #\space)]
+    [underscore              . ,(eq/p #\_)]
+    [zero-width-space        . ,(eq/p #\# #\z #\#)]
+    [fullwidth-space         . ,(eq/p #\# #\s #\#)]
+    [tab                     . ,(or/p (eq/p #\tab)
+                                      (eq/p #\# #\t #\#))]
+    [newline                 . ,(or/p newline/p
+                                      (eq/p #\# #\n #\#))]))
+
+(define (whitespace? sym)
+  (if (assoc sym whitespace-table)
+      #t
+      #f))
+
 (define punctuation-table
-  (let ([zwsp "\u200B"]  ; Zero-width space
-        [fwsp "\u3000"]) ; Fullwidth (ideographic) space
-    `((space        ,(eq/p #\space)            " "    ""     "")
-      (explspace    ,(eq/p #\_)                " "    " "    " ")
-      (zerospace    ,(eq/p #\# #\z #\#)        ,zwsp  ,zwsp  ,zwsp)
-      (fullspace    ,(eq/p #\# #\s #\#)        " "    ,fwsp  ,fwsp)
-      (tab          ,(or/p (eq/p #\tab)
-                           (eq/p #\# #\t #\#)) "\t"   "\t"   "\t")
-      (newline      ,(or/p newline/p
-                           (eq/p #\# #\n #\#)) "\n"   "\n"   "\n")
-      (ellipsis     ,(or/p (eq/p #\…)
-                           (eq/p #\. #\. #\.)) "…"    "⋯⋯"   "⋯⋯")
-      (stop         ,(eq/p #\.)                "."    "。"    "。")
-      (bang         ,(eq/p #\!)                "!"    "！"    "！")
-      (question     ,(eq/p #\?)                "?"    "？"    "？")
-      (comma        ,(eq/p #\,)                ","    "，"    "，")
-      (enum         ,(eq/p #\\)                ","    "、"    "、")
-      (colon        ,(eq/p #\:)                ":"    "："    "：")
-      (semicolon    ,(eq/p #\;)                ";"    "；"    "；")
-      (slash        ,(eq/p #\/)                "/"    "/"    "/")
-      (emdash       ,(eq/p #\- #\- #\-)        "—"    "⸺"    "⸺")
-      (wave         ,(eq/p #\~)                "~"    "～"    "～")
-      (lparen       ,(eq/p #\()                "("    "（"    "（")
-      (rparen       ,(eq/p #\))                ")"    "）"    "）")
-      (loutquote    ,(eq/p #\[)                "“"    "「"    "“")
-      (routquote    ,(eq/p #\])                "”"    "」"    "”")
-      (linquote     ,(eq/p #\{)                "‘"    "『"    "‘")
-      (rinquote     ,(eq/p #\})                "’"    "』"    "’"))))
+  `([ellipsis                 ,(or/p (eq/p #\…)
+                                     (eq/p #\. #\. #\.))   "…"    "⋯⋯"   "⋯⋯"]
+    [stop                     ,(eq/p #\.)                  "."    "。"    "。"]
+    [bang                     ,(eq/p #\!)                  "!"    "！"    "！"]
+    [question                 ,(eq/p #\?)                  "?"    "？"    "？"]
+    [comma                    ,(eq/p #\,)                  ","    "，"    "，"]
+    [enum                     ,(eq/p #\\)                  ","    "、"    "、"]
+    [colon                    ,(eq/p #\:)                  ":"    "："    "："]
+    [semicolon                ,(eq/p #\;)                  ";"    "；"    "；"]
+    [slash                    ,(eq/p #\/)                  "/"    "/"    "/"]
+    [em-dash                  ,(eq/p #\- #\- #\-)          "—"    "⸺"    "⸺"]
+    [en-dash                  ,(eq/p #\- #\-)              "–"    "—"    "—"]
+    [wave-dash                ,(eq/p #\~)                  "~"    "～"    "～"]
+    [left-parenthesis         ,(eq/p #\()                  "("    "（"    "（"]
+    [right-parenthesis        ,(eq/p #\))                  ")"    "）"    "）"]
+    [left-outer-quote         ,(eq/p #\[)                  "“"    "「"    "“"]
+    [right-outer-quote        ,(eq/p #\])                  "”"    "」"    "”"]
+    [left-inner-quote         ,(eq/p #\{)                  "‘"    "『"    "‘"]
+    [right-inner-quote        ,(eq/p #\})                  "’"    "』"    "’"]))
+
+(define (punctuation? sym)
+  (if (assoc sym punctuation-table)
+      #t
+      #f))
 
 (define (non-phonetic-> #:literal-> literal->
+                        #:whitespace-> whitespace->
                         #:punctuation-> punctuation->
                         non-phonetic)
   (match non-phonetic
     [(? literal? literal)
      (literal-> literal)]
-    [(? symbol? punctuation)
+    [(? whitespace? whitespace)
+     (whitespace-> whitespace)]
+    [(? punctuation? punctuation)
      (punctuation-> punctuation)]))

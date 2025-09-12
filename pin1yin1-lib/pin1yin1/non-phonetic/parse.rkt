@@ -40,10 +40,15 @@
                   [literal
                    literal])
                  literal/p)]
+         [whitespace/p
+          (apply or/p (for/list ([row whitespace-table])
+                        (match-let ([(cons sym parser) row])
+                          (map/p (const sym) parser))))]
          [punctuation/p
           (apply or/p (for/list ([row punctuation-table])
                         (match-let ([(list* sym parser _) row])
                           (map/p (const sym) parser))))])
     (map/p flatten1
            (multi+/p (or/p literal-or-empty/p
+                           whitespace/p
                            punctuation/p)))))
