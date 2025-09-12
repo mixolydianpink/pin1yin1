@@ -66,7 +66,7 @@
                                                                 [(zero-width) '(#x200B)]
                                                                 [(halfwidth) '(" ")]
                                                                 [(fullwidth) '(#x3000)])
-                                                              #:underscore '(" ")
+                                                              #:explicit-space '(" ")
                                                               #:zero-width-space '(#x200B)
                                                               #:fullwidth-space '(#x3000)
                                                               #:tab '(Tab)
@@ -140,7 +140,7 @@
                                                                 [(zero-width) '(#x200B)]
                                                                 [(halfwidth) '(" ")]
                                                                 [(fullwidth) '(#x3000)])
-                                                              #:underscore '(" ")
+                                                              #:explicit-space '(" ")
                                                               #:zero-width-space '(#x200B)
                                                               #:fullwidth-space '(#x3000)
                                                               #:tab '(Tab)

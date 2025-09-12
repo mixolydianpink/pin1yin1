@@ -18,7 +18,7 @@
 
 (define whitespace-table
   `([space                   . ,(eq/p #\space)]
-    [underscore              . ,(eq/p #\_)]
+    [explicit-space          . ,(eq/p #\_)]
     [zero-width-space        . ,(eq/p #\# #\z #\#)]
     [fullwidth-space         . ,(eq/p #\# #\s #\#)]
     [tab                     . ,(or/p (eq/p #\tab)
@@ -32,14 +32,14 @@
       #f))
 
 (define (make-whitespace-> #:space space
-                           #:underscore underscore
+                           #:explicit-space explicit-space
                            #:zero-width-space zero-width-space
                            #:fullwidth-space fullwidth-space
                            #:tab tab
                            #:newline newline)
   (match-λ
    ['space space]
-   ['underscore underscore]
+   ['explicit-space explicit-space]
    ['zero-width-space zero-width-space]
    ['fullwidth-space fullwidth-space]
    ['tab tab]
