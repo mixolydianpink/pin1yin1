@@ -6,8 +6,7 @@
 
 (require (only-in racket/function
                   conjoin
-                  const
-                  curry)
+                  const)
          (only-in racket/list
                   empty)
          racket/match

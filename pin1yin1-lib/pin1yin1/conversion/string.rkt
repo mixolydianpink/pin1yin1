@@ -3,16 +3,7 @@
 (provide pin1yin1-string->pinyin
          pin1yin1-string->zhuyin)
 
-(require (only-in racket/function
-                  curry)
-
-         pin1yin1/conversion
-         pin1yin1/non-phonetic
-         pin1yin1/non-phonetic/parse
-         pin1yin1/non-phonetic/string
-         pin1yin1/parse
-         pin1yin1/phonetic/string
-         pin1yin1/pin1yin1/parse
+(require pin1yin1/conversion
          pin1yin1/pin1yin1/string)
 
 (define (pin1yin1-string->pinyin #:implicit-neutral-tone? [implicit-neutral-tone? #f]

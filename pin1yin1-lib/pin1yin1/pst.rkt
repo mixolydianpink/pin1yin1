@@ -47,9 +47,6 @@
       [null
        (rightmost previous)])))
 
-;; (define (make-pst comparator [sequence-of-key-list-and-value empty])
-;;   (sequence->pst comparator sequence-of-key-list-and-value))
-
 (define (sequence->pst comparator sequence-of-key-list-and-value)
   (let ([root (pst-root comparator (make-pst-leaf-head))])
     (pst-root-set-sequence! root sequence-of-key-list-and-value)

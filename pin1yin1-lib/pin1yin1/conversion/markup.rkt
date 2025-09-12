@@ -5,18 +5,9 @@
          pin1yin1-string->pinyin/html
          pin1yin1-string->zhuyin/html)
 
-(require (only-in racket/function
-                  curry)
-
-         pin1yin1/conversion
+(require pin1yin1/conversion
          pin1yin1/markup
-         pin1yin1/non-phonetic
-         pin1yin1/non-phonetic/markup
-         pin1yin1/non-phonetic/parse
-         pin1yin1/non-phonetic/string
-         pin1yin1/parse
-         pin1yin1/pin1yin1/markup
-         pin1yin1/pin1yin1/parse)
+         pin1yin1/pin1yin1/markup)
 
 (define (pin1yin1-string->pinyin/html-fragment #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                                #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
