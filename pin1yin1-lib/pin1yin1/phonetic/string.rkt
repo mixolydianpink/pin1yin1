@@ -39,28 +39,35 @@
                          "")
                      pinyin))))
 
-(define (syllable->zhuyin #:explicit-first-tone? explicit-first-tone?
-                          #:prefix-neutral-tone? prefix-neutral-tone?
-                          #:explicit-empty-rhyme? explicit-empty-rhyme?
-                          #:syllabic-m? syllabic-m?
+(define (syllable->zhuyin #:syllabic-m? syllabic-m?
                           #:syllabic-n? syllabic-n?
                           #:syllabic-ng? syllabic-ng?
+                          #:explicit-empty-rhyme? explicit-empty-rhyme?
+                          #:explicit-first-tone? explicit-first-tone?
+                          #:prefix-neutral-tone? prefix-neutral-tone?
                           syllable)
   (let ([core
-         (syllable-zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
-                               #:syllabic-m? syllabic-m?
+         (syllable-zhuyin-core #:syllabic-m? syllabic-m?
                                #:syllabic-n? syllabic-n?
                                #:syllabic-ng? syllabic-ng?
+                               #:explicit-empty-rhyme? explicit-empty-rhyme?
                                syllable)]
         [tone (syllable-tone syllable)])
-    (string-append (if (and prefix-neutral-tone? (= 0 tone))
-                       (syllable-zhuyin-tone-mark syllable)
-                       "")
-                   core
-                   (if (or (and prefix-neutral-tone? (= 0 tone))
-                           (and (not explicit-first-tone?) (= 1 tone)))
-                       ""
-                       (syllable-zhuyin-tone-mark syllable))
+    (string-append (case tone
+                     [(0)
+                      (if prefix-neutral-tone?
+                          (string-append (syllable-zhuyin-tone-mark syllable)
+                                         core)
+                          (string-append core
+                                         (syllable-zhuyin-tone-mark syllable)))]
+                     [(1)
+                      (if explicit-first-tone?
+                          (string-append core
+                                         (syllable-zhuyin-tone-mark syllable))
+                          core)]
+                     [(2 3 4)
+                      (string-append core
+                                     (syllable-zhuyin-tone-mark syllable))])
                    (case (syllable-erization syllable)
                      [(bare) "ㄦ"]
                      [(parenthesized) "（ㄦ）"]
@@ -101,23 +108,23 @@
                     #:string->string identity
                     compound))
 
-(define (compound->zhuyin #:explicit-first-tone? explicit-first-tone?
-                          #:prefix-neutral-tone? prefix-neutral-tone?
-                          #:explicit-empty-rhyme? explicit-empty-rhyme?
-                          #:syllabic-m? syllabic-m?
+(define (compound->zhuyin #:syllabic-m? syllabic-m?
                           #:syllabic-n? syllabic-n?
                           #:syllabic-ng? syllabic-ng?
+                          #:explicit-empty-rhyme? explicit-empty-rhyme?
+                          #:explicit-first-tone? explicit-first-tone?
+                          #:prefix-neutral-tone? prefix-neutral-tone?
                           compound)
   (compound->string #:sep ""
                     #:polysyllable->string
                     (curry polysyllable->zhuyin
                            #:syllable->zhuyin
                            (curry syllable->zhuyin
-                                  #:explicit-first-tone? explicit-first-tone?
-                                  #:prefix-neutral-tone? prefix-neutral-tone?
-                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
                                   #:syllabic-m? syllabic-m?
                                   #:syllabic-n? syllabic-n?
-                                  #:syllabic-ng? syllabic-ng?))
+                                  #:syllabic-ng? syllabic-ng?
+                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                  #:explicit-first-tone? explicit-first-tone?
+                                  #:prefix-neutral-tone? prefix-neutral-tone?))
                     #:string->string identity
                     compound))

@@ -39,8 +39,8 @@
                     never/p)
                 first/p)]
          [capitalized?+segments+erization/p
-          (bind/p (λ (initial-char)
-                    (let ([capitalized? (char-upper-case? initial-char)])
+          (bind/p (λ (first)
+                    (let ([capitalized? (char-upper-case? first)])
                       (bind/p (match-λ [(cons segments _)
                                         (if (equal? '(#\e #\r) segments)
                                             (pure/p (list capitalized? segments 'none))
@@ -54,8 +54,8 @@
                               (pst/p #:pst zhupin-pst
                                      #:prefix
                                      (list (if capitalized?
-                                               (char-downcase initial-char)
-                                               initial-char))
+                                               (char-downcase first)
+                                               first))
                                      subsequent/p))))
                   first/p)]
          [tone/p

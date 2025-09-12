@@ -2,7 +2,7 @@
 
 (provide (struct-out literal)
 
-         ->whitespace->
+         make-whitespace->
          non-phonetic->)
 
 (module+ internal
@@ -31,12 +31,12 @@
       #t
       #f))
 
-(define (->whitespace-> #:space space
-                        #:underscore underscore
-                        #:zero-width-space zero-width-space
-                        #:fullwidth-space fullwidth-space
-                        #:tab tab
-                        #:newline newline)
+(define (make-whitespace-> #:space space
+                           #:underscore underscore
+                           #:zero-width-space zero-width-space
+                           #:fullwidth-space fullwidth-space
+                           #:tab tab
+                           #:newline newline)
   (match-λ
    ['space space]
    ['underscore underscore]

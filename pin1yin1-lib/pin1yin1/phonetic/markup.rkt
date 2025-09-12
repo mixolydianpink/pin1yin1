@@ -29,12 +29,12 @@
      lst]))
 
 (define (syllable->pinyin/span #:explicit-neutral-tone? explicit-neutral-tone?
-                               #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                #:first-tone-class first-tone-class
                                #:second-tone-class second-tone-class
                                #:third-tone-class third-tone-class
                                #:fourth-tone-class fourth-tone-class
                                #:neutral-tone-class neutral-tone-class
+                               #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                syllable)
   (let ([pinyin (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
                                   #:suppress-leading-apostrophe? suppress-leading-apostrophe?
@@ -45,15 +45,16 @@
                  [(2) second-tone-class]
                  [(3) third-tone-class]
                  [(4) fourth-tone-class])])
-    `(span (,@(attr 'class class))
-           ,pinyin)))
+    (html-fragment->html #:tag 'span
+                         #:class class
+                         (string->html-fragment pinyin))))
 
 (define (syllable->zhuyin/span #:explicit-first-tone? explicit-first-tone?
                                #:prefix-neutral-tone? prefix-neutral-tone?
-                               #:explicit-empty-rhyme? explicit-empty-rhyme?
                                #:syllabic-m? syllabic-m?
                                #:syllabic-n? syllabic-n?
                                #:syllabic-ng? syllabic-ng?
+                               #:explicit-empty-rhyme? explicit-empty-rhyme?
                                #:first-tone-class first-tone-class
                                #:second-tone-class second-tone-class
                                #:third-tone-class third-tone-class
@@ -61,10 +62,10 @@
                                #:neutral-tone-class neutral-tone-class
                                syllable)
   (let* ([core
-          (syllable-zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                #:syllabic-m? syllabic-m?
+          (syllable-zhuyin-core #:syllabic-m? syllabic-m?
                                 #:syllabic-n? syllabic-n?
                                 #:syllabic-ng? syllabic-ng?
+                                #:explicit-empty-rhyme? explicit-empty-rhyme?
                                 syllable)]
          [tone (syllable-tone syllable)]
          [class (case tone
@@ -73,20 +74,27 @@
                   [(2) second-tone-class]
                   [(3) third-tone-class]
                   [(4) fourth-tone-class])])
-    `(span (,@(attr 'class class))
-           ,(cond
-              [(and prefix-neutral-tone? (= 0 tone))
-               `(span (span ,(syllable-zhuyin-tone-mark syllable))
-                      ,core)]
-              [(or (not (= 1 tone)) explicit-first-tone?)
-               `(span ,core
-                      (span ,(syllable-zhuyin-tone-mark syllable)))]
-              [else
-               core])
-           ,@(case (syllable-erization syllable)
-               [(bare) '("ㄦ")]
-               [(parenthesized) '("（ㄦ）")]
-               [(none) '()]))))
+    (html-fragment->html #:tag 'span
+                         #:class class
+                         `(,(case tone
+                              [(0)
+                               (if prefix-neutral-tone?
+                                   `(span (span ,(syllable-zhuyin-tone-mark syllable))
+                                          ,core)
+                                   `(span ,core
+                                          (span ,(syllable-zhuyin-tone-mark syllable))))]
+                              [(1)
+                               (if explicit-first-tone?
+                                   `(span ,core
+                                          (span ,(syllable-zhuyin-tone-mark syllable)))
+                                   core)]
+                              [(2 3 4)
+                               `(span ,core
+                                      (span ,(syllable-zhuyin-tone-mark syllable)))])
+                           ,@(case (syllable-erization syllable)
+                               [(bare) '("ㄦ")]
+                               [(parenthesized) '("（ㄦ）")]
+                               [(none) '()])))))
 
 (define (polysyllable->pinyin/html-fragment #:syllable->pinyin/html-fragment syllable->pinyin/html-fragment
                                             polysyllable)
@@ -137,10 +145,10 @@
 
 (define (compound->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
                                         #:prefix-neutral-tone? prefix-neutral-tone?
-                                        #:explicit-empty-rhyme? explicit-empty-rhyme?
                                         #:syllabic-m? syllabic-m?
                                         #:syllabic-n? syllabic-n?
                                         #:syllabic-ng? syllabic-ng?
+                                        #:explicit-empty-rhyme? explicit-empty-rhyme?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -155,10 +163,10 @@
                                            (curry syllable->zhuyin/span
                                                   #:explicit-first-tone? explicit-first-tone?
                                                   #:prefix-neutral-tone? prefix-neutral-tone?
-                                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
                                                   #:syllabic-m? syllabic-m?
                                                   #:syllabic-n? syllabic-n?
                                                   #:syllabic-ng? syllabic-ng?
+                                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
                                                   #:first-tone-class syllable-first-tone-class
                                                   #:second-tone-class syllable-second-tone-class
                                                   #:third-tone-class syllable-third-tone-class

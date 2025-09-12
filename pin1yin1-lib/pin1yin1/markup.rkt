@@ -1,8 +1,8 @@
 #lang racket/base
 
 (provide attr
-         string->html-fragment
-         html-fragment->html)
+         html-fragment->html
+         string->html-fragment)
 
 (require (only-in racket/function
                   const)
@@ -14,6 +14,14 @@
   (if value
       `((,name ,value))
       '()))
+
+(define (html-fragment->html #:tag tag
+                             #:class [class #f]
+                             #:lang [lang #f]
+                             fragment)
+  `(,tag (,@(attr 'class class)
+          ,@(attr 'lang lang))
+         ,@fragment))
 
 (define (string->html-fragment #:class [class #f]
                                #:lang [lang #f]
@@ -33,15 +41,8 @@
                                                    any/p)))))
           str)])
     (if (or class lang)
-        `((span (,@(attr 'class class)
-                 ,@(attr 'lang lang))
-                ,@content))
+        `(,(html-fragment->html #:tag 'span
+                                #:class class
+                                #:lang lang
+                                content))
         content)))
-
-(define (html-fragment->html #:tag tag
-                             #:class [class #f]
-                             #:lang [lang #f]
-                             fragment)
-  `(,tag (,@(attr 'class class)
-          ,@(attr 'lang lang))
-         ,@fragment))

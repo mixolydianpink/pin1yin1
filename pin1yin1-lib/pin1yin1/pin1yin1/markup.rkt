@@ -41,14 +41,14 @@
                            #:non-phonetic->html-fragment non-phonetic->html-fragment
                            pin1yin1))
 
-(define (make-pin1yin1->pinyin/html-fragment  #:explicit-neutral-tone? [explicit-neutral-tone? #f]
-                                              #:space [space 'halfwidth]
-                                              #:punctuation [punctuation 'zh-Latn]
-                                              #:syllable-first-tone-class [syllable-first-tone-class #f]
-                                              #:syllable-second-tone-class [syllable-second-tone-class #f]
-                                              #:syllable-third-tone-class [syllable-third-tone-class #f]
-                                              #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
-                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
+(define (make-pin1yin1->pinyin/html-fragment #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                             #:space [space 'halfwidth]
+                                             #:punctuation [punctuation 'zh-Latn]
+                                             #:syllable-first-tone-class [syllable-first-tone-class #f]
+                                             #:syllable-second-tone-class [syllable-second-tone-class #f]
+                                             #:syllable-third-tone-class [syllable-third-tone-class #f]
+                                             #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
+                                             #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
     (pin1yin1->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
                                     #:syllable-first-tone-class syllable-first-tone-class
@@ -60,28 +60,28 @@
                                     (curry non-phonetic->
                                            #:literal-> literal->html-fragment
                                            #:whitespace->
-                                           (->whitespace-> #:space
-                                                           (case space
-                                                             [(none) '()]
-                                                             [(zero-width) '(#x200B)]
-                                                             [(halfwidth) '(" ")]
-                                                             [(fullwidth) '(#x3000)])
-                                                           #:underscore '(" ")
-                                                           #:zero-width-space '(#x200B)
-                                                           #:fullwidth-space '(#x3000)
-                                                           #:tab '(Tab)
-                                                           #:newline '(NewLine))
+                                           (make-whitespace-> #:space
+                                                              (case space
+                                                                [(none) '()]
+                                                                [(zero-width) '(#x200B)]
+                                                                [(halfwidth) '(" ")]
+                                                                [(fullwidth) '(#x3000)])
+                                                              #:underscore '(" ")
+                                                              #:zero-width-space '(#x200B)
+                                                              #:fullwidth-space '(#x3000)
+                                                              #:tab '(Tab)
+                                                              #:newline '(NewLine))
                                            #:punctuation->
                                            (compose string->html-fragment
                                                     (->punctuation->string punctuation)))
                                     pin1yin1)))
 
-(define (pin1yin1->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
-                                        #:prefix-neutral-tone? prefix-neutral-tone?
-                                        #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                        #:syllabic-m? syllabic-m?
+(define (pin1yin1->zhuyin/html-fragment #:syllabic-m? syllabic-m?
                                         #:syllabic-n? syllabic-n?
                                         #:syllabic-ng? syllabic-ng?
+                                        #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                        #:explicit-first-tone? explicit-first-tone?
+                                        #:prefix-neutral-tone? prefix-neutral-tone?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -91,12 +91,12 @@
                                         pin1yin1)
   (pin1yin1->html-fragment #:compound->html-fragment
                            (curry compound->zhuyin/html-fragment
-                                  #:explicit-first-tone? explicit-first-tone?
-                                  #:prefix-neutral-tone? prefix-neutral-tone?
-                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
                                   #:syllabic-m? syllabic-m?
                                   #:syllabic-n? syllabic-n?
                                   #:syllabic-ng? syllabic-ng?
+                                  #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                  #:explicit-first-tone? explicit-first-tone?
+                                  #:prefix-neutral-tone? prefix-neutral-tone?
                                   #:syllable-first-tone-class syllable-first-tone-class
                                   #:syllable-second-tone-class syllable-second-tone-class
                                   #:syllable-third-tone-class syllable-third-tone-class
@@ -105,12 +105,12 @@
                            #:non-phonetic->html-fragment non-phonetic->html-fragment
                            pin1yin1))
 
-(define (make-pin1yin1->zhuyin/html-fragment  #:explicit-first-tone? [explicit-first-tone? #f]
-                                              #:prefix-neutral-tone? [prefix-neutral-tone? #f]
-                                              #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
-                                              #:syllabic-m? [syllabic-m? #f]
+(define (make-pin1yin1->zhuyin/html-fragment  #:syllabic-m? [syllabic-m? #f]
                                               #:syllabic-n? [syllabic-n? #f]
                                               #:syllabic-ng? [syllabic-ng? #f]
+                                              #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
+                                              #:explicit-first-tone? [explicit-first-tone? #f]
+                                              #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                               #:space [space 'none]
                                               #:punctuation [punctuation 'zh-TW]
                                               #:syllable-first-tone-class [syllable-first-tone-class #f]
@@ -119,12 +119,12 @@
                                               #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
                                               #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
-    (pin1yin1->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
-                                    #:prefix-neutral-tone? prefix-neutral-tone?
-                                    #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                    #:syllabic-m? syllabic-m?
+    (pin1yin1->zhuyin/html-fragment #:syllabic-m? syllabic-m?
                                     #:syllabic-n? syllabic-n?
                                     #:syllabic-ng? syllabic-ng?
+                                    #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                    #:explicit-first-tone? explicit-first-tone?
+                                    #:prefix-neutral-tone? prefix-neutral-tone?
                                     #:syllable-first-tone-class syllable-first-tone-class
                                     #:syllable-second-tone-class syllable-second-tone-class
                                     #:syllable-third-tone-class syllable-third-tone-class
@@ -134,17 +134,17 @@
                                     (curry non-phonetic->
                                            #:literal-> literal->html-fragment
                                            #:whitespace->
-                                           (->whitespace-> #:space
-                                                           (case space
-                                                             [(none) '()]
-                                                             [(zero-width) '(#x200B)]
-                                                             [(halfwidth) '(" ")]
-                                                             [(fullwidth) '(#x3000)])
-                                                           #:underscore '(" ")
-                                                           #:zero-width-space '(#x200B)
-                                                           #:fullwidth-space '(#x3000)
-                                                           #:tab '(Tab)
-                                                           #:newline '(NewLine))
+                                           (make-whitespace-> #:space
+                                                              (case space
+                                                                [(none) '()]
+                                                                [(zero-width) '(#x200B)]
+                                                                [(halfwidth) '(" ")]
+                                                                [(fullwidth) '(#x3000)])
+                                                              #:underscore '(" ")
+                                                              #:zero-width-space '(#x200B)
+                                                              #:fullwidth-space '(#x3000)
+                                                              #:tab '(Tab)
+                                                              #:newline '(NewLine))
                                            #:punctuation->
                                            (compose string->html-fragment
                                                     (->punctuation->string punctuation)))

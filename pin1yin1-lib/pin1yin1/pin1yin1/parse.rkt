@@ -16,9 +16,9 @@
          (alternating-symmetric/p compound/p
                                   non-phonetic/p)))
 
-(define (make-pin1yin1/p #:implicit-neutral-tone? implicit-neutral-tone?
-                         #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                         #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?)
+(define (make-pin1yin1/p #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
+                         #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                         #:implicit-neutral-tone? implicit-neutral-tone?)
   (pin1yin1/p #:compound/p
               (compound/p (polysyllable/p #:implicit-neutral-tone? implicit-neutral-tone?
                                           (curry syllable/p
