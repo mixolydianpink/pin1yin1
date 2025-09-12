@@ -61,11 +61,11 @@
                                #:neutral-tone-class neutral-tone-class
                                syllable)
   (let* ([core
-          (syllable->zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                 #:syllabic-m? syllabic-m?
-                                 #:syllabic-n? syllabic-n?
-                                 #:syllabic-ng? syllabic-ng?
-                                 syllable)]
+          (syllable-zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                #:syllabic-m? syllabic-m?
+                                #:syllabic-n? syllabic-n?
+                                #:syllabic-ng? syllabic-ng?
+                                syllable)]
          [tone (syllable-tone syllable)]
          [class (case tone
                   [(0) neutral-tone-class]
@@ -76,11 +76,11 @@
     `(span (,@(attr 'class class))
            ,(cond
               [(and prefix-neutral-tone? (= 0 tone))
-               `(span (span ,(syllable->zhuyin-tone-mark syllable))
+               `(span (span ,(syllable-zhuyin-tone-mark syllable))
                       ,core)]
               [(or (not (= 1 tone)) explicit-first-tone?)
                `(span ,core
-                      (span ,(syllable->zhuyin-tone-mark syllable)))]
+                      (span ,(syllable-zhuyin-tone-mark syllable)))]
               [else
                core])
            ,@(case (syllable-erization syllable)

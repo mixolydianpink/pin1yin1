@@ -4,9 +4,9 @@
          (struct-out polysyllable)
          (struct-out complex)
 
-         syllable->pinyin-parts
-         syllable->zhuyin-core
-         syllable->zhuyin-tone-mark)
+         syllable-pinyin-parts
+         syllable-zhuyin-core
+         syllable-zhuyin-tone-mark)
 
 (require (only-in racket/function
                   disjoin)
@@ -51,7 +51,7 @@
         (values polysyllables-and-strings)
         (error (format "Bad ~a." name)))))
 
-(define (syllable->pinyin-parts syllable)
+(define (syllable-pinyin-parts syllable)
   (define (capitalize str)
     (match (string->list str)
       [(cons first rest)
@@ -81,11 +81,11 @@
              (list (capitalize pre) marked post)])
           (list pre marked post)))))
 
-(define (syllable->zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
-                               #:syllabic-m? syllabic-m?
-                               #:syllabic-n? syllabic-n?
-                               #:syllabic-ng? syllabic-ng?
-                               syllable)
+(define (syllable-zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
+                              #:syllabic-m? syllabic-m?
+                              #:syllabic-n? syllabic-n?
+                              #:syllabic-ng? syllabic-ng?
+                              syllable)
   (match (car (some-value (pst-ref zhupin-pst (syllable-segments syllable))))
     [(and initial
           (or "ㄓ" "ㄔ" "ㄕ" "ㄖ" "ㄗ" "ㄘ" "ㄙ"))
@@ -99,7 +99,7 @@
     [core
      core]))
 
-(define (syllable->zhuyin-tone-mark syllable)
+(define (syllable-zhuyin-tone-mark syllable)
   (case (syllable-tone syllable)
     [(0) "˙"]
     [(1) "ˉ"]

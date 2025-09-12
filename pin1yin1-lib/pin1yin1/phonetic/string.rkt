@@ -22,7 +22,7 @@
 (define (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
-  (match-let ([(list pre marked post) (syllable->pinyin-parts syllable)])
+  (match-let ([(list pre marked post) (syllable-pinyin-parts syllable)])
     (let ([pinyin (string-append pre
                                  marked
                                  post
@@ -47,20 +47,20 @@
                           #:syllabic-ng? syllabic-ng?
                           syllable)
   (let ([core
-         (syllable->zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                #:syllabic-m? syllabic-m?
-                                #:syllabic-n? syllabic-n?
-                                #:syllabic-ng? syllabic-ng?
-                                syllable)]
+         (syllable-zhuyin-core #:explicit-empty-rhyme? explicit-empty-rhyme?
+                               #:syllabic-m? syllabic-m?
+                               #:syllabic-n? syllabic-n?
+                               #:syllabic-ng? syllabic-ng?
+                               syllable)]
         [tone (syllable-tone syllable)])
     (string-append (if (and prefix-neutral-tone? (= 0 tone))
-                       (syllable->zhuyin-tone-mark syllable)
+                       (syllable-zhuyin-tone-mark syllable)
                        "")
                    core
                    (if (or (and prefix-neutral-tone? (= 0 tone))
                            (and (not explicit-first-tone?) (= 1 tone)))
                        ""
-                       (syllable->zhuyin-tone-mark syllable))
+                       (syllable-zhuyin-tone-mark syllable))
                    (case (syllable-erization syllable)
                      [(bare) "ㄦ"]
                      [(parenthesized) "（ㄦ）"]
