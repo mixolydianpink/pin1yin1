@@ -3,7 +3,7 @@
 (provide pin1yin1-string->pinyin
          pin1yin1-string->zhuyin)
 
-(require pin1yin1/conversion
+(require pin1yin1/in
          pin1yin1/pin1yin1/string)
 
 (define (pin1yin1-string->pinyin #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]

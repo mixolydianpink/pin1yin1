@@ -3,7 +3,7 @@
 (provide pin1yin1-string->pinyin/html-fragment
          pin1yin1-string->zhuyin/html-fragment)
 
-(require pin1yin1/conversion
+(require pin1yin1/in
          pin1yin1/markup
          pin1yin1/pin1yin1/markup)
 
