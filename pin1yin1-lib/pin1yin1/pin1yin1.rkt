@@ -1,20 +1,33 @@
 #lang racket/base
 
-(provide pin1yin1-map
+(provide pin1yin1?
+
+         pin1yin1-map
          pin1yin1-append-map)
 
-(require (only-in racket/list
+(require (only-in racket/function
+                  conjoin
+                  disjoin)
+         (only-in racket/list
                   append-map)
          racket/match
 
+         pin1yin1/non-phonetic
          pin1yin1/phonetic)
+
+(define pin1yin1?
+  (conjoin list?
+           (λ (list)
+             (andmap (disjoin complex?
+                              non-phonetic?)
+                     list))))
 
 (define (pin1yin1-map #:compound-> compound->
                       #:non-phonetic-> non-phonetic->
                       pin1yin1)
   (map (match-λ [(? compound? compound)
                  (compound-> compound)]
-                [non-phonetic
+                [(? non-phonetic? non-phonetic)
                  (non-phonetic-> non-phonetic)])
        pin1yin1))
 
@@ -23,6 +36,6 @@
                              pin1yin1)
   (append-map (match-λ [(? compound? compound)
                         (compound->list compound)]
-                       [non-phonetic
+                       [(? non-phonetic? non-phonetic)
                         (non-phonetic->list non-phonetic)])
               pin1yin1))

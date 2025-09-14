@@ -6,11 +6,10 @@
 (require (only-in racket/function
                   curry)
 
-         pin1yin1/in
+         pin1yin1/markup
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/markup
          pin1yin1/non-phonetic/string
-         pin1yin1/markup
          pin1yin1/pin1yin1/markup)
 
 (define (make-pin1yin1->pinyin/html-fragment #:diacritic-e^? [diacritic-e^? #t]

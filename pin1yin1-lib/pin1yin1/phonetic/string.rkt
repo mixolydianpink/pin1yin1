@@ -1,6 +1,7 @@
 #lang racket/base
 
-(provide syllable->pinyin
+(provide syllable->pin1yin1
+         syllable->pinyin
          syllable->zhuyin
          polysyllable->pinyin
          polysyllable->zhuyin
@@ -19,7 +20,28 @@
          (only-in racket/string
                   string-append*)
 
-         pin1yin1/phonetic)
+         pin1yin1/phonetic
+         pin1yin1/string)
+
+(define (syllable->pin1yin1 syllable)
+  (let ([segments (list->string (syllable-segments syllable))]
+        [erization
+         (case (syllable-erization syllable)
+           [(bare) "r"]
+           [(parenthesized) "(r)"]
+           [(none) ""])]
+        [tone
+         (case (syllable-tone syllable)
+           [(1) "1"]
+           [(2) "2"]
+           [(3) "3"]
+           [(4) "4"]
+           [(0) "5"])])
+    (string-append (if (syllable-capitalized? syllable)
+                       (capitalize segments)
+                       segments)
+                   erization
+                   tone)))
 
 (define (syllable->pinyin #:diacritic-e^? diacritic-e^?
                           #:diacritic-m? diacritic-m?
@@ -41,7 +63,7 @@
                                      (list-prefix? '(#\g) post)))]
                    [else #f]))]
            [pinyin (if numbered?
-                       (syllable-pin1yin1 syllable)
+                       (syllable->pin1yin1 syllable)
                        (string-append (if (and explicit-neutral-tone? neutral-tone?)
                                           "·"
                                           "")
@@ -111,7 +133,7 @@
   (string-append* (add-between (for/list ([polysyllable-or-string (compound-polysyllables-and-strings compound)])
                                  (match polysyllable-or-string
                                    [(? polysyllable? polysyllable) (polysyllable->string polysyllable)]
-                                   [(? string? str) (string->string str)]))
+                                   [(? string? string) (string->string string)]))
                                sep)))
 
 (define (compound->pinyin #:diacritic-e^? diacritic-e^?

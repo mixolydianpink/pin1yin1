@@ -21,12 +21,12 @@
          pin1yin1/phonetic
          pin1yin1/phonetic/string)
 
-(define (add-between lst sep-opt)
-  (match sep-opt
+(define (add-between list sep)
+  (match sep
     [(some sep)
-     (list:add-between lst sep)]
+     (list:add-between list sep)]
     [(none)
-     lst]))
+     list]))
 
 (define (syllable->pinyin/span #:diacritic-e^? diacritic-e^?
                                #:diacritic-m? diacritic-m?
@@ -57,12 +57,12 @@
                          #:class class
                          (string->html-fragment pinyin))))
 
-(define (syllable->zhuyin/span #:explicit-first-tone? explicit-first-tone?
-                               #:prefix-neutral-tone? prefix-neutral-tone?
-                               #:syllabic-m? syllabic-m?
+(define (syllable->zhuyin/span #:syllabic-m? syllabic-m?
                                #:syllabic-n? syllabic-n?
                                #:syllabic-ng? syllabic-ng?
                                #:explicit-empty-rhyme? explicit-empty-rhyme?
+                               #:explicit-first-tone? explicit-first-tone?
+                               #:prefix-neutral-tone? prefix-neutral-tone?
                                #:first-tone-class first-tone-class
                                #:second-tone-class second-tone-class
                                #:third-tone-class third-tone-class
@@ -159,12 +159,12 @@
                            #:string->html-fragment string->html-fragment
                            compound))
 
-(define (compound->zhuyin/html-fragment #:explicit-first-tone? explicit-first-tone?
-                                        #:prefix-neutral-tone? prefix-neutral-tone?
-                                        #:syllabic-m? syllabic-m?
+(define (compound->zhuyin/html-fragment #:syllabic-m? syllabic-m?
                                         #:syllabic-n? syllabic-n?
                                         #:syllabic-ng? syllabic-ng?
                                         #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                        #:explicit-first-tone? explicit-first-tone?
+                                        #:prefix-neutral-tone? prefix-neutral-tone?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -177,12 +177,12 @@
                                   #:syllable->zhuyin/html-fragment
                                   (compose list
                                            (curry syllable->zhuyin/span
-                                                  #:explicit-first-tone? explicit-first-tone?
-                                                  #:prefix-neutral-tone? prefix-neutral-tone?
                                                   #:syllabic-m? syllabic-m?
                                                   #:syllabic-n? syllabic-n?
                                                   #:syllabic-ng? syllabic-ng?
                                                   #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                                  #:explicit-first-tone? explicit-first-tone?
+                                                  #:prefix-neutral-tone? prefix-neutral-tone?
                                                   #:first-tone-class syllable-first-tone-class
                                                   #:second-tone-class syllable-second-tone-class
                                                   #:third-tone-class syllable-third-tone-class

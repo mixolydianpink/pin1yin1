@@ -6,7 +6,6 @@
 (require (only-in racket/function
                   curry)
 
-         pin1yin1/in
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/string
          pin1yin1/phonetic/string
@@ -42,8 +41,7 @@
                                                 #:fullwidth-space "\u3000"
                                                 #:tab "\t"
                                                 #:newline "\n")
-                             #:punctuation->
-                             (->punctuation->string punctuation))
+                             #:punctuation-> (->punctuation->string punctuation))
                       pin1yin1)))
 
 (define (make-pin1yin1->zhuyin #:syllabic-m? [syllabic-m? #f]
@@ -78,6 +76,5 @@
                                                 #:fullwidth-space "\u3000"
                                                 #:tab "\t"
                                                 #:newline "\n")
-                             #:punctuation->
-                             (->punctuation->string punctuation))
+                             #:punctuation-> (->punctuation->string punctuation))
                       pin1yin1)))

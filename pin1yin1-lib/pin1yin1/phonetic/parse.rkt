@@ -59,8 +59,8 @@
                                      subsequent/p))))
                   first/p)]
          [tone/p
-          (or/p (map/p (λ (c)
-                         (case c
+          (or/p (map/p (λ (char)
+                         (case char
                            [(#\1) 1]
                            [(#\2) 2]
                            [(#\3) 3]
@@ -94,11 +94,11 @@
                          subsequent/p))
           ; Allow single implicitly neutral tone syllable if it is *not* one uppercase letter. 
           (if implicit-neutral-tone?
-              (map-partial/p (λ (syl)
-                               (if (and (syllable-capitalized? syl)
-                                        (= 1 (length (syllable-segments syl))))
+              (map-partial/p (λ (syllable)
+                               (if (and (syllable-capitalized? syllable)
+                                        (= 1 (length (syllable-segments syllable))))
                                    (none)
-                                   (some (polysyllable (list syl)))))
+                                   (some (polysyllable (list syllable)))))
                              (syllable/p #:allow-capitalized? #t
                                          #:implicit-neutral-tone? #t))
               never/p))))
@@ -107,8 +107,8 @@
 (define numerals (string->list "0123456789"))
 
 (define (compound/p polysyllable/p)
-  (define (capital? ch) (if (member ch capitals char=?) #t #f))
-  (define (numeral? ch) (if (member ch numerals char=?) #t #f))
+  (define (capital? char) (if (member char capitals char=?) #t #f))
+  (define (numeral? char) (if (member char numerals char=?) #t #f))
   (let ([polysyllable/capitals/numerals/p
          (or/p polysyllable/p
                (map/p list->string

@@ -5,12 +5,13 @@
          (struct-out compound)
 
          syllable-segments/grouped
-         syllable-pin1yin1
          syllable-pinyin-core
          syllable-zhuyin-core
          syllable-zhuyin-tone-mark)
 
 (require (only-in racket/function
+                  conjoin
+                  curry
                   disjoin)
          (only-in racket/list
                   empty?)
@@ -18,6 +19,7 @@
 
          pin1yin1/option
          pin1yin1/pst
+         pin1yin1/string
          pin1yin1/zhupin)
 
 (struct syllable (segments tone erization capitalized?) #:transparent
@@ -50,41 +52,17 @@
   (λ (polysyllables-and-strings name)
     (if (and (list? polysyllables-and-strings)
              (not (empty? polysyllables-and-strings))
-             (andmap (disjoin polysyllable? string?)
+             (andmap (disjoin polysyllable?
+                              (conjoin string?
+                                       (disjoin (curry regexp-match "^[A-Z]+$")
+                                                (curry regexp-match "^[0-9]+$"))))
                      polysyllables-and-strings))
         (values polysyllables-and-strings)
         (error (format "Bad ~a." name)))))
 
-(define (capitalize str)
-  (match (string->list str)
-    [(cons first rest)
-     (list->string (cons (char-upcase first) rest))]
-    [empty
-     ""]))
-
 (define (syllable-segments/grouped syllable)
   (map string->list
        (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable))))))
-
-(define (syllable-pin1yin1 syllable)
-  (let ([segments (list->string (syllable-segments syllable))]
-        [erization
-         (case (syllable-erization syllable)
-           [(bare) "r"]
-           [(parenthesized) "(r)"]
-           [(none) ""])]
-        [tone
-         (case (syllable-tone syllable)
-           [(1) "1"]
-           [(2) "2"]
-           [(3) "3"]
-           [(4) "4"]
-           [(0) "5"])])
-    (string-append (if (syllable-capitalized? syllable)
-                       (capitalize segments)
-                       segments)
-                   erization
-                   tone)))
 
 (define (syllable-pinyin-core syllable)
   (match-let ([(list pre unmarked post)

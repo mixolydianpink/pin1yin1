@@ -2,6 +2,10 @@
 
 (provide (struct-out literal)
 
+         whitespace?
+         punctuation?
+         non-phonetic?
+
          make-whitespace->
          non-phonetic->)
 
@@ -9,7 +13,9 @@
   (provide whitespace-table
            punctuation-table))
 
-(require racket/match
+(require (only-in racket/function
+                  disjoin)
+         racket/match
 
          pin1yin1/parse
          (submod pin1yin1/parse char))
@@ -69,6 +75,10 @@
   (if (assoc sym punctuation-table)
       #t
       #f))
+
+(define non-phonetic? (disjoin literal?
+                               whitespace?
+                               punctuation?))
 
 (define (non-phonetic-> #:literal-> literal->
                         #:whitespace-> whitespace->

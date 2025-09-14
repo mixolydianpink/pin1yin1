@@ -37,18 +37,18 @@
          [literal-or-separator/p
           (map/p (match-λ
                   [(literal (none) "")
-                   empty]
+                   empty] ; Will be flattened out.
                   [literal
                    literal])
                  literal/p)]
          [whitespace/p
           (apply or/p (for/list ([row whitespace-table])
-                        (match-let ([(cons sym parser) row])
-                          (map/p (const sym) parser))))]
+                        (match-let ([(cons symbol parser) row])
+                          (map/p (const symbol) parser))))]
          [punctuation/p
           (apply or/p (for/list ([row punctuation-table])
-                        (match-let ([(list* sym parser _) row])
-                          (map/p (const sym) parser))))])
+                        (match-let ([(list* symbol parser _) row])
+                          (map/p (const symbol) parser))))])
     (map/p flatten1
            (multi+/p (or/p literal-or-separator/p
                            whitespace/p

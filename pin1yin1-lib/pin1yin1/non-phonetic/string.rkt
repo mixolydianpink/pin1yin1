@@ -6,8 +6,8 @@
 
          (submod pin1yin1/non-phonetic internal))
 
-(define (->punctuation->string sym)
-  (case sym
+(define (->punctuation->string symbol)
+  (case symbol
     [(zh-Latn) punctuation->zh-Latn]
     [(zh-TW) punctuation->zh-TW]
     [(zh-CN) punctuation->zh-CN]))
