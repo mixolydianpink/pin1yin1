@@ -45,7 +45,8 @@
                                                                 [(none) '()]
                                                                 [(zero-width) '(#x200B)]
                                                                 [(halfwidth) '(" ")]
-                                                                [(fullwidth) '(#x3000)])
+                                                                [(fullwidth) '(#x3000)]
+                                                                [(wbr) '((wbr))])
                                                               #:explicit-space '(" ")
                                                               #:zero-width-space '(#x200B)
                                                               #:fullwidth-space '(#x3000)
@@ -90,7 +91,8 @@
                                                                 [(none) '()]
                                                                 [(zero-width) '(#x200B)]
                                                                 [(halfwidth) '(" ")]
-                                                                [(fullwidth) '(#x3000)])
+                                                                [(fullwidth) '(#x3000)]
+                                                                [(wbr) '((wbr))])
                                                               #:explicit-space '(" ")
                                                               #:zero-width-space '(#x200B)
                                                               #:fullwidth-space '(#x3000)
