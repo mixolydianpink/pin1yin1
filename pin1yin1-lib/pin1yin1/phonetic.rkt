@@ -4,7 +4,7 @@
          (struct-out polysyllable)
          (struct-out compound)
 
-         syllable-segments/raw
+         syllable-segments/grouped
          syllable-pin1yin1
          syllable-pinyin-core
          syllable-zhuyin-core
@@ -60,8 +60,9 @@
     [empty
      ""]))
 
-(define (syllable-segments/raw syllable)
-  (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable)))))
+(define (syllable-segments/grouped syllable)
+  (map string->list
+       (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable))))))
 
 (define (syllable-pin1yin1 syllable)
   (let ([segments (list->string (syllable-segments syllable))]
@@ -84,7 +85,9 @@
                    tone)))
 
 (define (syllable-pinyin-core syllable)
-  (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
+  (match-let ([(list pre unmarked post)
+               (map list->string
+                    (syllable-segments/grouped syllable))])
     (let* ([marked
             (vector-ref (case unmarked
                           [("a") #("a" "ā" "á" "ǎ" "à")]

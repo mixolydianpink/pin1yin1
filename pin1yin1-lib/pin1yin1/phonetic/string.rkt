@@ -12,11 +12,12 @@
                   curry
                   identity)
          (only-in racket/list
-                  add-between)
+                  add-between
+                  empty
+                  list-prefix?)
          racket/match
          (only-in racket/string
-                  string-append*
-                  string-prefix?)
+                  string-append*)
 
          pin1yin1/phonetic)
 
@@ -27,17 +28,17 @@
                           #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
-  (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
+  (match-let ([(list pre unmarked post) (syllable-segments/grouped syllable)])
     (let* ([neutral-tone? (= 0 (syllable-tone syllable))]
            [numbered?
             (and (not neutral-tone?)
                  (case unmarked
-                   [("ê") (not diacritic-e^?)]
-                   [("m") (not diacritic-m?)]
-                   [("n") (or (and (not (string-prefix? post "g"))
-                                   (not diacritic-n?))
-                              (and (string-prefix? post "g")
-                                   (not diacritic-ng?)))]
+                   [((#\ê)) (not diacritic-e^?)]
+                   [((#\m)) (not diacritic-m?)]
+                   [((#\n)) (or (and (not diacritic-n?)
+                                     (not (list-prefix? '(#\g) post)))
+                                (and (not diacritic-ng?)
+                                     (list-prefix? '(#\g) post)))]
                    [else #f]))]
            [pinyin (if numbered?
                        (syllable-pin1yin1 syllable)
@@ -50,7 +51,7 @@
                                         [(parenthesized) "(r)"]
                                         [(none) ""])))])
       (string-append (if (and (not suppress-leading-apostrophe?)
-                              (equal? "" pre))
+                              (equal? empty pre))
                          "'"
                          "")
                      pinyin))))
