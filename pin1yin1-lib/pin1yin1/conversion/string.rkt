@@ -6,8 +6,8 @@
 (require pin1yin1/conversion
          pin1yin1/pin1yin1/string)
 
-(define (pin1yin1-string->pinyin #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
-                                 #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+(define (pin1yin1-string->pinyin #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                 #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                  #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                  #:diacritic-e^? [diacritic-e^? #t]
                                  #:diacritic-m? [diacritic-m? #t]
@@ -18,8 +18,8 @@
                                  #:punctuation [punctuation 'zh-Latn]
                                  str)
   (let ([pin1yin1
-         (pin1yin1-string->pin1yin1 #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+         (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
                                     str)])
     (and pin1yin1
@@ -32,8 +32,8 @@
                                  #:punctuation punctuation)
           pin1yin1))))
 
-(define (pin1yin1-string->zhuyin #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
-                                 #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+(define (pin1yin1-string->zhuyin #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                 #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                  #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                  #:syllabic-m? [syllabic-m? #f]
                                  #:syllabic-n? [syllabic-n? #f]
@@ -45,8 +45,8 @@
                                  #:punctuation [punctuation 'zh-TW]
                                  str)
   (let ([pin1yin1
-         (pin1yin1-string->pin1yin1 #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+         (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
                                     str)])
     (and pin1yin1

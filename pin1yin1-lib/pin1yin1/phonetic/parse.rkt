@@ -18,8 +18,8 @@
          pin1yin1/pst/parse
          pin1yin1/zhupin)
 
-(define (syllable/p #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+(define (syllable/p #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                     #:allow-capitalized? allow-capitalized?
                     #:implicit-neutral-tone? implicit-neutral-tone?)
   (let* ([first/p

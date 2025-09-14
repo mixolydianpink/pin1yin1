@@ -9,8 +9,8 @@
          pin1yin1/markup
          pin1yin1/pin1yin1/markup)
 
-(define (pin1yin1-string->pinyin/html-fragment #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
-                                               #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+(define (pin1yin1-string->pinyin/html-fragment #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                               #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                                #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                                #:diacritic-e^? [diacritic-e^? #t]
                                                #:diacritic-m? [diacritic-m? #t]
@@ -26,8 +26,8 @@
                                                #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
                                                str)
   (let ([pin1yin1
-         (pin1yin1-string->pin1yin1 #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+         (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
                                     str)])
     (and pin1yin1
@@ -45,8 +45,8 @@
                                                #:syllable-neutral-tone-class syllable-neutral-tone-class)
           pin1yin1))))
 
-(define (pin1yin1-string->zhuyin/html-fragment  #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
-                                                #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+(define (pin1yin1-string->zhuyin/html-fragment  #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                                #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                                 #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                                 #:syllabic-m? [syllabic-m? #f]
                                                 #:syllabic-n? [syllabic-n? #f]
@@ -63,8 +63,8 @@
                                                 #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
                                                 str)
   (let ([pin1yin1
-         (pin1yin1-string->pin1yin1 #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                    #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+         (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                    #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
                                     str)])
     (and pin1yin1
@@ -86,8 +86,8 @@
 (define (pin1yin1-string->pinyin/html #:tag [tag 'span]
                                       #:class [class #f]
                                       #:lang [lang "zh-Latn"]
-                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                       #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                       #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                       #:diacritic-e^? [diacritic-e^? #t]
                                       #:diacritic-m? [diacritic-m? #t]
@@ -102,8 +102,8 @@
                                       #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
                                       #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
                                       str)
-  (let ([fragment (pin1yin1-string->pinyin/html-fragment #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                                         #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+  (let ([fragment (pin1yin1-string->pinyin/html-fragment #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                                         #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                                          #:implicit-neutral-tone? implicit-neutral-tone?
                                                          #:diacritic-e^? diacritic-e^?
                                                          #:diacritic-m? diacritic-m?
@@ -127,8 +127,8 @@
 (define (pin1yin1-string->zhuyin/html #:tag [tag 'span]
                                       #:class [class #f]
                                       #:lang [lang "zh-TW"]
-                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                       #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                      #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                       #:implicit-neutral-tone? [implicit-neutral-tone? #f]
                                       #:syllabic-m? [syllabic-m? #f]
                                       #:syllabic-n? [syllabic-n? #f]
@@ -144,8 +144,8 @@
                                       #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
                                       #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
                                       str)
-  (let ([fragment (pin1yin1-string->zhuyin/html-fragment #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
-                                                         #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+  (let ([fragment (pin1yin1-string->zhuyin/html-fragment #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
+                                                         #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                                          #:implicit-neutral-tone? implicit-neutral-tone?
                                                          #:syllabic-m? syllabic-m?
                                                          #:syllabic-n? syllabic-n?
