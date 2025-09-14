@@ -29,8 +29,10 @@
              (member tone '(0 1 2 3 4))
              (member erization '(bare parenthesized none))
              (boolean? capitalized?)
-             (not (and (equal? '(#\e #\r) segments)
-                       (not (equal? 'none erization)))))
+             (not (or (and (equal? '(#\e) segments)
+                           (equal? 'bare segments))
+                      (and (equal? '(#\e #\r) segments)
+                           (not (equal? 'none erization))))))
         (values segments tone erization capitalized?)
         (error (format "Bad ~a." name)))))
 
