@@ -9,6 +9,10 @@
 (define (pin1yin1-string->pinyin #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
                                  #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
                                  #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                 #:diacritic-e^? [diacritic-e^? #t]
+                                 #:diacritic-m? [diacritic-m? #t]
+                                 #:diacritic-n? [diacritic-n? #t]
+                                 #:diacritic-ng? [diacritic-ng? #t]
                                  #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                  #:space [space 'halfwidth]
                                  #:punctuation [punctuation 'zh-Latn]
@@ -19,7 +23,11 @@
                                     #:implicit-neutral-tone? implicit-neutral-tone?
                                     str)])
     (and pin1yin1
-         ((make-pin1yin1->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
+         ((make-pin1yin1->pinyin #:diacritic-e^? diacritic-e^?
+                                 #:diacritic-m? diacritic-m?
+                                 #:diacritic-n? diacritic-n?
+                                 #:diacritic-ng? diacritic-ng?
+                                 #:explicit-neutral-tone? explicit-neutral-tone?
                                  #:space space
                                  #:punctuation punctuation)
           pin1yin1))))

@@ -28,7 +28,11 @@
     [(none)
      lst]))
 
-(define (syllable->pinyin/span #:explicit-neutral-tone? explicit-neutral-tone?
+(define (syllable->pinyin/span #:diacritic-e^? diacritic-e^?
+                               #:diacritic-m? diacritic-m?
+                               #:diacritic-n? diacritic-n?
+                               #:diacritic-ng? diacritic-ng?
+                               #:explicit-neutral-tone? explicit-neutral-tone?
                                #:first-tone-class first-tone-class
                                #:second-tone-class second-tone-class
                                #:third-tone-class third-tone-class
@@ -36,7 +40,11 @@
                                #:neutral-tone-class neutral-tone-class
                                #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                syllable)
-  (let ([pinyin (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
+  (let ([pinyin (syllable->pinyin #:diacritic-e^? diacritic-e^?
+                                  #:diacritic-m? diacritic-m?
+                                  #:diacritic-n? diacritic-n?
+                                  #:diacritic-ng? diacritic-ng?
+                                  #:explicit-neutral-tone? explicit-neutral-tone?
                                   #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                   syllable)]
         [class (case (syllable-tone syllable)
@@ -121,7 +129,11 @@
                               (string->html-fragment string)]))
                          (option-map list sep))))
 
-(define (compound->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
+(define (compound->pinyin/html-fragment #:diacritic-e^? diacritic-e^?
+                                        #:diacritic-m? diacritic-m?
+                                        #:diacritic-n? diacritic-n?
+                                        #:diacritic-ng? diacritic-ng?
+                                        #:explicit-neutral-tone? explicit-neutral-tone?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -134,6 +146,10 @@
                                   #:syllable->pinyin/html-fragment
                                   (compose list
                                            (curry syllable->pinyin/span
+                                                  #:diacritic-e^? diacritic-e^?
+                                                  #:diacritic-m? diacritic-m?
+                                                  #:diacritic-n? diacritic-n?
+                                                  #:diacritic-ng? diacritic-ng?
                                                   #:explicit-neutral-tone? explicit-neutral-tone?
                                                   #:first-tone-class syllable-first-tone-class
                                                   #:second-tone-class syllable-second-tone-class

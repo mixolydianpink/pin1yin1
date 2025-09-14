@@ -15,27 +15,41 @@
                   add-between)
          racket/match
          (only-in racket/string
-                  string-append*)
+                  string-append*
+                  string-prefix?)
 
          pin1yin1/phonetic)
 
-(define (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
+(define (syllable->pinyin #:diacritic-e^? diacritic-e^?
+                          #:diacritic-m? diacritic-m?
+                          #:diacritic-n? diacritic-n?
+                          #:diacritic-ng? diacritic-ng?
+                          #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
-  (match-let ([(list pre marked post) (syllable-pinyin-core/segmented syllable)])
-    (let ([pinyin (string-append pre
-                                 marked
-                                 post
-                                 (case (syllable-erization syllable)
-                                   [(bare) "r"]
-                                   [(parenthesized) "(r)"]
-                                   [(none) ""]))])
+  (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
+    (let* ([numbered?
+            (case unmarked
+              [("ê") (not diacritic-e^?)]
+              [("m") (not diacritic-m?)]
+              [("n") (or (and (not (string-prefix? post "g"))
+                              (not diacritic-n?))
+                         (and (string-prefix? post "g")
+                              (not diacritic-ng?)))]
+              [else #f])]
+           [pinyin (if numbered?
+                       (syllable-pin1yin1 syllable)
+                       (string-append (if (and explicit-neutral-tone? (= 0 (syllable-tone syllable)))
+                                          "·"
+                                          "")
+                                      (syllable-pinyin-core syllable)
+                                      (case (syllable-erization syllable)
+                                        [(bare) "r"]
+                                        [(parenthesized) "(r)"]
+                                        [(none) ""])))])
       (string-append (if (and (not suppress-leading-apostrophe?)
                               (equal? "" pre))
                          "'"
-                         "")
-                     (if (and explicit-neutral-tone? (= 0 (syllable-tone syllable)))
-                         "·"
                          "")
                      pinyin))))
 
@@ -97,13 +111,21 @@
                                    [(? string? str) (string->string str)]))
                                sep)))
 
-(define (compound->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
+(define (compound->pinyin #:diacritic-e^? diacritic-e^?
+                          #:diacritic-m? diacritic-m?
+                          #:diacritic-n? diacritic-n?
+                          #:diacritic-ng? diacritic-ng?
+                          #:explicit-neutral-tone? explicit-neutral-tone?
                           compound)
   (compound->string #:sep "-"
                     #:polysyllable->string
                     (curry polysyllable->pinyin
                            #:syllable->pinyin
                            (curry syllable->pinyin
+                                  #:diacritic-e^? diacritic-e^?
+                                  #:diacritic-m? diacritic-m?
+                                  #:diacritic-n? diacritic-n?
+                                  #:diacritic-ng? diacritic-ng?
                                   #:explicit-neutral-tone? explicit-neutral-tone?))
                     #:string->string identity
                     compound))

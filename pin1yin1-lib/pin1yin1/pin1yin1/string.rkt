@@ -21,12 +21,20 @@
                                 #:non-phonetic-> non-phonetic->string
                                 pin1yin1)))
 
-(define (make-pin1yin1->pinyin #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+(define (make-pin1yin1->pinyin #:diacritic-e^? [diacritic-e^? #t]
+                               #:diacritic-m? [diacritic-m? #t]
+                               #:diacritic-n? [diacritic-n? #t]
+                               #:diacritic-ng? [diacritic-ng? #t]
+                               #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                #:space [space 'halfwidth]
                                #:punctuation [punctuation 'zh-Latn])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
                       (curry compound->pinyin
+                             #:diacritic-e^? diacritic-e^?
+                             #:diacritic-m? diacritic-m?
+                             #:diacritic-n? diacritic-n?
+                             #:diacritic-ng? diacritic-ng?
                              #:explicit-neutral-tone? explicit-neutral-tone?)
                       #:non-phonetic->string
                       (curry non-phonetic->

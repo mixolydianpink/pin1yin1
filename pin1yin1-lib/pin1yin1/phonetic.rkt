@@ -5,8 +5,8 @@
          (struct-out compound)
 
          syllable-segments/raw
-         syllable-pin1yin1/segmented
-         syllable-pinyin-core/segmented
+         syllable-pin1yin1
+         syllable-pinyin-core
          syllable-zhuyin-core
          syllable-zhuyin-tone-mark)
 
@@ -63,13 +63,13 @@
 (define (syllable-segments/raw syllable)
   (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable)))))
 
-(define (syllable-pin1yin1/segmented syllable)
+(define (syllable-pin1yin1 syllable)
   (let ([segments (list->string (syllable-segments syllable))]
         [erization
          (case (syllable-erization syllable)
-           [(bare) (some "r")]
-           [(parenthesized) (some "(r)")]
-           [(none) (none)])]
+           [(bare) "r"]
+           [(parenthesized) "(r)"]
+           [(none) ""])]
         [tone
          (case (syllable-tone syllable)
            [(1) "1"]
@@ -77,33 +77,31 @@
            [(3) "3"]
            [(4) "4"]
            [(0) "5"])])
-    (list (if (syllable-capitalized? syllable)
-              (capitalize segments)
-              segments)
-          erization
-          tone)))
+    (string-append (if (syllable-capitalized? syllable)
+                       (capitalize segments)
+                       segments)
+                   erization
+                   tone)))
 
-(define (syllable-pinyin-core/segmented syllable)
+(define (syllable-pinyin-core syllable)
   (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
-    (let ([marked
-           (vector-ref (case unmarked
-                         [("a") #("a" "ā" "á" "ǎ" "à")]
-                         [("e") #("e" "ē" "é" "ě" "è")]
-                         [("ê") #("ê" "ê̄" "ế" "ê̌" "ề")]
-                         [("i") #("i" "ī" "í" "ǐ" "ì")]
-                         [("o") #("o" "ō" "ó" "ǒ" "ò")]
-                         [("u") #("u" "ū" "ú" "ǔ" "ù")]
-                         [("ü") #("ü" "ǖ" "ǘ" "ǚ" "ǜ")]
-                         [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
-                         [("n") #("n" "n̄" "ń" "ň" "ǹ")])
-                       (syllable-tone syllable))])
+    (let* ([marked
+            (vector-ref (case unmarked
+                          [("a") #("a" "ā" "á" "ǎ" "à")]
+                          [("e") #("e" "ē" "é" "ě" "è")]
+                          [("ê") #("ê" "ê̄" "ế" "ê̌" "ề")]
+                          [("i") #("i" "ī" "í" "ǐ" "ì")]
+                          [("o") #("o" "ō" "ó" "ǒ" "ò")]
+                          [("u") #("u" "ū" "ú" "ǔ" "ù")]
+                          [("ü") #("ü" "ǖ" "ǘ" "ǚ" "ǜ")]
+                          [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
+                          [("n") #("n" "n̄" "ń" "ň" "ǹ")])
+                        (syllable-tone syllable))]
+           [core
+            (string-append pre marked post)])
       (if (syllable-capitalized? syllable)
-          (case pre
-            [("")
-             (list pre (capitalize marked) post)]
-            [else
-             (list (capitalize pre) marked post)])
-          (list pre marked post)))))
+          (capitalize core)
+          core))))
 
 (define (syllable-zhuyin-core #:syllabic-m? syllabic-m?
                               #:syllabic-n? syllabic-n?

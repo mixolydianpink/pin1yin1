@@ -22,7 +22,11 @@
                        #:non-phonetic->list non-phonetic->html-fragment
                        pin1yin1))
 
-(define (pin1yin1->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
+(define (pin1yin1->pinyin/html-fragment #:diacritic-e^? diacritic-e^?
+                                        #:diacritic-m? diacritic-m?
+                                        #:diacritic-n? diacritic-n?
+                                        #:diacritic-ng? diacritic-ng?
+                                        #:explicit-neutral-tone? explicit-neutral-tone?
                                         #:syllable-first-tone-class syllable-first-tone-class
                                         #:syllable-second-tone-class syllable-second-tone-class
                                         #:syllable-third-tone-class syllable-third-tone-class
@@ -32,6 +36,10 @@
                                         pin1yin1)
   (pin1yin1->html-fragment #:compound->html-fragment
                            (curry compound->pinyin/html-fragment
+                                  #:diacritic-e^? diacritic-e^?
+                                  #:diacritic-m? diacritic-m?
+                                  #:diacritic-n? diacritic-n?
+                                  #:diacritic-ng? diacritic-ng?
                                   #:explicit-neutral-tone? explicit-neutral-tone?
                                   #:syllable-first-tone-class syllable-first-tone-class
                                   #:syllable-second-tone-class syllable-second-tone-class
@@ -41,7 +49,11 @@
                            #:non-phonetic->html-fragment non-phonetic->html-fragment
                            pin1yin1))
 
-(define (make-pin1yin1->pinyin/html-fragment #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+(define (make-pin1yin1->pinyin/html-fragment #:diacritic-e^? [diacritic-e^? #t]
+                                             #:diacritic-m? [diacritic-m? #t]
+                                             #:diacritic-n? [diacritic-n? #t]
+                                             #:diacritic-ng? [diacritic-ng? #t]
+                                             #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                              #:space [space 'halfwidth]
                                              #:punctuation [punctuation 'zh-Latn]
                                              #:syllable-first-tone-class [syllable-first-tone-class #f]
@@ -50,7 +62,11 @@
                                              #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
-    (pin1yin1->pinyin/html-fragment #:explicit-neutral-tone? explicit-neutral-tone?
+    (pin1yin1->pinyin/html-fragment #:diacritic-e^? diacritic-e^?
+                                    #:diacritic-m? diacritic-m?
+                                    #:diacritic-n? diacritic-n?
+                                    #:diacritic-ng? diacritic-ng?
+                                    #:explicit-neutral-tone? explicit-neutral-tone?
                                     #:syllable-first-tone-class syllable-first-tone-class
                                     #:syllable-second-tone-class syllable-second-tone-class
                                     #:syllable-third-tone-class syllable-third-tone-class
