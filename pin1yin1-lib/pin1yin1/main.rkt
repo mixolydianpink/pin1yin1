@@ -5,6 +5,17 @@
                      [pin1yin1-string->pinyin/html-fragment pin1yin1->pinyin/html-fragment]
                      [pin1yin1-string->zhuyin/html-fragment pin1yin1->zhuyin/html-fragment]))
 
+(module in racket/base
+  (provide (all-from-out pin1yin1/in))
+  (require (except-in pin1yin1/in
+                      make-pin1yin1/p)))
+
+(module out racket/base
+  (provide (all-from-out pin1yin1/out/markup)
+           (all-from-out pin1yin1/out/string))
+  (require pin1yin1/out/markup
+           pin1yin1/out/string))
+
 (module* test racket/base
   (require rackunit
            rackunit/text-ui)
