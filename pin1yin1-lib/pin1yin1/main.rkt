@@ -255,5 +255,5 @@
 
   (run-tests pin1yin1/t))
 
-(require pin1yin1/out/markup
-         pin1yin1/out/string)
+(require pin1yin1/conversion/string
+         pin1yin1/conversion/markup)
