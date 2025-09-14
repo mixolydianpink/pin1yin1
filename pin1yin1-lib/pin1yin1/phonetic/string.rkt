@@ -28,18 +28,20 @@
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
   (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
-    (let* ([numbered?
-            (case unmarked
-              [("ê") (not diacritic-e^?)]
-              [("m") (not diacritic-m?)]
-              [("n") (or (and (not (string-prefix? post "g"))
-                              (not diacritic-n?))
-                         (and (string-prefix? post "g")
-                              (not diacritic-ng?)))]
-              [else #f])]
+    (let* ([neutral-tone? (= 0 (syllable-tone syllable))]
+           [numbered?
+            (and (not neutral-tone?)
+                 (case unmarked
+                   [("ê") (not diacritic-e^?)]
+                   [("m") (not diacritic-m?)]
+                   [("n") (or (and (not (string-prefix? post "g"))
+                                   (not diacritic-n?))
+                              (and (string-prefix? post "g")
+                                   (not diacritic-ng?)))]
+                   [else #f]))]
            [pinyin (if numbered?
                        (syllable-pin1yin1 syllable)
-                       (string-append (if (and explicit-neutral-tone? (= 0 (syllable-tone syllable)))
+                       (string-append (if (and explicit-neutral-tone? neutral-tone?)
                                           "·"
                                           "")
                                       (syllable-pinyin-core syllable)
