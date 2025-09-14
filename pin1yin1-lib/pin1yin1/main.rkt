@@ -29,8 +29,8 @@
                              (pin1yin1->pinyin "nv3")
                              "nǚ")
                 (test-equal? "Syllable separation"
-                             (pin1yin1->pinyin "Chang2an1")
-                             "Cháng'ān")
+                             (pin1yin1->pinyin "Chang2an1 she2m5")
+                             "Cháng'ān shé'm")
                 (test-equal? "Hyphenated"
                              (pin1yin1->pinyin "Zhong1guo2-Mei3guo2")
                              "Zhōngguó-Měiguó")

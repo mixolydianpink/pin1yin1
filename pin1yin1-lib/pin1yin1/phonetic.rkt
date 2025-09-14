@@ -4,7 +4,9 @@
          (struct-out polysyllable)
          (struct-out compound)
 
-         syllable-pinyin-parts
+         syllable-segments/raw
+         syllable-pin1yin1/segmented
+         syllable-pinyin-core/segmented
          syllable-zhuyin-core
          syllable-zhuyin-tone-mark)
 
@@ -51,17 +53,39 @@
         (values polysyllables-and-strings)
         (error (format "Bad ~a." name)))))
 
-(define (syllable-pinyin-parts syllable)
-  (define (capitalize str)
-    (match (string->list str)
-      [(cons first rest)
-       (list->string (cons (char-upcase first) rest))]
-      [empty
-       ""]))
-  (match-let ([(list pre unmarked post)
-               (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable))))])
-    (let ([capitalized? (syllable-capitalized? syllable)]
-          [marked
+(define (capitalize str)
+  (match (string->list str)
+    [(cons first rest)
+     (list->string (cons (char-upcase first) rest))]
+    [empty
+     ""]))
+
+(define (syllable-segments/raw syllable)
+  (cdr (some-value (pst-ref zhupin-pst (syllable-segments syllable)))))
+
+(define (syllable-pin1yin1/segmented syllable)
+  (let ([segments (list->string (syllable-segments syllable))]
+        [erization
+         (case (syllable-erization syllable)
+           [(bare) (some "r")]
+           [(parenthesized) (some "(r)")]
+           [(none) (none)])]
+        [tone
+         (case (syllable-tone syllable)
+           [(1) "1"]
+           [(2) "2"]
+           [(3) "3"]
+           [(4) "4"]
+           [(0) "5"])])
+    (list (if (syllable-capitalized? syllable)
+              (capitalize segments)
+              segments)
+          erization
+          tone)))
+
+(define (syllable-pinyin-core/segmented syllable)
+  (match-let ([(list pre unmarked post) (syllable-segments/raw syllable)])
+    (let ([marked
            (vector-ref (case unmarked
                          [("a") #("a" "ā" "á" "ǎ" "à")]
                          [("e") #("e" "ē" "é" "ě" "è")]
@@ -73,7 +97,7 @@
                          [("m") #("m" "m̄" "ḿ" "m̌" "m̀")]
                          [("n") #("n" "n̄" "ń" "ň" "ǹ")])
                        (syllable-tone syllable))])
-      (if capitalized?
+      (if (syllable-capitalized? syllable)
           (case pre
             [("")
              (list pre (capitalize marked) post)]

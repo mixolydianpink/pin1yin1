@@ -22,7 +22,7 @@
 (define (syllable->pinyin #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
-  (match-let ([(list pre marked post) (syllable-pinyin-parts syllable)])
+  (match-let ([(list pre marked post) (syllable-pinyin-core/segmented syllable)])
     (let ([pinyin (string-append pre
                                  marked
                                  post
@@ -31,7 +31,7 @@
                                    [(parenthesized) "(r)"]
                                    [(none) ""]))])
       (string-append (if (and (not suppress-leading-apostrophe?)
-                              (member (car (syllable-segments syllable)) '(#\a #\e #\o) char=?))
+                              (equal? "" pre))
                          "'"
                          "")
                      (if (and explicit-neutral-tone? (= 0 (syllable-tone syllable)))
