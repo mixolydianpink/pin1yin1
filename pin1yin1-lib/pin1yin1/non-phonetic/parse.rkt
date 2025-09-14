@@ -33,9 +33,10 @@
                                            (right/p (not/p null
                                                            (eq/p #\#))
                                                     (if/p char?))))))]
-         [literal-or-empty/p
+         ; Allow '||' to be used as a separator, eg '.||..'
+         [literal-or-separator/p
           (map/p (match-λ
-                  [(literal _ "")
+                  [(literal (none) "")
                    empty]
                   [literal
                    literal])
@@ -49,6 +50,6 @@
                         (match-let ([(list* sym parser _) row])
                           (map/p (const sym) parser))))])
     (map/p flatten1
-           (multi+/p (or/p literal-or-empty/p
+           (multi+/p (or/p literal-or-separator/p
                            whitespace/p
                            punctuation/p)))))
