@@ -92,7 +92,7 @@
     (or/p (map/p polysyllable
                  (then/p first/p
                          subsequent/p))
-          ; Allow single implicitly neutral tone syllable if it is *not* one uppercase letter. 
+          ; Allow single implicitly neutral tone syllable if it is *not* one uppercase letter.
           (if implicit-neutral-tone?
               (map-partial/p (λ (syllable)
                                (if (and (syllable-capitalized? syllable)
