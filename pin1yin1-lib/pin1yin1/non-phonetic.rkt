@@ -32,8 +32,8 @@
     [newline                 . ,(or/p newline/p
                                       (eq/p #\# #\n #\#))]))
 
-(define (whitespace? sym)
-  (if (assoc sym whitespace-table)
+(define (whitespace? symbol)
+  (if (assoc symbol whitespace-table)
       #t
       #f))
 
@@ -71,8 +71,8 @@
     [left-inner-quote         ,(eq/p #\{)                  "‘"    "『"    "‘"]
     [right-inner-quote        ,(eq/p #\})                  "’"    "』"    "’"]))
 
-(define (punctuation? sym)
-  (if (assoc sym punctuation-table)
+(define (punctuation? symbol)
+  (if (assoc symbol punctuation-table)
       #t
       #f))
 

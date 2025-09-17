@@ -8,11 +8,11 @@
          pin1yin1/non-phonetic
          pin1yin1/option)
 
-(define (literal->html-fragment lit)
+(define (literal->html-fragment literal)
   (string->html-fragment #:lang
-                         (match (literal-lang lit)
+                         (match (literal-lang literal)
                            [(some lang)
                             lang]
                            [(none)
                             #f])
-                         (literal-content lit)))
+                         (literal-content literal)))
