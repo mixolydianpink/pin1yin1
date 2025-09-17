@@ -22,7 +22,9 @@
   (let ([segments (list->string (syllable-segments syllable))]
         [erization
          (case (syllable-erization syllable)
-           [(bare) "r"]
+           [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                       "'r"
+                       "r")]
            [(parenthesized) "(r)"]
            [(none) ""])]
         [tone
@@ -64,7 +66,9 @@
                                           "")
                                       (syllable-pinyin-core syllable)
                                       (case (syllable-erization syllable)
-                                        [(bare) "r"]
+                                        [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                                                    "'r"
+                                                    "r")]
                                         [(parenthesized) "(r)"]
                                         [(none) ""])))])
       (string-append (if (and (not suppress-leading-apostrophe?)
