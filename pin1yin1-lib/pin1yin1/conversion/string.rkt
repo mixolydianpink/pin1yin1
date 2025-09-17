@@ -16,12 +16,12 @@
                                  #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                  #:space [space 'halfwidth]
                                  #:punctuation [punctuation 'zh-Latn]
-                                 str)
+                                 string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
                                     #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
-                                    str)])
+                                    string)])
     (and pin1yin1
          ((make-pin1yin1->pinyin #:diacritic-e^? diacritic-e^?
                                  #:diacritic-m? diacritic-m?
@@ -43,12 +43,12 @@
                                  #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                  #:space [space 'none]
                                  #:punctuation [punctuation 'zh-TW]
-                                 str)
+                                 string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
                                     #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
-                                    str)])
+                                    string)])
     (and pin1yin1
          ((make-pin1yin1->zhuyin #:syllabic-m? syllabic-m?
                                  #:syllabic-n? syllabic-n?

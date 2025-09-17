@@ -21,12 +21,12 @@
                                                #:syllable-third-tone-class [syllable-third-tone-class #f]
                                                #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
                                                #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
-                                               str)
+                                               string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
                                     #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
-                                    str)])
+                                    string)])
     (and pin1yin1
          ((make-pin1yin1->pinyin/html-fragment #:diacritic-e^? diacritic-e^?
                                                #:diacritic-m? diacritic-m?
@@ -42,28 +42,28 @@
                                                #:syllable-neutral-tone-class syllable-neutral-tone-class)
           pin1yin1))))
 
-(define (pin1yin1-string->zhuyin/html-fragment  #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
-                                                #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
-                                                #:implicit-neutral-tone? [implicit-neutral-tone? #f]
-                                                #:syllabic-m? [syllabic-m? #f]
-                                                #:syllabic-n? [syllabic-n? #f]
-                                                #:syllabic-ng? [syllabic-ng? #f]
-                                                #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
-                                                #:explicit-first-tone? [explicit-first-tone? #f]
-                                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
-                                                #:space [space 'none]
-                                                #:punctuation [punctuation 'zh-TW]
-                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
-                                                #:syllable-second-tone-class [syllable-second-tone-class #f]
-                                                #:syllable-third-tone-class [syllable-third-tone-class #f]
-                                                #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
-                                                #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
-                                                str)
+(define (pin1yin1-string->zhuyin/html-fragment #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
+                                               #:interpret-v-as-u-umlaut? [interpret-v-as-u-umlaut? #t]
+                                               #:implicit-neutral-tone? [implicit-neutral-tone? #f]
+                                               #:syllabic-m? [syllabic-m? #f]
+                                               #:syllabic-n? [syllabic-n? #f]
+                                               #:syllabic-ng? [syllabic-ng? #f]
+                                               #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
+                                               #:explicit-first-tone? [explicit-first-tone? #f]
+                                               #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                               #:space [space 'none]
+                                               #:punctuation [punctuation 'zh-TW]
+                                               #:syllable-first-tone-class [syllable-first-tone-class #f]
+                                               #:syllable-second-tone-class [syllable-second-tone-class #f]
+                                               #:syllable-third-tone-class [syllable-third-tone-class #f]
+                                               #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
+                                               #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
+                                               string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
                                     #:interpret-v-as-u-umlaut? interpret-v-as-u-umlaut?
                                     #:implicit-neutral-tone? implicit-neutral-tone?
-                                    str)])
+                                    string)])
     (and pin1yin1
          ((make-pin1yin1->zhuyin/html-fragment #:syllabic-m? syllabic-m?
                                                #:syllabic-n? syllabic-n?

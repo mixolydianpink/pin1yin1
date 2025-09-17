@@ -1,10 +1,71 @@
 #lang racket/base
 
-(provide (rename-out [pin1yin1-string->pinyin pin1yin1->pinyin]
-                     [pin1yin1-string->zhuyin pin1yin1->zhuyin])
+(require racket/contract)
 
-         pin1yin1->pinyin/html
-         pin1yin1->zhuyin/html)
+(provide (contract-out (rename pin1yin1-string->pinyin pin1yin1->pinyin
+                               (->* (string?)
+                                    (#:interpret-e^-as-e-circumflex? boolean?
+                                     #:interpret-v-as-u-umlaut? boolean?
+                                     #:implicit-neutral-tone? boolean?
+                                     #:diacritic-e^? boolean?
+                                     #:diacritic-m? boolean?
+                                     #:diacritic-n? boolean?
+                                     #:diacritic-ng? boolean?
+                                     #:explicit-neutral-tone? boolean?
+                                     #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                     #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
+                                    (or/c string? #f)))
+                       (rename pin1yin1-string->zhuyin pin1yin1->zhuyin
+                               (->* (string?)
+                                    (#:interpret-e^-as-e-circumflex? boolean?
+                                     #:interpret-v-as-u-umlaut? boolean?
+                                     #:implicit-neutral-tone? boolean?
+                                     #:syllabic-m? boolean?
+                                     #:syllabic-n? boolean?
+                                     #:syllabic-ng? boolean?
+                                     #:explicit-empty-rhyme? boolean?
+                                     #:explicit-first-tone? boolean?
+                                     #:prefix-neutral-tone? boolean?
+                                     #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                     #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
+                                    (or/c string? #f)))
+                       (pin1yin1->pinyin/html
+                        (->* (string?)
+                             (#:interpret-e^-as-e-circumflex? boolean?
+                              #:interpret-v-as-u-umlaut? boolean?
+                              #:implicit-neutral-tone? boolean?
+                              #:diacritic-e^? boolean?
+                              #:diacritic-m? boolean?
+                              #:diacritic-n? boolean?
+                              #:diacritic-ng? boolean?
+                              #:explicit-neutral-tone? boolean?
+                              #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                              #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
+                              #:syllable-first-tone-class (or/c string? #f)
+                              #:syllable-second-tone-class (or/c string? #f)
+                              #:syllable-third-tone-class (or/c string? #f)
+                              #:syllable-fourth-tone-class (or/c string? #f)
+                              #:syllable-neutral-tone-class (or/c string? #f))
+                             (or/c string? #f)))
+                       (pin1yin1->zhuyin/html
+                        (->* (string?)
+                             (#:interpret-e^-as-e-circumflex? boolean?
+                              #:interpret-v-as-u-umlaut? boolean?
+                              #:implicit-neutral-tone? boolean?
+                              #:syllabic-m? boolean?
+                              #:syllabic-n? boolean?
+                              #:syllabic-ng? boolean?
+                              #:explicit-empty-rhyme? boolean?
+                              #:explicit-first-tone? boolean?
+                              #:prefix-neutral-tone? boolean?
+                              #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                              #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
+                              #:syllable-first-tone-class (or/c string? #f)
+                              #:syllable-second-tone-class (or/c string? #f)
+                              #:syllable-third-tone-class (or/c string? #f)
+                              #:syllable-fourth-tone-class (or/c string? #f)
+                              #:syllable-neutral-tone-class (or/c string? #f))
+                             (or/c string? #f)))))
 
 (module in racket/base
   (provide (all-from-out pin1yin1/in))
