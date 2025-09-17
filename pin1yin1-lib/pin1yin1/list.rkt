@@ -6,8 +6,8 @@
                   append-map))
 
 (define (flatten1 lst)
-  (append-map (λ (a)
-                (if (list? a)
-                    a
-                    (list a)))
+  (append-map (λ (any)
+                (if (list? any)
+                    any
+                    (list any)))
               lst))

@@ -2,8 +2,8 @@
 
 (provide (struct-out literal)
 
-         whitespace?
-         punctuation?
+         whitespace-symbol?
+         punctuation-symbol?
          non-phonetic?
 
          make-whitespace->
@@ -32,10 +32,11 @@
     [newline                 . ,(or/p newline/p
                                       (eq/p #\# #\n #\#))]))
 
-(define (whitespace? symbol)
-  (if (assoc symbol whitespace-table)
-      #t
-      #f))
+(define (whitespace-symbol? any)
+  (match any
+    [(? symbol? symbol) #:when (assoc symbol whitespace-table)
+                        #t]
+    [_ #f]))
 
 (define (make-whitespace-> #:space space
                            #:explicit-space explicit-space
@@ -76,14 +77,17 @@
     [right-inner-quote        ,(or/p (eq/p #\’)
                                      (eq/p #\}))           "’"    "』"    "’"]))
 
-(define (punctuation? symbol)
-  (if (assoc symbol punctuation-table)
-      #t
-      #f))
+(define (punctuation-symbol? any)
+  (match any
+    [(? symbol? symbol) #:when (assoc symbol punctuation-table)
+                        #t]
+    [_ #f]))
 
-(define non-phonetic? (disjoin literal?
-                               whitespace?
-                               punctuation?))
+(define (non-phonetic? any)
+  ((disjoin literal?
+            whitespace-symbol?
+            punctuation-symbol?)
+   any))
 
 (define (make-non-phonetic-> #:literal-> literal->
                              #:whitespace-> whitespace->
@@ -91,7 +95,7 @@
   (match-λ
    [(? literal? literal)
     (literal-> literal)]
-   [(? whitespace? whitespace)
-    (whitespace-> whitespace)]
-   [(? punctuation? punctuation)
-    (punctuation-> punctuation)]))
+   [(? whitespace-symbol? whitespace-symbol)
+    (whitespace-> whitespace-symbol)]
+   [(? punctuation-symbol? punctuation-symbol)
+    (punctuation-> punctuation-symbol)]))

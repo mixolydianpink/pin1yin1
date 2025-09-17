@@ -68,8 +68,21 @@
                              (or/c string? #f)))))
 
 (module in racket/base
-  (provide (all-from-out pin1yin1/in))
-  (require pin1yin1/in))
+  (require racket/contract)
+  (provide (contract-out (pin1yin1-string->pin1yin1/rest
+                          (->* (string?)
+                               (#:interpret-e^-as-e-circumflex? boolean?
+                                #:interpret-v-as-u-umlaut? boolean?
+                                #:implicit-neutral-tone? boolean?)
+                               (values pin1yin1? string?)))
+                         (pin1yin1-string->pin1yin1
+                          (->* (string?)
+                               (#:interpret-e^-as-e-circumflex? boolean?
+                                #:interpret-v-as-u-umlaut? boolean?
+                                #:implicit-neutral-tone? boolean?)
+                               (or/c string? #f)))))
+  (require pin1yin1/in
+           pin1yin1/pin1yin1))
 
 (module out racket/base
   (provide (all-from-out pin1yin1/out/markup)

@@ -25,7 +25,7 @@
 
 (define (string->html-fragment #:class [class #f]
                                #:lang [lang #f]
-                               str)
+                               string)
   (let ([content
          (parse-string!
           (multi/p (or/p (map/p (const #x200B) (eq/p #\u200B)) ; Zero-width space
@@ -39,7 +39,7 @@
                                                                 (eq/p #\tab)
                                                                 newline/p))
                                                    any/p)))))
-          str)])
+          string)])
     (if (or class lang)
         `(,(html-fragment->html #:tag 'span
                                 #:class class

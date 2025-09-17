@@ -15,12 +15,13 @@
          pin1yin1/non-phonetic
          pin1yin1/phonetic)
 
-(define pin1yin1?
-  (conjoin list?
-           (λ (list)
-             (andmap (disjoin complex?
-                              non-phonetic?)
-                     list))))
+(define (pin1yin1? any)
+  ((conjoin list?
+            (λ (list)
+              (andmap (disjoin compound?
+                               non-phonetic?)
+                      list)))
+   any))
 
 (define (pin1yin1-map #:compound-> compound->
                       #:non-phonetic-> non-phonetic->
