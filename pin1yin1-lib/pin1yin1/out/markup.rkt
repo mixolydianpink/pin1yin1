@@ -1,9 +1,9 @@
 #lang racket/base
 
-(provide html-fragment->string
+(provide make-pin1yin1->pinyin/html-fragment
+         make-pin1yin1->zhuyin/html-fragment
 
-         make-pin1yin1->pinyin/html-fragment
-         make-pin1yin1->zhuyin/html-fragment)
+         html-fragment->string)
 
 (require (only-in racket/function
                   curry)

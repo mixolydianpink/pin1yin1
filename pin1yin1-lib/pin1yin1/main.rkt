@@ -107,8 +107,6 @@
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
-                         (html-fragment->string
-                          (-> (listof xexpr?) string?))
                          (make-pin1yin1->pinyin/html-fragment
                           (->* ()
                                (#:diacritic-e^? boolean?
@@ -139,7 +137,9 @@
                                 #:syllable-third-tone-class (or/c string? #f)
                                 #:syllable-fourth-tone-class (or/c string? #f)
                                 #:syllable-neutral-tone-class (or/c string? #f))
-                               (-> pin1yin1? (listof xexpr?))))))
+                               (-> pin1yin1? (listof xexpr?))))
+                         (html-fragment->string
+                          (-> (listof xexpr?) string?))))
   (require (only-in xml
                     xexpr?)
 
