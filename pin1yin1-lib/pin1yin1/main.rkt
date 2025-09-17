@@ -7,8 +7,7 @@
 
 (module in racket/base
   (provide (all-from-out pin1yin1/in))
-  (require (except-in pin1yin1/in
-                      make-pin1yin1/p)))
+  (require pin1yin1/in))
 
 (module out racket/base
   (provide (all-from-out pin1yin1/out/markup)
