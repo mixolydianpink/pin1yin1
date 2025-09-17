@@ -1,9 +1,10 @@
 #lang racket/base
 
 (provide (rename-out [pin1yin1-string->pinyin pin1yin1->pinyin]
-                     [pin1yin1-string->zhuyin pin1yin1->zhuyin]
-                     [pin1yin1-string->pinyin/html-fragment pin1yin1->pinyin/html-fragment]
-                     [pin1yin1-string->zhuyin/html-fragment pin1yin1->zhuyin/html-fragment]))
+                     [pin1yin1-string->zhuyin pin1yin1->zhuyin])
+
+         pin1yin1->pinyin/html
+         pin1yin1->zhuyin/html)
 
 (module in racket/base
   (provide (all-from-out pin1yin1/in))
@@ -14,6 +15,22 @@
            (all-from-out pin1yin1/out/string))
   (require pin1yin1/out/markup
            pin1yin1/out/string))
+
+(require pin1yin1/conversion/string
+         pin1yin1/conversion/markup
+         pin1yin1/out/markup)
+
+(define pin1yin1->pinyin/html
+  (compose (λ (fragment)
+             (and fragment
+                  (html-fragment->string fragment)))
+           pin1yin1-string->pinyin/html-fragment))
+
+(define pin1yin1->zhuyin/html
+  (compose (λ (fragment)
+             (and fragment
+                  (html-fragment->string fragment)))
+           pin1yin1-string->zhuyin/html-fragment))
 
 (module* test racket/base
   (require rackunit
@@ -210,45 +227,35 @@
                 ;;                                          "ㄊㄚ\u200Bㄕㄨㄛ：\u200B“ㄋㄧˇ ㄏㄠˇ！”"))))
                 ))
 
-  (require (submod ".." out) #|(submod pin1yin1 out)|#)
-
   (define ->pinyin/html/t
     (test-suite "Convert pin1yin1 to pinyin as HTML"
 
-                (check-not-equal? (pin1yin1->pinyin/html-fragment "|Albert|_de5_T-xu4shan1.")
+                (check-not-equal? (pin1yin1->pinyin/html "|Albert|_de5_T-xu4shan1.")
                                   #f)
                 (check-regexp-match #rx"pīn.*yīn"
-                                    (html-fragment->string
-                                     (pin1yin1->pinyin/html-fragment "pin1yin1")))
+                                    (pin1yin1->pinyin/html "pin1yin1"))
                 (check-regexp-match #rx"class=\"first-tone\".*pīn.*yīn"
-                                    (html-fragment->string
-                                     (pin1yin1->pinyin/html-fragment #:syllable-first-tone-class "first-tone"
-                                                                     "pin1yin1")))
+                                    (pin1yin1->pinyin/html #:syllable-first-tone-class "first-tone"
+                                                           "pin1yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
-                                    (html-fragment->string
-                                     (pin1yin1->pinyin/html-fragment "#en-US|Hello|")))
+                                    (pin1yin1->pinyin/html "#en-US|Hello|"))
                 (check-regexp-match #rx"^[^\t\r\n]*$"
-                                    (html-fragment->string
-                                     (pin1yin1->pinyin/html-fragment "\r\t\r\n\n|\r\t\r\n\n|")))))
+                                    (pin1yin1->pinyin/html "\r\t\r\n\n|\r\t\r\n\n|"))))
 
   (define ->zhuyin/html/t
     (test-suite "Convert pin1yin1 to zhuyin as HTML"
 
-                (check-not-equal? (pin1yin1->zhuyin/html-fragment "|Albert|_de5_T-xu4shan1.")
+                (check-not-equal? (pin1yin1->zhuyin/html "|Albert|_de5_T-xu4shan1.")
                                   #f)
                 (check-regexp-match #rx"ㄓㄨ.*ˋ.*ㄧㄣ"
-                                    (html-fragment->string
-                                     (pin1yin1->zhuyin/html-fragment "zhu4yin1")))
+                                    (pin1yin1->zhuyin/html "zhu4yin1"))
                 (check-regexp-match #rx"class=\"fourth-tone\".*ㄓㄨ.*ˋ.*ㄧㄣ"
-                                    (html-fragment->string
-                                     (pin1yin1->zhuyin/html-fragment #:syllable-fourth-tone-class "fourth-tone"
-                                                                     "zhu4yin1")))
+                                    (pin1yin1->zhuyin/html #:syllable-fourth-tone-class "fourth-tone"
+                                                           "zhu4yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
-                                    (html-fragment->string
-                                     (pin1yin1->zhuyin/html-fragment "#en-US|Hello|")))
+                                    (pin1yin1->zhuyin/html "#en-US|Hello|"))
                 (check-regexp-match #rx"^[^\t\r\n]*$"
-                                    (html-fragment->string
-                                     (pin1yin1->zhuyin/html-fragment "\r\t\r\n\n|\r\t\r\n\n|")))))
+                                    (pin1yin1->zhuyin/html "\r\t\r\n\n|\r\t\r\n\n|"))))
 
   (define pin1yin1/t
     (test-suite "pin1yin1"
@@ -258,6 +265,3 @@
                 ->zhuyin/html/t))
 
   (run-tests pin1yin1/t))
-
-(require pin1yin1/conversion/string
-         pin1yin1/conversion/markup)
