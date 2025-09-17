@@ -4,7 +4,8 @@
          make-pin1yin1->zhuyin)
 
 (require (only-in racket/function
-                  curry)
+                  curry
+                  identity)
 
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/string
@@ -20,12 +21,18 @@
                                #:punctuation [punctuation 'zh-Latn])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
-                      (curry compound->pinyin
-                             #:diacritic-e^? diacritic-e^?
-                             #:diacritic-m? diacritic-m?
-                             #:diacritic-n? diacritic-n?
-                             #:diacritic-ng? diacritic-ng?
-                             #:explicit-neutral-tone? explicit-neutral-tone?)
+                      (curry compound->string
+                             #:sep "-"
+                             #:polysyllable->string
+                             (curry polysyllable->pinyin
+                                    #:syllable->pinyin
+                                    (curry syllable->pinyin
+                                           #:diacritic-e^? diacritic-e^?
+                                           #:diacritic-m? diacritic-m?
+                                           #:diacritic-n? diacritic-n?
+                                           #:diacritic-ng? diacritic-ng?
+                                           #:explicit-neutral-tone? explicit-neutral-tone?))
+                             #:string->string identity)
                       #:non-phonetic->string
                       (curry non-phonetic->
                              #:literal-> literal-content
@@ -54,13 +61,18 @@
                                #:punctuation [punctuation 'zh-TW])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
-                      (curry compound->zhuyin
-                             #:syllabic-m? syllabic-m?
-                             #:syllabic-n? syllabic-n?
-                             #:syllabic-ng? syllabic-ng?
-                             #:explicit-empty-rhyme? explicit-empty-rhyme?
-                             #:explicit-first-tone? explicit-first-tone?
-                             #:prefix-neutral-tone? prefix-neutral-tone?)
+                      (curry compound->string #:sep ""
+                             #:polysyllable->string
+                             (curry polysyllable->zhuyin
+                                    #:syllable->zhuyin
+                                    (curry syllable->zhuyin
+                                           #:syllabic-m? syllabic-m?
+                                           #:syllabic-n? syllabic-n?
+                                           #:syllabic-ng? syllabic-ng?
+                                           #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                           #:explicit-first-tone? explicit-first-tone?
+                                           #:prefix-neutral-tone? prefix-neutral-tone?))
+                             #:string->string identity)
                       #:non-phonetic->string
                       (curry non-phonetic->
                              #:literal-> literal-content
