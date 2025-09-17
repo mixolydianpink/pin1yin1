@@ -80,15 +80,72 @@
                                (#:interpret-e^-as-e-circumflex? boolean?
                                 #:interpret-v-as-u-umlaut? boolean?
                                 #:implicit-neutral-tone? boolean?)
-                               (or/c string? #f)))))
+                               (or/c pin1yin1? #f)))))
   (require pin1yin1/in
            pin1yin1/pin1yin1))
 
 (module out racket/base
-  (provide (all-from-out pin1yin1/out/markup)
-           (all-from-out pin1yin1/out/string))
-  (require pin1yin1/out/markup
-           pin1yin1/out/string))
+  (require racket/contract)
+  (provide (contract-out (make-pin1yin1->pinyin
+                          (->* ()
+                               (#:diacritic-e^? boolean?
+                                #:diacritic-m? boolean?
+                                #:diacritic-n? boolean?
+                                #:diacritic-ng? boolean?
+                                #:explicit-neutral-tone? boolean?
+                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
+                               (-> pin1yin1? string?)))
+                         (make-pin1yin1->zhuyin
+                          (->* ()
+                               (#:syllabic-m? boolean?
+                                #:syllabic-n? boolean?
+                                #:syllabic-ng? boolean?
+                                #:explicit-empty-rhyme? boolean?
+                                #:explicit-first-tone? boolean?
+                                #:prefix-neutral-tone? boolean?
+                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
+                               (-> pin1yin1? string?)))
+                         (html-fragment->string
+                          (-> (listof xexpr?) string?))
+                         (make-pin1yin1->pinyin/html-fragment
+                          (->* ()
+                               (#:diacritic-e^? boolean?
+                                #:diacritic-m? boolean?
+                                #:diacritic-n? boolean?
+                                #:diacritic-ng? boolean?
+                                #:explicit-neutral-tone? boolean?
+                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
+                                #:syllable-first-tone-class (or/c string? #f)
+                                #:syllable-second-tone-class (or/c string? #f)
+                                #:syllable-third-tone-class (or/c string? #f)
+                                #:syllable-fourth-tone-class (or/c string? #f)
+                                #:syllable-neutral-tone-class (or/c string? #f))
+                               (-> pin1yin1? (listof xexpr?))))
+                         (make-pin1yin1->zhuyin/html-fragment
+                          (->* ()
+                               (#:syllabic-m? boolean?
+                                #:syllabic-n? boolean?
+                                #:syllabic-ng? boolean?
+                                #:explicit-empty-rhyme? boolean?
+                                #:explicit-first-tone? boolean?
+                                #:prefix-neutral-tone? boolean?
+                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
+                                #:syllable-first-tone-class (or/c string? #f)
+                                #:syllable-second-tone-class (or/c string? #f)
+                                #:syllable-third-tone-class (or/c string? #f)
+                                #:syllable-fourth-tone-class (or/c string? #f)
+                                #:syllable-neutral-tone-class (or/c string? #f))
+                               (-> pin1yin1? (listof xexpr?))))))
+  (require (only-in xml
+                    xexpr?)
+
+           pin1yin1/out/markup
+           pin1yin1/out/string
+           pin1yin1/pin1yin1))
 
 (require pin1yin1/conversion/string
          pin1yin1/conversion/markup
