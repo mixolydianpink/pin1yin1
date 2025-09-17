@@ -59,24 +59,23 @@
                                                            #:neutral-tone-class syllable-neutral-tone-class)))
                                     #:string->html-fragment string->html-fragment)
                              #:non-phonetic->html-fragment
-                             (curry non-phonetic->
-                                    #:literal-> literal->html-fragment
-                                    #:whitespace->
-                                    (make-whitespace-> #:space
-                                                       (case space
-                                                         [(none) '()]
-                                                         [(zero-width) '(#x200B)]
-                                                         [(halfwidth) '(" ")]
-                                                         [(fullwidth) '(#x3000)]
-                                                         [(wbr) '((wbr))])
-                                                       #:explicit-space '(" ")
-                                                       #:zero-width-space '(#x200B)
-                                                       #:fullwidth-space '(#x3000)
-                                                       #:tab '(Tab)
-                                                       #:newline '(NewLine))
-                                    #:punctuation->
-                                    (compose string->html-fragment
-                                             (->punctuation->string punctuation)))
+                             (make-non-phonetic-> #:literal-> literal->html-fragment
+                                                  #:whitespace->
+                                                  (make-whitespace-> #:space
+                                                                     (case space
+                                                                       [(none) '()]
+                                                                       [(zero-width) '(#x200B)]
+                                                                       [(halfwidth) '(" ")]
+                                                                       [(fullwidth) '(#x3000)]
+                                                                       [(wbr) '((wbr))])
+                                                                     #:explicit-space '(" ")
+                                                                     #:zero-width-space '(#x200B)
+                                                                     #:fullwidth-space '(#x3000)
+                                                                     #:tab '(Tab)
+                                                                     #:newline '(NewLine))
+                                                  #:punctuation->
+                                                  (compose string->html-fragment
+                                                           (->punctuation->string punctuation)))
                              pin1yin1)))
 
 (define (make-pin1yin1->zhuyin/html-fragment #:syllabic-m? [syllabic-m? #f]
@@ -113,22 +112,21 @@
                                                            #:neutral-tone-class syllable-neutral-tone-class)))
                                     #:string->html-fragment string->html-fragment)
                              #:non-phonetic->html-fragment
-                             (curry non-phonetic->
-                                    #:literal-> literal->html-fragment
-                                    #:whitespace->
-                                    (make-whitespace-> #:space
-                                                       (case space
-                                                         [(none) '()]
-                                                         [(zero-width) '(#x200B)]
-                                                         [(halfwidth) '(" ")]
-                                                         [(fullwidth) '(#x3000)]
-                                                         [(wbr) '((wbr))])
-                                                       #:explicit-space '(" ")
-                                                       #:zero-width-space '(#x200B)
-                                                       #:fullwidth-space '(#x3000)
-                                                       #:tab '(Tab)
-                                                       #:newline '(NewLine))
-                                    #:punctuation->
-                                    (compose string->html-fragment
-                                             (->punctuation->string punctuation)))
+                             (make-non-phonetic-> #:literal-> literal->html-fragment
+                                                  #:whitespace->
+                                                  (make-whitespace-> #:space
+                                                                     (case space
+                                                                       [(none) '()]
+                                                                       [(zero-width) '(#x200B)]
+                                                                       [(halfwidth) '(" ")]
+                                                                       [(fullwidth) '(#x3000)]
+                                                                       [(wbr) '((wbr))])
+                                                                     #:explicit-space '(" ")
+                                                                     #:zero-width-space '(#x200B)
+                                                                     #:fullwidth-space '(#x3000)
+                                                                     #:tab '(Tab)
+                                                                     #:newline '(NewLine))
+                                                  #:punctuation->
+                                                  (compose string->html-fragment
+                                                           (->punctuation->string punctuation)))
                              pin1yin1)))

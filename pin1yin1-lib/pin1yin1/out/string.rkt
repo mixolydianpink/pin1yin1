@@ -34,21 +34,20 @@
                                            #:explicit-neutral-tone? explicit-neutral-tone?))
                              #:string->string identity)
                       #:non-phonetic->string
-                      (curry non-phonetic->
-                             #:literal-> literal-content
-                             #:whitespace->
-                             (make-whitespace-> #:space
-                                                (case space
-                                                  [(none) ""]
-                                                  [(zero-width) "\u200B"]
-                                                  [(halfwidth) " "]
-                                                  [(fullwidth) "\u3000"])
-                                                #:explicit-space " "
-                                                #:zero-width-space "\u200B"
-                                                #:fullwidth-space "\u3000"
-                                                #:tab "\t"
-                                                #:newline "\n")
-                             #:punctuation-> (->punctuation->string punctuation))
+                      (make-non-phonetic-> #:literal-> literal-content
+                                           #:whitespace->
+                                           (make-whitespace-> #:space
+                                                              (case space
+                                                                [(none) ""]
+                                                                [(zero-width) "\u200B"]
+                                                                [(halfwidth) " "]
+                                                                [(fullwidth) "\u3000"])
+                                                              #:explicit-space " "
+                                                              #:zero-width-space "\u200B"
+                                                              #:fullwidth-space "\u3000"
+                                                              #:tab "\t"
+                                                              #:newline "\n")
+                                           #:punctuation-> (->punctuation->string punctuation))
                       pin1yin1)))
 
 (define (make-pin1yin1->zhuyin #:syllabic-m? [syllabic-m? #f]
@@ -74,19 +73,18 @@
                                            #:prefix-neutral-tone? prefix-neutral-tone?))
                              #:string->string identity)
                       #:non-phonetic->string
-                      (curry non-phonetic->
-                             #:literal-> literal-content
-                             #:whitespace->
-                             (make-whitespace-> #:space
-                                                (case space
-                                                  [(none) ""]
-                                                  [(zero-width) "\u200B"]
-                                                  [(halfwidth) " "]
-                                                  [(fullwidth) "\u3000"])
-                                                #:explicit-space " "
-                                                #:zero-width-space "\u200B"
-                                                #:fullwidth-space "\u3000"
-                                                #:tab "\t"
-                                                #:newline "\n")
-                             #:punctuation-> (->punctuation->string punctuation))
+                      (make-non-phonetic-> #:literal-> literal-content
+                                           #:whitespace->
+                                           (make-whitespace-> #:space
+                                                              (case space
+                                                                [(none) ""]
+                                                                [(zero-width) "\u200B"]
+                                                                [(halfwidth) " "]
+                                                                [(fullwidth) "\u3000"])
+                                                              #:explicit-space " "
+                                                              #:zero-width-space "\u200B"
+                                                              #:fullwidth-space "\u3000"
+                                                              #:tab "\t"
+                                                              #:newline "\n")
+                                           #:punctuation-> (->punctuation->string punctuation))
                       pin1yin1)))

@@ -7,7 +7,7 @@
          non-phonetic?
 
          make-whitespace->
-         non-phonetic->)
+         make-non-phonetic->)
 
 (module+ internal
   (provide whitespace-table
@@ -85,14 +85,13 @@
                                whitespace?
                                punctuation?))
 
-(define (non-phonetic-> #:literal-> literal->
-                        #:whitespace-> whitespace->
-                        #:punctuation-> punctuation->
-                        non-phonetic)
-  (match non-phonetic
-    [(? literal? literal)
-     (literal-> literal)]
-    [(? whitespace? whitespace)
-     (whitespace-> whitespace)]
-    [(? punctuation? punctuation)
-     (punctuation-> punctuation)]))
+(define (make-non-phonetic-> #:literal-> literal->
+                             #:whitespace-> whitespace->
+                             #:punctuation-> punctuation->)
+  (match-λ
+   [(? literal? literal)
+    (literal-> literal)]
+   [(? whitespace? whitespace)
+    (whitespace-> whitespace)]
+   [(? punctuation? punctuation)
+    (punctuation-> punctuation)]))
