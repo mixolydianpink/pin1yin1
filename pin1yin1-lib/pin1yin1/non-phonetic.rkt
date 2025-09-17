@@ -62,14 +62,19 @@
     [colon                    ,(eq/p #\:)                  ":"    "："    "："]
     [semicolon                ,(eq/p #\;)                  ";"    "；"    "；"]
     [slash                    ,(eq/p #\/)                  "/"    "/"    "/"]
-    [em-dash                  ,(eq/p #\- #\- #\-)          "—"    "⸺"    "⸺"]
+    [em-dash                  ,(or/p (eq/p #\—)
+                                     (eq/p #\- #\- #\-))   "—"    "⸺"    "⸺"]
     [wave-dash                ,(eq/p #\~)                  "~"    "～"    "～"]
     [left-parenthesis         ,(eq/p #\()                  "("    "（"    "（"]
     [right-parenthesis        ,(eq/p #\))                  ")"    "）"    "）"]
-    [left-outer-quote         ,(eq/p #\[)                  "“"    "「"    "“"]
-    [right-outer-quote        ,(eq/p #\])                  "”"    "」"    "”"]
-    [left-inner-quote         ,(eq/p #\{)                  "‘"    "『"    "‘"]
-    [right-inner-quote        ,(eq/p #\})                  "’"    "』"    "’"]))
+    [left-outer-quote         ,(or/p (eq/p #\“)
+                                     (eq/p #\[))           "“"    "「"    "“"]
+    [right-outer-quote        ,(or/p (eq/p #\”)
+                                     (eq/p #\]))           "”"    "」"    "”"]
+    [left-inner-quote         ,(or/p (eq/p #\‘)
+                                     (eq/p #\{))           "‘"    "『"    "‘"]
+    [right-inner-quote        ,(or/p (eq/p #\’)
+                                     (eq/p #\}))           "’"    "』"    "’"]))
 
 (define (punctuation? symbol)
   (if (assoc symbol punctuation-table)
