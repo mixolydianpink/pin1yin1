@@ -73,7 +73,10 @@
                                         [(parenthesized) "(r)"]
                                         [(none) ""])))])
       (string-append (if (and (not suppress-leading-apostrophe?)
-                              (equal? empty pre))
+                              (or (equal? empty pre)
+                                  (let ([segments (syllable-segments syllable)])
+                                    (or (list-prefix? '(#\g #\n) segments)
+                                        (list-prefix? '(#\n #\g) segments)))))
                          "'"
                          "")
                      pinyin))))
