@@ -12,7 +12,7 @@
 
 (define (pst/p #:pst pst
                #:prefix [prefix empty]
-               key/p)
+               #:key-fragment/p key-fragment/p)
   (let loop ([reverse-key-list (reverse prefix)])
     (let ([key-list (reverse reverse-key-list)])
       (let-values ([(value prefix?) (pst-ref/prefix? pst key-list)])
@@ -24,7 +24,7 @@
                   never/p])])
           (if (not prefix?)
               result/p
-              (or/p (bind/p (λ (next-key)
-                              (loop (cons next-key reverse-key-list)))
-                            key/p)
+              (or/p (bind/p (λ (next-key-fragment)
+                              (loop (append (reverse next-key-fragment) reverse-key-list)))
+                            key-fragment/p)
                     result/p)))))))

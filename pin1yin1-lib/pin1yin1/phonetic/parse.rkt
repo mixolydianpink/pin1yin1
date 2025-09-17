@@ -57,7 +57,9 @@
                                      (list (if capitalized?
                                                (char-downcase first)
                                                first))
-                                     subsequent/p))))
+                                     #:key-fragment/p
+                                     (map/p list
+                                            subsequent/p)))))
                   first/p)]
          [tone/p
           (or/p (map/p (λ (char)
