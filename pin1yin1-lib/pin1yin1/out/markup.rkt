@@ -10,6 +10,7 @@
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/markup
          pin1yin1/non-phonetic/string
+         pin1yin1/option
          pin1yin1/phonetic/markup
          pin1yin1/pin1yin1/markup)
 
@@ -27,17 +28,23 @@
                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
-                             (curry compound->pinyin/html-fragment
-                                    #:diacritic-e^? diacritic-e^?
-                                    #:diacritic-m? diacritic-m?
-                                    #:diacritic-n? diacritic-n?
-                                    #:diacritic-ng? diacritic-ng?
-                                    #:explicit-neutral-tone? explicit-neutral-tone?
-                                    #:syllable-first-tone-class syllable-first-tone-class
-                                    #:syllable-second-tone-class syllable-second-tone-class
-                                    #:syllable-third-tone-class syllable-third-tone-class
-                                    #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                    #:syllable-neutral-tone-class syllable-neutral-tone-class)
+                             (curry compound->html-fragment #:sep (some "-")
+                                    #:polysyllable->html-fragment
+                                    (curry polysyllable->pinyin/html-fragment
+                                           #:syllable->pinyin/html-fragment
+                                           (compose list
+                                                    (curry syllable->pinyin/span
+                                                           #:diacritic-e^? diacritic-e^?
+                                                           #:diacritic-m? diacritic-m?
+                                                           #:diacritic-n? diacritic-n?
+                                                           #:diacritic-ng? diacritic-ng?
+                                                           #:explicit-neutral-tone? explicit-neutral-tone?
+                                                           #:first-tone-class syllable-first-tone-class
+                                                           #:second-tone-class syllable-second-tone-class
+                                                           #:third-tone-class syllable-third-tone-class
+                                                           #:fourth-tone-class syllable-fourth-tone-class
+                                                           #:neutral-tone-class syllable-neutral-tone-class)))
+                                    #:string->html-fragment string->html-fragment)
                              #:non-phonetic->html-fragment
                              (curry non-phonetic->
                                     #:literal-> literal->html-fragment
@@ -74,18 +81,24 @@
                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
-                             (curry compound->zhuyin/html-fragment
-                                    #:syllabic-m? syllabic-m?
-                                    #:syllabic-n? syllabic-n?
-                                    #:syllabic-ng? syllabic-ng?
-                                    #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                    #:explicit-first-tone? explicit-first-tone?
-                                    #:prefix-neutral-tone? prefix-neutral-tone?
-                                    #:syllable-first-tone-class syllable-first-tone-class
-                                    #:syllable-second-tone-class syllable-second-tone-class
-                                    #:syllable-third-tone-class syllable-third-tone-class
-                                    #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                    #:syllable-neutral-tone-class syllable-neutral-tone-class)
+                             (curry compound->html-fragment #:sep (none)
+                                    #:polysyllable->html-fragment
+                                    (curry polysyllable->zhuyin/html-fragment
+                                           #:syllable->zhuyin/html-fragment
+                                           (compose list
+                                                    (curry syllable->zhuyin/span
+                                                           #:syllabic-m? syllabic-m?
+                                                           #:syllabic-n? syllabic-n?
+                                                           #:syllabic-ng? syllabic-ng?
+                                                           #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                                           #:explicit-first-tone? explicit-first-tone?
+                                                           #:prefix-neutral-tone? prefix-neutral-tone?
+                                                           #:first-tone-class syllable-first-tone-class
+                                                           #:second-tone-class syllable-second-tone-class
+                                                           #:third-tone-class syllable-third-tone-class
+                                                           #:fourth-tone-class syllable-fourth-tone-class
+                                                           #:neutral-tone-class syllable-neutral-tone-class)))
+                                    #:string->html-fragment string->html-fragment)
                              #:non-phonetic->html-fragment
                              (curry non-phonetic->
                                     #:literal-> literal->html-fragment
