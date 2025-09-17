@@ -5,9 +5,11 @@
 (require (only-in racket/list
                   append-map))
 
-(define (flatten1 lst)
-  (append-map (λ (any)
-                (if (list? any)
-                    any
-                    (list any)))
-              lst))
+(define (->list any)
+  (if (list? any)
+      any
+      (list any)))
+
+(define (flatten1 list)
+  (append-map ->list
+              list))
