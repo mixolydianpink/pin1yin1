@@ -1,10 +1,18 @@
 #lang racket/base
 
-(provide make-pin1yin1->pinyin/html-fragment
+(provide html-fragment->string
+
+         make-pin1yin1->pinyin/html-fragment
          make-pin1yin1->zhuyin/html-fragment)
 
 (require (only-in racket/function
                   curry)
+         (only-in racket/string
+                  string-append*)
+         (only-in xml
+                  empty-tag-shorthand
+                  html-empty-tags
+                  xexpr->string)
 
          pin1yin1/markup
          pin1yin1/non-phonetic
@@ -13,6 +21,11 @@
          pin1yin1/option
          pin1yin1/phonetic/markup
          pin1yin1/pin1yin1/markup)
+
+(define (html-fragment->string fragment)
+  (parameterize ([empty-tag-shorthand (cons 'wbr html-empty-tags)])
+    (string-append* (map xexpr->string
+                         fragment))))
 
 (define (make-pin1yin1->pinyin/html-fragment #:diacritic-e^? [diacritic-e^? #t]
                                              #:diacritic-m? [diacritic-m? #t]

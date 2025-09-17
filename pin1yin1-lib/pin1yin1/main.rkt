@@ -19,11 +19,6 @@
   (require rackunit
            rackunit/text-ui)
 
-  (require (only-in racket/string
-                    string-append*)
-           (only-in xml
-                    xexpr->string))
-
   (require (submod "..") #|pin1yin1|#)
 
   (define ->pinyin/t
@@ -89,35 +84,35 @@
                             (test-equal? "Language tag (ignored)"
                                          (pin1yin1->pinyin "#en-US|Hello|")
                                          "Hello"))
-;;                 (test-suite "Punctuation style"
-;;                             (test-equal? "Chinese (Latn) (with fullwidth space)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-Latn+fullwidth-space
-;;                                                            "|Hello| (ni3#s#hao3)")
-;;                                          "Hello (nǐ\u3000hǎo)")
-;;                             (test-equal? "Chinese (TW)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW
-;;                                                            "|你好| (ni3_hao3)")
-;;                                          "你好（nǐ hǎo）")
-;;                             (test-equal? "Chinese (TW) (with halfwidth non-explicit spaces)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW+space
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "Tā shuō： 「Nǐ hǎo！」")
-;;                             (test-equal? "Chinese (TW) (with zero-width non-explicit spaces)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW+space/zero-width
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "Tā\u200Bshuō：\u200B「Nǐ hǎo！」")
-;;                             (test-equal? "Chinese (CN)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN
-;;                                                            "|你好| (ni3_hao3)")
-;;                                          "你好（nǐ hǎo）")
-;;                             (test-equal? "Chinese (CN) (with halfwidth non-explicit spaces)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN+space
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "Tā shuō： “Nǐ hǎo！”")
-;;                             (test-equal? "Chinese (CN) (with zero-width non-explicit spaces)"
-;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN+space/zero-width
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "Tā\u200Bshuō：\u200B“Nǐ hǎo！”"))))
+                ;;                 (test-suite "Punctuation style"
+                ;;                             (test-equal? "Chinese (Latn) (with fullwidth space)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-Latn+fullwidth-space
+                ;;                                                            "|Hello| (ni3#s#hao3)")
+                ;;                                          "Hello (nǐ\u3000hǎo)")
+                ;;                             (test-equal? "Chinese (TW)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW
+                ;;                                                            "|你好| (ni3_hao3)")
+                ;;                                          "你好（nǐ hǎo）")
+                ;;                             (test-equal? "Chinese (TW) (with halfwidth non-explicit spaces)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW+space
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "Tā shuō： 「Nǐ hǎo！」")
+                ;;                             (test-equal? "Chinese (TW) (with zero-width non-explicit spaces)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-TW+space/zero-width
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "Tā\u200Bshuō：\u200B「Nǐ hǎo！」")
+                ;;                             (test-equal? "Chinese (CN)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN
+                ;;                                                            "|你好| (ni3_hao3)")
+                ;;                                          "你好（nǐ hǎo）")
+                ;;                             (test-equal? "Chinese (CN) (with halfwidth non-explicit spaces)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN+space
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "Tā shuō： “Nǐ hǎo！”")
+                ;;                             (test-equal? "Chinese (CN) (with zero-width non-explicit spaces)"
+                ;;                                          (pin1yin1->pinyin #:punctuation 'zh-CN+space/zero-width
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "Tā\u200Bshuō：\u200B“Nǐ hǎo！”"))))
                 ))
 
   (define ->zhuyin/t
@@ -184,40 +179,39 @@
                             (test-equal? "Language tag (ignored)"
                                          (pin1yin1->zhuyin "#en-US|Hello|")
                                          "Hello"))
-;;                 (test-suite "Punctuation style"
-;;                             (test-equal? "Chinese (Latn)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-Latn
-;;                                                            "|你好| (ni3#s#hao3)")
-;;                                          "你好 (ㄋㄧˇ ㄏㄠˇ)")
-;;                             (test-equal? "Chinese (Latn) (with fullwidth space)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-Latn+fullwidth-space
-;;                                                            "|Hello| (ni3#s#hao3)")
-;;                                          "Hello (ㄋㄧˇ\u3000ㄏㄠˇ)")
-;;                             (test-equal? "Chinese (TW) (with halfwidth non-explicit spaces)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "ㄊㄚ ㄕㄨㄛ： 「ㄋㄧˇ ㄏㄠˇ！」")
-;;                             (test-equal? "Chinese (TW) (with zero-width non-explicit spaces)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space/zero-width
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "ㄊㄚ\u200Bㄕㄨㄛ：\u200B「ㄋㄧˇ ㄏㄠˇ！」")
-;;                             (test-equal? "Chinese (CN)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN
-;;                                                            "|你好| (ni3_hao3)")
-;;                                          "你好（ㄋㄧˇ ㄏㄠˇ）")
-;;                             (test-equal? "Chinese (CN) (with halfwidth non-explicit spaces)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN+space
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "ㄊㄚ ㄕㄨㄛ： “ㄋㄧˇ ㄏㄠˇ！”")
-;;                             (test-equal? "Chinese (CN) (with zero-width non-explicit spaces)"
-;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN+space/zero-width
-;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
-;;                                          "ㄊㄚ\u200Bㄕㄨㄛ：\u200B“ㄋㄧˇ ㄏㄠˇ！”"))))
+                ;;                 (test-suite "Punctuation style"
+                ;;                             (test-equal? "Chinese (Latn)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-Latn
+                ;;                                                            "|你好| (ni3#s#hao3)")
+                ;;                                          "你好 (ㄋㄧˇ ㄏㄠˇ)")
+                ;;                             (test-equal? "Chinese (Latn) (with fullwidth space)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-Latn+fullwidth-space
+                ;;                                                            "|Hello| (ni3#s#hao3)")
+                ;;                                          "Hello (ㄋㄧˇ\u3000ㄏㄠˇ)")
+                ;;                             (test-equal? "Chinese (TW) (with halfwidth non-explicit spaces)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "ㄊㄚ ㄕㄨㄛ： 「ㄋㄧˇ ㄏㄠˇ！」")
+                ;;                             (test-equal? "Chinese (TW) (with zero-width non-explicit spaces)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-TW+space/zero-width
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "ㄊㄚ\u200Bㄕㄨㄛ：\u200B「ㄋㄧˇ ㄏㄠˇ！」")
+                ;;                             (test-equal? "Chinese (CN)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN
+                ;;                                                            "|你好| (ni3_hao3)")
+                ;;                                          "你好（ㄋㄧˇ ㄏㄠˇ）")
+                ;;                             (test-equal? "Chinese (CN) (with halfwidth non-explicit spaces)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN+space
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "ㄊㄚ ㄕㄨㄛ： “ㄋㄧˇ ㄏㄠˇ！”")
+                ;;                             (test-equal? "Chinese (CN) (with zero-width non-explicit spaces)"
+                ;;                                          (pin1yin1->zhuyin #:punctuation 'zh-CN+space/zero-width
+                ;;                                                            "Ta1 shuo1: [Ni3_hao3!]")
+                ;;                                          "ㄊㄚ\u200Bㄕㄨㄛ：\u200B“ㄋㄧˇ ㄏㄠˇ！”"))))
                 ))
 
-  (define (html-fragment->string html-fragment)
-    (string-append* (map xexpr->string
-                         html-fragment)))
+  (require (submod ".." out) #|(submod pin1yin1 out)|#)
+
   (define ->pinyin/html/t
     (test-suite "Convert pin1yin1 to pinyin as HTML"
 
