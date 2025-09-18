@@ -42,6 +42,7 @@
                                                                 [(zero-width) "\u200B"]
                                                                 [(halfwidth) " "]
                                                                 [(fullwidth) "\u3000"])
+                                                              #:underscore " "
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"
@@ -82,6 +83,7 @@
                                                                 [(zero-width) "\u200B"]
                                                                 [(halfwidth) " "]
                                                                 [(fullwidth) "\u3000"])
+                                                              #:underscore " "
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"

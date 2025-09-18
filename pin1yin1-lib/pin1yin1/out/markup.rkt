@@ -69,6 +69,7 @@
                                                                        [(halfwidth) '(" ")]
                                                                        [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
+                                                                     #:underscore '(" ")
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)
@@ -123,6 +124,7 @@
                                                                        [(halfwidth) '(" ")]
                                                                        [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
+                                                                     #:underscore '(" ")
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)
