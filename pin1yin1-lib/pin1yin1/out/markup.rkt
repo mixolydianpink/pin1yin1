@@ -33,6 +33,7 @@
                                              #:diacritic-ng? [diacritic-ng? #t]
                                              #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                              #:space [space 'halfwidth]
+                                             #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-Latn]
                                              #:syllable-first-tone-class [syllable-first-tone-class #f]
                                              #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -69,7 +70,13 @@
                                                                        [(halfwidth) '(" ")]
                                                                        [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
-                                                                     #:underscore '(" ")
+                                                                     #:underscore
+                                                                     (case underscore
+                                                                       [(none) '()]
+                                                                       [(zero-width) '(#x200B)]
+                                                                       [(halfwidth) '(" ")]
+                                                                       [(fullwidth) '(#x3000)]
+                                                                       [(wbr) '((wbr))])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)
@@ -87,6 +94,7 @@
                                              #:explicit-first-tone? [explicit-first-tone? #f]
                                              #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                              #:space [space 'none]
+                                             #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-TW]
                                              #:syllable-first-tone-class [syllable-first-tone-class #f]
                                              #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -124,7 +132,13 @@
                                                                        [(halfwidth) '(" ")]
                                                                        [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
-                                                                     #:underscore '(" ")
+                                                                     #:underscore
+                                                                     (case underscore
+                                                                       [(none) '()]
+                                                                       [(zero-width) '(#x200B)]
+                                                                       [(halfwidth) '(" ")]
+                                                                       [(fullwidth) '(#x3000)]
+                                                                       [(wbr) '((wbr))])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)

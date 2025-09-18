@@ -18,6 +18,7 @@
                                #:diacritic-ng? [diacritic-ng? #t]
                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                #:space [space 'halfwidth]
+                               #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-Latn])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
@@ -42,7 +43,12 @@
                                                                 [(zero-width) "\u200B"]
                                                                 [(halfwidth) " "]
                                                                 [(fullwidth) "\u3000"])
-                                                              #:underscore " "
+                                                              #:underscore
+                                                              (case underscore
+                                                                [(none) ""]
+                                                                [(zero-width) "\u200B"]
+                                                                [(halfwidth) " "]
+                                                                [(fullwidth) "\u3000"])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"
@@ -58,6 +64,7 @@
                                #:explicit-first-tone? [explicit-first-tone? #f]
                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                #:space [space 'none]
+                               #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-TW])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
@@ -83,7 +90,12 @@
                                                                 [(zero-width) "\u200B"]
                                                                 [(halfwidth) " "]
                                                                 [(fullwidth) "\u3000"])
-                                                              #:underscore " "
+                                                              #:underscore
+                                                              (case underscore
+                                                                [(none) ""]
+                                                                [(zero-width) "\u200B"]
+                                                                [(halfwidth) " "]
+                                                                [(fullwidth) "\u3000"])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"

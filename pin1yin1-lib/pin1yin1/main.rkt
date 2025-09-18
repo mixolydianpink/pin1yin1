@@ -13,6 +13,7 @@
                                      #:diacritic-ng? boolean?
                                      #:explicit-neutral-tone? boolean?
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (rename pin1yin1-string->zhuyin pin1yin1->zhuyin
@@ -27,6 +28,7 @@
                                      #:explicit-first-tone? boolean?
                                      #:prefix-neutral-tone? boolean?
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (pin1yin1->pinyin/html
@@ -40,6 +42,7 @@
                               #:diacritic-ng? boolean?
                               #:explicit-neutral-tone? boolean?
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -59,6 +62,7 @@
                               #:explicit-first-tone? boolean?
                               #:prefix-neutral-tone? boolean?
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -94,6 +98,7 @@
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->zhuyin
@@ -105,6 +110,7 @@
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->pinyin/html-fragment
@@ -115,6 +121,7 @@
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)
@@ -131,6 +138,7 @@
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)

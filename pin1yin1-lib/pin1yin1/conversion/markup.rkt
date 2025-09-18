@@ -15,6 +15,7 @@
                                                #:diacritic-ng? [diacritic-ng? #t]
                                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
                                                #:space [space 'halfwidth]
+                                               #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-Latn]
                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -34,6 +35,7 @@
                                                #:diacritic-ng? diacritic-ng?
                                                #:explicit-neutral-tone? explicit-neutral-tone?
                                                #:space space
+                                               #:underscore underscore
                                                #:punctuation punctuation
                                                #:syllable-first-tone-class syllable-first-tone-class
                                                #:syllable-second-tone-class syllable-second-tone-class
@@ -52,6 +54,7 @@
                                                #:explicit-first-tone? [explicit-first-tone? #f]
                                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
                                                #:space [space 'none]
+                                               #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-TW]
                                                #:syllable-first-tone-class [syllable-first-tone-class #f]
                                                #:syllable-second-tone-class [syllable-second-tone-class #f]
@@ -72,6 +75,7 @@
                                                #:explicit-first-tone? explicit-first-tone?
                                                #:prefix-neutral-tone? prefix-neutral-tone?
                                                #:space space
+                                               #:underscore underscore
                                                #:punctuation punctuation
                                                #:syllable-first-tone-class syllable-first-tone-class
                                                #:syllable-second-tone-class syllable-second-tone-class
