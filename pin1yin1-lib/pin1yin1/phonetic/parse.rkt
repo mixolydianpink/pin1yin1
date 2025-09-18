@@ -110,13 +110,13 @@
 (define numerals (string->list "0123456789"))
 
 (define (compound/p polysyllable/p)
-  (define (capital? char) (if (member char capitals char=?) #t #f))
-  (define (numeral? char) (if (member char numerals char=?) #t #f))
+  (define (char-capital? char) (if (member char capitals char=?) #t #f))
+  (define (char-numeral? char) (if (member char numerals char=?) #t #f))
   (let ([polysyllable/capitals/numerals/p
          (or/p polysyllable/p
                (map/p list->string
-                      (or/p (multi+/p (if/p (conjoin char? capital?)))
-                            (multi+/p (if/p (conjoin char? numeral?))))))])
+                      (or/p (multi+/p (if/p (conjoin char? char-capital?)))
+                            (multi+/p (if/p (conjoin char? char-numeral?))))))])
     (map/p compound
            (sep-by/p #:sep/p (eq/p #\-)
                      polysyllable/capitals/numerals/p))))

@@ -126,33 +126,3 @@
                              [(? string? string)
                               (string->html-fragment string)]))
                          (option-map list sep))))
-
-(define (compound->pinyin/html-fragment #:diacritic-e^? diacritic-e^?
-                                        #:diacritic-m? diacritic-m?
-                                        #:diacritic-n? diacritic-n?
-                                        #:diacritic-ng? diacritic-ng?
-                                        #:explicit-neutral-tone? explicit-neutral-tone?
-                                        #:syllable-first-tone-class syllable-first-tone-class
-                                        #:syllable-second-tone-class syllable-second-tone-class
-                                        #:syllable-third-tone-class syllable-third-tone-class
-                                        #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                        #:syllable-neutral-tone-class syllable-neutral-tone-class
-                                        compound)
-  (compound->html-fragment #:sep (some "-")
-                           #:polysyllable->html-fragment
-                           (curry polysyllable->pinyin/html-fragment
-                                  #:syllable->pinyin/html-fragment
-                                  (compose list
-                                           (curry syllable->pinyin/span
-                                                  #:diacritic-e^? diacritic-e^?
-                                                  #:diacritic-m? diacritic-m?
-                                                  #:diacritic-n? diacritic-n?
-                                                  #:diacritic-ng? diacritic-ng?
-                                                  #:explicit-neutral-tone? explicit-neutral-tone?
-                                                  #:first-tone-class syllable-first-tone-class
-                                                  #:second-tone-class syllable-second-tone-class
-                                                  #:third-tone-class syllable-third-tone-class
-                                                  #:fourth-tone-class syllable-fourth-tone-class
-                                                  #:neutral-tone-class syllable-neutral-tone-class)))
-                           #:string->html-fragment string->html-fragment
-                           compound))

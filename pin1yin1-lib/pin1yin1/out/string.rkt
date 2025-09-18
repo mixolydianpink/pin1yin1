@@ -60,7 +60,8 @@
                                #:punctuation [punctuation 'zh-TW])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
-                      (curry compound->string #:sep ""
+                      (curry compound->string
+                             #:sep ""
                              #:polysyllable->string
                              (curry polysyllable->zhuyin
                                     #:syllable->zhuyin

@@ -29,11 +29,11 @@
            [(none) ""])]
         [tone
          (case (syllable-tone syllable)
+           [(0) "5"]
            [(1) "1"]
            [(2) "2"]
            [(3) "3"]
-           [(4) "4"]
-           [(0) "5"])])
+           [(4) "4"])])
     (string-append (if (syllable-capitalized? syllable)
                        (capitalize segments)
                        segments)

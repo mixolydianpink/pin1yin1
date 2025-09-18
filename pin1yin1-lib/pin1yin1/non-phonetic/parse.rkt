@@ -16,31 +16,27 @@
          pin1yin1/parse)
 
 (define non-phonetic/p
-  (let* ([literal/p
+  (let* ([literal-or-empty/p
           (bind/p (match-λ
                    [(some "")
                     never/p]
                    [lang
-                    (map/p (compose (curry literal lang)
-                                    list->string)
-                           (delimited/p #:pre '(#\|)
-                                        #:post '(#\|)
-                                        #:escapable? #t
-                                        (if/p char?)))])
+                    (bind/p (λ (content)
+                              (if (and (none? lang)
+                                       (equal? "" content))
+                                  (pure/p empty) ; Will be `flatten1`ed out.
+                                  (pure/p (literal lang content))))
+                            (map/p list->string
+                                   (delimited/p #:pre '(#\|)
+                                                #:post '(#\|)
+                                                #:escapable? #t
+                                                (if/p char?))))])
                   (opt/p (map/p list->string
                                 (between/p #:pre/p (eq/p #\#)
                                            #:post/p (lookahead/p (eq/p #\|))
                                            (right/p (not/p null
                                                            (eq/p #\#))
                                                     (if/p char?))))))]
-         ; Allow '||' to be used as a separator, eg '.||..'
-         [literal-or-separator/p
-          (map/p (match-λ
-                  [(literal (none) "")
-                   empty] ; Will be flattened out.
-                  [literal
-                   literal])
-                 literal/p)]
          [whitespace/p
           (apply or/p (for/list ([row whitespace-table])
                         (match-let ([(cons symbol parser) row])
@@ -50,6 +46,6 @@
                         (match-let ([(list* symbol parser _) row])
                           (map/p (const symbol) parser))))])
     (map/p flatten1
-           (multi+/p (or/p literal-or-separator/p
+           (multi+/p (or/p literal-or-empty/p
                            whitespace/p
                            punctuation/p)))))

@@ -41,7 +41,8 @@
                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
-                             (curry compound->html-fragment #:sep (some "-")
+                             (curry compound->html-fragment
+                                    #:sep (some "-")
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
                                            #:syllable->pinyin/html-fragment
@@ -93,7 +94,8 @@
                                              #:syllable-neutral-tone-class [syllable-neutral-tone-class #f])
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
-                             (curry compound->html-fragment #:sep (none)
+                             (curry compound->html-fragment
+                                    #:sep (none)
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
                                            #:syllable->zhuyin/html-fragment
