@@ -10,13 +10,15 @@
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/string
          pin1yin1/phonetic/string
-         pin1yin1/pin1yin1/string)
+         pin1yin1/pin1yin1/string
+         pin1yin1/string)
 
 (define (make-pin1yin1->pinyin #:diacritic-e^? [diacritic-e^? #t]
                                #:diacritic-m? [diacritic-m? #t]
                                #:diacritic-n? [diacritic-n? #t]
                                #:diacritic-ng? [diacritic-ng? #t]
                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                               #:capitals/numerals [capitals/numerals 'halfwidth]
                                #:space [space 'halfwidth]
                                #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-Latn])
@@ -33,7 +35,9 @@
                                            #:diacritic-n? diacritic-n?
                                            #:diacritic-ng? diacritic-ng?
                                            #:explicit-neutral-tone? explicit-neutral-tone?))
-                             #:string->string identity)
+                             #:string->string (case capitals/numerals
+                                                [(halfwidth) identity]
+                                                [(fullwidth) string/fullwidth-capitals-and-numerals]))
                       #:non-phonetic->string
                       (make-non-phonetic-> #:literal-> literal-content
                                            #:whitespace->
@@ -63,6 +67,7 @@
                                #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
                                #:explicit-first-tone? [explicit-first-tone? #f]
                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                               #:capitals/numerals [capitals/numerals 'fullwidth]
                                #:space [space 'none]
                                #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-TW])
@@ -80,7 +85,9 @@
                                            #:explicit-empty-rhyme? explicit-empty-rhyme?
                                            #:explicit-first-tone? explicit-first-tone?
                                            #:prefix-neutral-tone? prefix-neutral-tone?))
-                             #:string->string identity)
+                             #:string->string (case capitals/numerals
+                                                [(halfwidth) identity]
+                                                [(fullwidth) string/fullwidth-capitals-and-numerals]))
                       #:non-phonetic->string
                       (make-non-phonetic-> #:literal-> literal-content
                                            #:whitespace->

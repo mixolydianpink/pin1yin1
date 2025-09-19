@@ -6,7 +6,8 @@
          html-fragment->string)
 
 (require (only-in racket/function
-                  curry)
+                  curry
+                  identity)
          (only-in racket/string
                   string-append*)
          (only-in xml
@@ -20,7 +21,8 @@
          pin1yin1/non-phonetic/string
          pin1yin1/option
          pin1yin1/phonetic/markup
-         pin1yin1/pin1yin1/markup)
+         pin1yin1/pin1yin1/markup
+         pin1yin1/string)
 
 (define (html-fragment->string fragment)
   (parameterize ([empty-tag-shorthand (cons 'wbr html-empty-tags)])
@@ -32,6 +34,7 @@
                                              #:diacritic-n? [diacritic-n? #t]
                                              #:diacritic-ng? [diacritic-ng? #t]
                                              #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                             #:capitals/numerals [capitals/numerals 'halfwidth]
                                              #:space [space 'halfwidth]
                                              #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-Latn]
@@ -59,7 +62,11 @@
                                                            #:third-tone-class syllable-third-tone-class
                                                            #:fourth-tone-class syllable-fourth-tone-class
                                                            #:neutral-tone-class syllable-neutral-tone-class)))
-                                    #:string->html-fragment string->html-fragment)
+                                    #:string->html-fragment
+                                    (compose string->html-fragment
+                                             (case capitals/numerals
+                                               [(halfwidth) identity]
+                                               [(fullwidth) string/fullwidth-capitals-and-numerals])))
                              #:non-phonetic->html-fragment
                              (make-non-phonetic-> #:literal-> literal->html-fragment
                                                   #:whitespace->
@@ -93,6 +100,7 @@
                                              #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
                                              #:explicit-first-tone? [explicit-first-tone? #f]
                                              #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                             #:capitals/numerals [capitals/numerals 'fullwidth]
                                              #:space [space 'none]
                                              #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-TW]
@@ -121,7 +129,11 @@
                                                            #:third-tone-class syllable-third-tone-class
                                                            #:fourth-tone-class syllable-fourth-tone-class
                                                            #:neutral-tone-class syllable-neutral-tone-class)))
-                                    #:string->html-fragment string->html-fragment)
+                                    #:string->html-fragment
+                                    (compose string->html-fragment
+                                             (case capitals/numerals
+                                               [(halfwidth) identity]
+                                               [(fullwidth) string/fullwidth-capitals-and-numerals])))
                              #:non-phonetic->html-fragment
                              (make-non-phonetic-> #:literal-> literal->html-fragment
                                                   #:whitespace->

@@ -12,6 +12,7 @@
                                      #:diacritic-n? boolean?
                                      #:diacritic-ng? boolean?
                                      #:explicit-neutral-tone? boolean?
+                                     #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -27,6 +28,7 @@
                                      #:explicit-empty-rhyme? boolean?
                                      #:explicit-first-tone? boolean?
                                      #:prefix-neutral-tone? boolean?
+                                     #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -41,6 +43,7 @@
                               #:diacritic-n? boolean?
                               #:diacritic-ng? boolean?
                               #:explicit-neutral-tone? boolean?
+                              #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -61,6 +64,7 @@
                               #:explicit-empty-rhyme? boolean?
                               #:explicit-first-tone? boolean?
                               #:prefix-neutral-tone? boolean?
+                              #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -97,6 +101,7 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
+                                #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -109,6 +114,7 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
+                                #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -120,6 +126,7 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
+                                #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -137,6 +144,7 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
+                                #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -299,17 +307,17 @@
                 (test-suite "Capitals"
                             (test-equal? "As word"
                                          (pin1yin1->zhuyin "APP shan3tui4 le5")
-                                         "APPㄕㄢˇㄊㄨㄟˋㄌㄜ˙")
+                                         "ＡＰＰㄕㄢˇㄊㄨㄟˋㄌㄜ˙")
                             (test-equal? "Within word"
                                          (pin1yin1->zhuyin "T-xu4shan1")
-                                         "Tㄒㄩˋㄕㄢ"))
+                                         "Ｔㄒㄩˋㄕㄢ"))
                 (test-suite "Numerals"
                             (test-equal? "As word"
                                          (pin1yin1->zhuyin "1990")
-                                         "1990")
+                                         "１９９０")
                             (test-equal? "Within word"
                                          (pin1yin1->zhuyin "di4-12")
-                                         "ㄉㄧˋ12"))
+                                         "ㄉㄧˋ１２"))
                 (test-equal? "Erhua"
                              (pin1yin1->zhuyin "nar4_dian(r)3")
                              "ㄋㄚˋㄦ ㄉㄧㄢˇ（ㄦ）")
