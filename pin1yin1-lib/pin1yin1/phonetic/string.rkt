@@ -1,7 +1,6 @@
 #lang racket/base
 
-(provide syllable->pin1yin1
-         syllable->pinyin
+(provide syllable->pinyin
          syllable->zhuyin
          polysyllable->pinyin
          polysyllable->zhuyin
@@ -9,7 +8,7 @@
 
 (require (only-in racket/list
                   add-between
-                  empty
+                  empty?
                   list-prefix?)
          racket/match
          (only-in racket/string
@@ -18,28 +17,6 @@
          pin1yin1/phonetic
          pin1yin1/string)
 
-(define (syllable->pin1yin1 syllable)
-  (let ([segments (list->string (syllable-segments syllable))]
-        [erization
-         (case (syllable-erization syllable)
-           [(bare) (if (equal? '(#\e) (syllable-segments syllable))
-                       "'r"
-                       "r")]
-           [(parenthesized) "(r)"]
-           [(none) ""])]
-        [tone
-         (case (syllable-tone syllable)
-           [(0) "5"]
-           [(1) "1"]
-           [(2) "2"]
-           [(3) "3"]
-           [(4) "4"])])
-    (string-append (if (syllable-capitalized? syllable)
-                       (capitalize segments)
-                       segments)
-                   erization
-                   tone)))
-
 (define (syllable->pinyin #:diacritic-e^? diacritic-e^?
                           #:diacritic-m? diacritic-m?
                           #:diacritic-n? diacritic-n?
@@ -47,6 +24,27 @@
                           #:explicit-neutral-tone? explicit-neutral-tone?
                           #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                           syllable)
+  (define (syllable->pin1yin1 syllable)
+    (let ([segments (list->string (syllable-segments syllable))]
+          [erization
+           (case (syllable-erization syllable)
+             [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                         "'r"
+                         "r")]
+             [(parenthesized) "(r)"]
+             [(none) ""])]
+          [tone
+           (case (syllable-tone syllable)
+             [(0) "5"]
+             [(1) "1"]
+             [(2) "2"]
+             [(3) "3"]
+             [(4) "4"])])
+      (string-append (if (syllable-capitalized? syllable)
+                         (capitalize segments)
+                         segments)
+                     erization
+                     tone)))
   (match-let ([(list pre unmarked post) (syllable-segments/grouped syllable)])
     (let* ([neutral-tone? (= 0 (syllable-tone syllable))]
            [numbered?
@@ -59,20 +57,21 @@
                                 (and (not diacritic-ng?)
                                      (list-prefix? '(#\g) post)))]
                    [else #f]))]
-           [pinyin (if numbered?
-                       (syllable->pin1yin1 syllable)
-                       (string-append (if (and explicit-neutral-tone? neutral-tone?)
-                                          "·"
-                                          "")
-                                      (syllable-pinyin-core syllable)
-                                      (case (syllable-erization syllable)
-                                        [(bare) (if (equal? '(#\e) (syllable-segments syllable))
-                                                    "'r"
-                                                    "r")]
-                                        [(parenthesized) "(r)"]
-                                        [(none) ""])))])
+           [pinyin
+            (if numbered?
+                (syllable->pin1yin1 syllable)
+                (string-append (if (and explicit-neutral-tone? neutral-tone?)
+                                   "·"
+                                   "")
+                               (syllable-pinyin-core syllable)
+                               (case (syllable-erization syllable)
+                                 [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                                             "'r"
+                                             "r")]
+                                 [(parenthesized) "(r)"]
+                                 [(none) ""])))])
       (string-append (if (and (not suppress-leading-apostrophe?)
-                              (or (equal? empty pre)
+                              (or (empty? pre)
                                   (let ([segments (syllable-segments syllable)])
                                     (or (list-prefix? '(#\g #\n) segments)
                                         (list-prefix? '(#\n #\g) segments)))))

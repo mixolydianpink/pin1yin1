@@ -6,18 +6,18 @@
          polysyllable->zhuyin/html-fragment
          compound->html-fragment)
 
-(require (only-in racket/function
-                  curry)
-         (only-in racket/list
+(require (only-in racket/list
                   [add-between list:add-between]
-                  append-map)
+                  append-map
+                  empty?
+                  list-prefix?)
          racket/match
 
          pin1yin1/list
          pin1yin1/markup
          pin1yin1/option
          pin1yin1/phonetic
-         pin1yin1/phonetic/string)
+         pin1yin1/string)
 
 (define (add-between list sep)
   (match sep
@@ -38,22 +38,73 @@
                                #:neutral-tone-class neutral-tone-class
                                #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                syllable)
-  (let ([pinyin (syllable->pinyin #:diacritic-e^? diacritic-e^?
-                                  #:diacritic-m? diacritic-m?
-                                  #:diacritic-n? diacritic-n?
-                                  #:diacritic-ng? diacritic-ng?
-                                  #:explicit-neutral-tone? explicit-neutral-tone?
-                                  #:suppress-leading-apostrophe? suppress-leading-apostrophe?
-                                  syllable)]
-        [class (case (syllable-tone syllable)
+  (define (syllable->pin1yin1/html-fragment syllable)
+    (let ([segments (list->string (syllable-segments syllable))]
+          [erization/html-fragment
+           (case (syllable-erization syllable)
+             [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                         '("'r")
+                         '("r"))]
+             [(parenthesized) '("(r)")]
+             [(none) '()])]
+          [tone
+           (case (syllable-tone syllable)
+             [(0) "5"]
+             [(1) "1"]
+             [(2) "2"]
+             [(3) "3"]
+             [(4) "4"])])
+      `((span ()
+              ,(string-append (if (syllable-capitalized? syllable)
+                                  (capitalize segments)
+                                  segments))
+              ,@(if (empty? erization/html-fragment)
+                    '()
+                    `((span ()
+                            ,@erization/html-fragment))))
+        (span ()
+              ,tone))))
+  (let ([class (case (syllable-tone syllable)
                  [(0) neutral-tone-class]
                  [(1) first-tone-class]
                  [(2) second-tone-class]
                  [(3) third-tone-class]
                  [(4) fourth-tone-class])])
-    (html-fragment->html #:tag 'span
-                         #:class class
-                         (string->html-fragment pinyin))))
+    (match-let ([(list pre unmarked post) (syllable-segments/grouped syllable)])
+      (let* ([neutral-tone? (= 0 (syllable-tone syllable))]
+             [numbered?
+              (and (not neutral-tone?)
+                   (case unmarked
+                     [((#\ê)) (not diacritic-e^?)]
+                     [((#\m)) (not diacritic-m?)]
+                     [((#\n)) (or (and (not diacritic-n?)
+                                       (not (list-prefix? '(#\g) post)))
+                                  (and (not diacritic-ng?)
+                                       (list-prefix? '(#\g) post)))]
+                     [else #f]))]
+             [pinyin/html-fragment
+              (if numbered?
+                  (syllable->pin1yin1/html-fragment syllable)
+                  `(,(string-append (if (and explicit-neutral-tone? neutral-tone?)
+                                        "·"
+                                        "")
+                                    (syllable-pinyin-core syllable)
+                                    (case (syllable-erization syllable)
+                                      [(bare) (if (equal? '(#\e) (syllable-segments syllable))
+                                                  "'r"
+                                                  "r")]
+                                      [(parenthesized) "(r)"]
+                                      [(none) ""]))))])
+        (html-fragment->html #:tag 'span
+                             #:class class
+                             (flatten1 `(,(if (and (not suppress-leading-apostrophe?)
+                                                   (or (empty? pre)
+                                                       (let ([segments (syllable-segments syllable)])
+                                                         (or (list-prefix? '(#\g #\n) segments)
+                                                             (list-prefix? '(#\n #\g) segments)))))
+                                              '("'")
+                                              '())
+                                         ,pinyin/html-fragment)))))))
 
 (define (syllable->zhuyin/span #:syllabic-m? syllabic-m?
                                #:syllabic-n? syllabic-n?
@@ -85,18 +136,27 @@
                          `(,(case tone
                               [(0)
                                (if prefix-neutral-tone?
-                                   `(span (span ,(syllable-zhuyin-tone-mark syllable))
+                                   `(span ()
+                                          (span ()
+                                                ,(syllable-zhuyin-tone-mark syllable))
                                           ,core)
-                                   `(span ,core
-                                          (span ,(syllable-zhuyin-tone-mark syllable))))]
+                                   `(span ()
+                                          ,core
+                                          (span ()
+                                                ,(syllable-zhuyin-tone-mark syllable))))]
                               [(1)
                                (if explicit-first-tone?
-                                   `(span ,core
-                                          (span ,(syllable-zhuyin-tone-mark syllable)))
-                                   core)]
+                                   `(span ()
+                                          ,core
+                                          (span ()
+                                                ,(syllable-zhuyin-tone-mark syllable)))
+                                   `(span ()
+                                          ,core))]
                               [(2 3 4)
-                               `(span ,core
-                                      (span ,(syllable-zhuyin-tone-mark syllable)))])
+                               `(span ()
+                                      ,core
+                                      (span ()
+                                            ,(syllable-zhuyin-tone-mark syllable)))])
                            ,@(case (syllable-erization syllable)
                                [(bare) '("ㄦ")]
                                [(parenthesized) '("（ㄦ）")]
