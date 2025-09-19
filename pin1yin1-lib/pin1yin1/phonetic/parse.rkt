@@ -16,6 +16,7 @@
          pin1yin1/parse
          pin1yin1/phonetic
          pin1yin1/pst/parse
+         pin1yin1/string
          pin1yin1/zhupin)
 
 (define (syllable/p #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
@@ -106,17 +107,12 @@
                                          #:implicit-neutral-tone? #t))
               never/p))))
 
-(define capitals (string->list "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-(define numerals (string->list "0123456789"))
-
 (define (compound/p polysyllable/p)
-  (define (char-capital? char) (if (member char capitals char=?) #t #f))
-  (define (char-numeral? char) (if (member char numerals char=?) #t #f))
   (let ([polysyllable/capitals/numerals/p
          (or/p polysyllable/p
                (map/p list->string
-                      (or/p (multi+/p (if/p (conjoin char? char-capital?)))
-                            (multi+/p (if/p (conjoin char? char-numeral?))))))])
+                      (or/p (multi+/p (if/p (conjoin char? char-capital/halfwidth?)))
+                            (multi+/p (if/p (conjoin char? char-numeral/halfwidth?))))))])
     (map/p compound
            (sep-by/p #:sep/p (eq/p #\-)
                      polysyllable/capitals/numerals/p))))
