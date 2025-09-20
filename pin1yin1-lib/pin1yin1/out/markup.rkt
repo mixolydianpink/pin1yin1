@@ -48,6 +48,7 @@
                                     #:sep/html-fragment '("-")
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
+                                           #:sep/html-fragment '()
                                            #:syllable->pinyin/html-fragment
                                            (compose list
                                                     (curry syllable->pinyin/span
@@ -114,6 +115,7 @@
                                     #:sep/html-fragment '()
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
+                                           #:sep/html-fragment '()
                                            #:syllable->zhuyin/html-fragment
                                            (compose list
                                                     (curry syllable->zhuyin/span

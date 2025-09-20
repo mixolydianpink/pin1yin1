@@ -28,6 +28,7 @@
                              #:sep "-"
                              #:polysyllable->string
                              (curry polysyllable->pinyin
+                                    #:sep ""
                                     #:syllable->pinyin
                                     (curry syllable->pinyin
                                            #:diacritic-e^? diacritic-e^?
@@ -77,6 +78,7 @@
                              #:sep ""
                              #:polysyllable->string
                              (curry polysyllable->zhuyin
+                                    #:sep ""
                                     #:syllable->zhuyin
                                     (curry syllable->zhuyin
                                            #:syllabic-m? syllabic-m?

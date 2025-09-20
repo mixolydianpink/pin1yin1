@@ -154,18 +154,25 @@
                                [(parenthesized) '("（ㄦ）")]
                                [(none) '()])))))
 
-(define (polysyllable->pinyin/html-fragment #:syllable->pinyin/html-fragment syllable->pinyin/html-fragment
+(define (polysyllable->pinyin/html-fragment #:sep/html-fragment sep/html-fragment
+                                            #:syllable->pinyin/html-fragment syllable->pinyin/html-fragment
                                             polysyllable)
   (match-let ([(cons first rest) (polysyllable-syllables polysyllable)])
     (flatten1 (cons (syllable->pinyin/html-fragment #:suppress-leading-apostrophe? #t
                                                     first)
                     (for/list ([syllable rest])
-                      (syllable->pinyin/html-fragment #:suppress-leading-apostrophe? #f
-                                                      syllable))))))
+                      (append sep/html-fragment
+                              (syllable->pinyin/html-fragment #:suppress-leading-apostrophe? #f
+                                                              syllable)))))))
 
-(define (polysyllable->zhuyin/html-fragment #:syllable->zhuyin/html-fragment syllable->zhuyin/html-fragment
+(define (polysyllable->zhuyin/html-fragment #:sep/html-fragment sep/html-fragment
+                                            #:syllable->zhuyin/html-fragment syllable->zhuyin/html-fragment
                                             polysyllable)
-  (append-map syllable->zhuyin/html-fragment (polysyllable-syllables polysyllable)))
+  (match-let ([(cons first rest) (polysyllable-syllables polysyllable)])
+    (flatten1 (cons (syllable->zhuyin/html-fragment first)
+                    (for/list ([syllable rest])
+                      (append sep/html-fragment
+                              (syllable->zhuyin/html-fragment syllable)))))))
 
 (define (compound->html-fragment #:sep/html-fragment sep/html-fragment
                                  #:polysyllable->html-fragment polysyllable->html-fragment

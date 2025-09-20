@@ -113,19 +113,25 @@
                      [(parenthesized) "（ㄦ）"]
                      [(none) ""]))))
 
-(define (polysyllable->pinyin #:syllable->pinyin syllable->pinyin
+(define (polysyllable->pinyin #:sep sep
+                              #:syllable->pinyin syllable->pinyin
                               polysyllable)
   (match-let ([(cons first rest) (polysyllable-syllables polysyllable)])
     (string-append* (syllable->pinyin #:suppress-leading-apostrophe? #t
                                       first)
                     (for/list ([syllable rest])
-                      (syllable->pinyin #:suppress-leading-apostrophe? #f
-                                        syllable)))))
+                      (string-append sep
+                                     (syllable->pinyin #:suppress-leading-apostrophe? #f
+                                                       syllable))))))
 
-(define (polysyllable->zhuyin #:syllable->zhuyin syllable->zhuyin
+(define (polysyllable->zhuyin #:sep sep
+                              #:syllable->zhuyin syllable->zhuyin
                               polysyllable)
-  (string-append* (for/list ([syllable (polysyllable-syllables polysyllable)])
-                    (syllable->zhuyin syllable))))
+  (match-let ([(cons first rest) (polysyllable-syllables polysyllable)])
+    (string-append* (syllable->zhuyin first)
+                    (for/list ([syllable rest])
+                      (string-append sep
+                                     (syllable->zhuyin syllable))))))
 
 (define (compound->string #:sep sep
                           #:polysyllable->string polysyllable->string
