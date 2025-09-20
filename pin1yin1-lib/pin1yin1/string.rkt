@@ -8,10 +8,7 @@
          string/fullwidth-capitals-and-numerals)
 
 (require (only-in racket/list
-                  index-of)
-
-         (only-in srfi/13
-                  string-map))
+                  index-of))
 
 (define (capitalize str)
   (if (equal? "" str)
@@ -38,6 +35,8 @@
   (if (member char numerals/halfwidth char=?) #t #f))
 
 (define (string/fullwidth-capitals-and-numerals string)
+  (define (string-map f string)
+    (list->string (map f (string->list string))))
   (string-map (λ (char)
                 (cond
                   [(index-of capitals/halfwidth char)
