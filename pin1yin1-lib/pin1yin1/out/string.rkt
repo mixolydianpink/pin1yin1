@@ -35,9 +35,7 @@
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
-                               [(halfwidth/non-breaking) "\u00A0"]
-                               [(fullwidth) "\u3000"]
-                               [(fullwidth/non-breaking) "\u2060\u3000\u2060"])
+                               [(halfwidth/non-breaking) "\u00A0"])
                              #:polysyllable->string
                              (curry polysyllable->pinyin
                                     #:sep
@@ -61,14 +59,12 @@
                                                               (case space
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "]
-                                                                [(fullwidth) "\u3000"])
+                                                                [(halfwidth) " "])
                                                               #:underscore
                                                               (case underscore
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "]
-                                                                [(fullwidth) "\u3000"])
+                                                                [(halfwidth) " "])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"
@@ -100,9 +96,7 @@
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
-                               [(halfwidth/non-breaking) "\u00A0"]
-                               [(fullwidth) "\u3000"]
-                               [(fullwidth/non-breaking) "\u2060\u3000\u2060"])
+                               [(halfwidth/non-breaking) "\u00A0"])
                              #:polysyllable->string
                              (curry polysyllable->zhuyin
                                     #:sep
@@ -127,14 +121,12 @@
                                                               (case space
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "]
-                                                                [(fullwidth) "\u3000"])
+                                                                [(halfwidth) " "])
                                                               #:underscore
                                                               (case underscore
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "]
-                                                                [(fullwidth) "\u3000"])
+                                                                [(halfwidth) " "])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"

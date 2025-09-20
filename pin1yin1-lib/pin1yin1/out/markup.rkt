@@ -55,9 +55,7 @@
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
-                                      [(halfwidth/non-breaking) '(#x00A0)]
-                                      [(fullwidth) '(#x3000)]
-                                      [(fullwidth/non-breaking) '(#x2060 #x3000 #x2060)])
+                                      [(halfwidth/non-breaking) '(#x00A0)])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
                                            #:sep/html-fragment
@@ -90,14 +88,12 @@
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
                                                                      #:underscore
                                                                      (case underscore
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
@@ -137,9 +133,7 @@
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
-                                      [(halfwidth/non-breaking) '(#x00A0)]
-                                      [(fullwidth) '(#x3000)]
-                                      [(fullwidth/non-breaking) '(#x2060 #x3000 #x2060)])
+                                      [(halfwidth/non-breaking) '(#x00A0)])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
                                            #:sep/html-fragment
@@ -173,14 +167,12 @@
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
                                                                      #:underscore
                                                                      (case underscore
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(fullwidth) '(#x3000)]
                                                                        [(wbr) '((wbr))])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)

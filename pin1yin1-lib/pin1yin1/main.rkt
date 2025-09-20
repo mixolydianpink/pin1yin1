@@ -17,10 +17,9 @@
                                      #:hyphen (or/c 'none
                                                     'hyphen 'hyphen/non-breaking
                                                     'zero-width 'zero-width/non-breaking
-                                                    'halfwidth 'halfwidth/non-breaking
-                                                    'fullwidth 'fullwidth/non-breaking)
-                                     #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
-                                     #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                                    'halfwidth 'halfwidth/non-breaking)
+                                     #:space (or/c 'none 'zero-width 'halfwidth)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (rename pin1yin1-string->zhuyin pin1yin1->zhuyin
@@ -39,10 +38,9 @@
                                      #:hyphen (or/c 'none
                                                     'hyphen 'hyphen/non-breaking
                                                     'zero-width 'zero-width/non-breaking
-                                                    'halfwidth 'halfwidth/non-breaking
-                                                    'fullwidth 'fullwidth/non-breaking)
-                                     #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
-                                     #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                                    'halfwidth 'halfwidth/non-breaking)
+                                     #:space (or/c 'none 'zero-width 'halfwidth)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (pin1yin1->pinyin/html
@@ -60,10 +58,9 @@
                               #:hyphen (or/c 'none
                                              'hyphen 'hyphen/non-breaking
                                              'zero-width 'zero-width/non-breaking
-                                             'halfwidth 'halfwidth/non-breaking
-                                             'fullwidth 'fullwidth/non-breaking)
-                              #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
-                              #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                             'halfwidth 'halfwidth/non-breaking)
+                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -87,10 +84,9 @@
                               #:hyphen (or/c 'none
                                              'hyphen 'hyphen/non-breaking
                                              'zero-width 'zero-width/non-breaking
-                                             'halfwidth 'halfwidth/non-breaking
-                                             'fullwidth 'fullwidth/non-breaking)
-                              #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
-                              #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                             'halfwidth 'halfwidth/non-breaking)
+                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -130,10 +126,9 @@
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking
-                                               'fullwidth 'fullwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                               'halfwidth 'halfwidth/non-breaking)
+                                #:space (or/c 'none 'zero-width 'halfwidth)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->zhuyin
@@ -149,10 +144,9 @@
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking
-                                               'fullwidth 'fullwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
+                                               'halfwidth 'halfwidth/non-breaking)
+                                #:space (or/c 'none 'zero-width 'halfwidth)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->pinyin/html-fragment
@@ -167,10 +161,9 @@
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking
-                                               'fullwidth 'fullwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                               'halfwidth 'halfwidth/non-breaking)
+                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)
@@ -191,10 +184,9 @@
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking
-                                               'fullwidth 'fullwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
+                                               'halfwidth 'halfwidth/non-breaking)
+                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)
