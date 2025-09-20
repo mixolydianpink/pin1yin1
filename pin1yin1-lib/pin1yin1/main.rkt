@@ -345,7 +345,7 @@
                 (test-suite "Punctuation and whitespace"
                             (test-equal? "Whitespace"
                                          (pin1yin1->zhuyin "\r \r\n#z#\tni3_hao3 ma5#f#\n")
-                                         "\n\n\u200B\tㄋㄧˇ ㄏㄠˇㄇㄚ˙\u3000\n")
+                                         "\n\n\u200B\tㄋㄧˇ ㄏㄠˇㄇㄚ\u2060˙\u3000\n")
                             (test-equal? "Punctuation"
                                          (pin1yin1->zhuyin "....!?,\\:;/---~()[]{}")
                                          "⋯⋯。！？，、：；/⸺～（）「」『』")
@@ -355,7 +355,7 @@
                 (test-suite "Capitals"
                             (test-equal? "As word"
                                          (pin1yin1->zhuyin "APP shan3tui4 le5")
-                                         "ＡＰＰㄕㄢˇㄊㄨㄟˋㄌㄜ˙")
+                                         "ＡＰＰㄕㄢˇㄊㄨㄟˋㄌㄜ\u2060˙")
                             (test-equal? "Within word"
                                          (pin1yin1->zhuyin "T-xu4shan1")
                                          "Ｔㄒㄩˋㄕㄢ"))
@@ -372,19 +372,19 @@
                 (test-equal? "Implicit word-final neutral tone"
                              (pin1yin1->zhuyin #:implicit-neutral-tone? #t
                                                "xian1sheng")
-                             "ㄒㄧㄢㄕㄥ˙")
+                             "ㄒㄧㄢㄕㄥ\u2060˙")
                 (test-equal? "Explicit first tone"
                              (pin1yin1->zhuyin #:explicit-first-tone? #t
                                                "xian1sheng5")
-                             "ㄒㄧㄢˉㄕㄥ˙")
+                             "ㄒㄧㄢˉㄕㄥ\u2060˙")
                 (test-equal? "Prefix neutral tone mark"
                              (pin1yin1->zhuyin #:prefix-neutral-tone? #t
                                                "jue2de5")
-                             "ㄐㄩㄝˊ˙ㄉㄜ")
+                             "ㄐㄩㄝˊ˙\u2060ㄉㄜ")
                 (test-suite "Literal string"
                             (test-equal? "Literal string with |…|"
                                          (pin1yin1->zhuyin "|Albert\r\n|_de5")
-                                         "Albert\r\n ㄉㄜ˙")
+                                         "Albert\r\n ㄉㄜ\u2060˙")
                             (test-equal? "Include | in literal string with ||"
                                          (pin1yin1->zhuyin "|Here (||) is one vertical line|")
                                          "Here (|) is one vertical line")
