@@ -7,7 +7,7 @@
          compound->html-fragment)
 
 (require (only-in racket/list
-                  [add-between list:add-between]
+                  add-between
                   append-map
                   empty?
                   list-prefix?)
@@ -15,16 +15,8 @@
 
          pin1yin1/list
          pin1yin1/markup
-         pin1yin1/option
          pin1yin1/phonetic
          pin1yin1/string)
-
-(define (add-between list sep)
-  (match sep
-    [(some sep)
-     (list:add-between list sep)]
-    [(none)
-     list]))
 
 (define (syllable->pinyin/span #:diacritic-e^? diacritic-e^?
                                #:diacritic-m? diacritic-m?
@@ -175,7 +167,7 @@
                                             polysyllable)
   (append-map syllable->zhuyin/html-fragment (polysyllable-syllables polysyllable)))
 
-(define (compound->html-fragment #:sep sep
+(define (compound->html-fragment #:sep/html-fragment sep/html-fragment
                                  #:polysyllable->html-fragment polysyllable->html-fragment
                                  #:string->html-fragment string->html-fragment
                                  compound)
@@ -185,4 +177,4 @@
                               (polysyllable->html-fragment polysyllable)]
                              [(? string? string)
                               (string->html-fragment string)]))
-                         (option-map list sep))))
+                         sep/html-fragment)))

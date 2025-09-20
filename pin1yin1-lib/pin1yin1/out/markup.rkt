@@ -19,7 +19,6 @@
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/markup
          pin1yin1/non-phonetic/string
-         pin1yin1/option
          pin1yin1/phonetic/markup
          pin1yin1/pin1yin1/markup
          pin1yin1/string)
@@ -46,7 +45,7 @@
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
                              (curry compound->html-fragment
-                                    #:sep (some "-")
+                                    #:sep/html-fragment '("-")
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
                                            #:syllable->pinyin/html-fragment
@@ -112,7 +111,7 @@
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
                              (curry compound->html-fragment
-                                    #:sep (none)
+                                    #:sep/html-fragment '()
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
                                            #:syllable->zhuyin/html-fragment
