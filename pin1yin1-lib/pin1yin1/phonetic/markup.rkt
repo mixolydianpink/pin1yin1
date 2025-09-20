@@ -129,13 +129,11 @@
                                (if prefix-neutral-tone?
                                    `(span ()
                                           (span ()
-                                                ,(syllable-zhuyin-tone-mark syllable)
-                                                #x2060) ; Join dot with word joiner
+                                                ,(syllable-zhuyin-tone-mark syllable))
                                           ,core)
                                    `(span ()
                                           ,core
                                           (span ()
-                                                #x2060 ; Join dot with word joiner
                                                 ,(syllable-zhuyin-tone-mark syllable))))]
                               [(1)
                                (if explicit-first-tone?
