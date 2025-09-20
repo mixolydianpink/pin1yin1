@@ -97,8 +97,10 @@
                      [(0)
                       (if prefix-neutral-tone?
                           (string-append (syllable-zhuyin-tone-mark syllable)
+                                         "\u2060" ; Join dot with word joiner
                                          core)
                           (string-append core
+                                         "\u2060" ; Join dot with word joiner
                                          (syllable-zhuyin-tone-mark syllable)))]
                      [(1)
                       (if explicit-first-tone?
