@@ -18,17 +18,32 @@
                                #:diacritic-n? [diacritic-n? #t]
                                #:diacritic-ng? [diacritic-ng? #t]
                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                               #:syllable-separator [syllable-separator 'none]
                                #:capitals/numerals [capitals/numerals 'halfwidth]
+                               #:hyphen [hyphen 'hyphen]
                                #:space [space 'halfwidth]
                                #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-Latn])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
                       (curry compound->string
-                             #:sep "-"
+                             #:sep
+                             (case hyphen
+                               [(none) ""]
+                               [(hyphen) "-"]
+                               [(hyphen/non-breaking) "\u2011"]
+                               [(zero-width) "\u200B"]
+                               [(zero-width/non-breaking) "\u2060"] ; Word joiner
+                               [(halfwidth) " "]
+                               [(halfwidth/non-breaking) "\u00A0"]
+                               [(fullwidth) "\u3000"]
+                               [(fullwidth/non-breaking) "\u2060\u3000\u2060"])
                              #:polysyllable->string
                              (curry polysyllable->pinyin
-                                    #:sep ""
+                                    #:sep
+                                    (case syllable-separator
+                                      [(none) ""]
+                                      [(zero-width/non-breaking) "\u2060"]) ; Word joiner
                                     #:syllable->pinyin
                                     (curry syllable->pinyin
                                            #:diacritic-e^? diacritic-e^?
@@ -68,17 +83,32 @@
                                #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
                                #:explicit-first-tone? [explicit-first-tone? #f]
                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                               #:syllable-separator [syllable-separator 'none]
                                #:capitals/numerals [capitals/numerals 'fullwidth]
+                               #:hyphen [hyphen 'none]
                                #:space [space 'none]
                                #:underscore [underscore 'halfwidth]
                                #:punctuation [punctuation 'zh-TW])
   (λ (pin1yin1)
     (pin1yin1->string #:compound->string
                       (curry compound->string
-                             #:sep ""
+                             #:sep
+                             (case hyphen
+                               [(none) ""]
+                               [(hyphen) "-"]
+                               [(hyphen/non-breaking) "\u2011"]
+                               [(zero-width) "\u200B"]
+                               [(zero-width/non-breaking) "\u2060"] ; Word joiner
+                               [(halfwidth) " "]
+                               [(halfwidth/non-breaking) "\u00A0"]
+                               [(fullwidth) "\u3000"]
+                               [(fullwidth/non-breaking) "\u2060\u3000\u2060"])
                              #:polysyllable->string
                              (curry polysyllable->zhuyin
-                                    #:sep ""
+                                    #:sep
+                                    (case syllable-separator
+                                      [(none) ""]
+                                      [(zero-width/non-breaking) "\u2060"]) ; Word joiner
                                     #:syllable->zhuyin
                                     (curry syllable->zhuyin
                                            #:syllabic-m? syllabic-m?

@@ -8,7 +8,6 @@
 
 (require (only-in racket/list
                   add-between
-                  append-map
                   empty?
                   list-prefix?)
          racket/match

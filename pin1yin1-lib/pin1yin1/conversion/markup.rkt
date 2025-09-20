@@ -14,7 +14,9 @@
                                                #:diacritic-n? [diacritic-n? #t]
                                                #:diacritic-ng? [diacritic-ng? #t]
                                                #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                               #:syllable-separator [syllable-separator 'none]
                                                #:capitals/numerals [capitals/numerals 'halfwidth]
+                                               #:hyphen [hyphen 'hyphen]
                                                #:space [space 'halfwidth]
                                                #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-Latn]
@@ -35,7 +37,9 @@
                                                #:diacritic-n? diacritic-n?
                                                #:diacritic-ng? diacritic-ng?
                                                #:explicit-neutral-tone? explicit-neutral-tone?
+                                               #:syllable-separator syllable-separator
                                                #:capitals/numerals capitals/numerals
+                                               #:hyphen hyphen
                                                #:space space
                                                #:underscore underscore
                                                #:punctuation punctuation
@@ -55,7 +59,9 @@
                                                #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
                                                #:explicit-first-tone? [explicit-first-tone? #f]
                                                #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                               #:syllable-separator [syllable-separator 'none]
                                                #:capitals/numerals [capitals/numerals 'fullwidth]
+                                               #:hyphen [hyphen 'none]
                                                #:space [space 'none]
                                                #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-TW]
@@ -77,7 +83,9 @@
                                                #:explicit-empty-rhyme? explicit-empty-rhyme?
                                                #:explicit-first-tone? explicit-first-tone?
                                                #:prefix-neutral-tone? prefix-neutral-tone?
+                                               #:syllable-separator syllable-separator
                                                #:capitals/numerals capitals/numerals
+                                               #:hyphen hyphen
                                                #:space space
                                                #:underscore underscore
                                                #:punctuation punctuation

@@ -33,7 +33,9 @@
                                              #:diacritic-n? [diacritic-n? #t]
                                              #:diacritic-ng? [diacritic-ng? #t]
                                              #:explicit-neutral-tone? [explicit-neutral-tone? #f]
+                                             #:syllable-separator [syllable-separator 'none]
                                              #:capitals/numerals [capitals/numerals 'halfwidth]
+                                             #:hyphen [hyphen 'hyphen]
                                              #:space [space 'halfwidth]
                                              #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-Latn]
@@ -45,10 +47,23 @@
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
                              (curry compound->html-fragment
-                                    #:sep/html-fragment '("-")
+                                    #:sep/html-fragment
+                                    (case hyphen
+                                      [(none) '()]
+                                      [(hyphen) '("-")]
+                                      [(hyphen/non-breaking) '(#x2011)]
+                                      [(zero-width) '(#x200B)]
+                                      [(zero-width/non-breaking) '(#x2060)] ; Word joiner
+                                      [(halfwidth) '(" ")]
+                                      [(halfwidth/non-breaking) '(#x00A0)]
+                                      [(fullwidth) '(#x3000)]
+                                      [(fullwidth/non-breaking) '(#x2060 #x3000 #x2060)])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
-                                           #:sep/html-fragment '()
+                                           #:sep/html-fragment
+                                           (case syllable-separator
+                                             [(none) '()]
+                                             [(zero-width/non-breaking) '(#x2060)]) ; Word joiner
                                            #:syllable->pinyin/html-fragment
                                            (compose list
                                                     (curry syllable->pinyin/span
@@ -100,7 +115,9 @@
                                              #:explicit-empty-rhyme? [explicit-empty-rhyme? #f]
                                              #:explicit-first-tone? [explicit-first-tone? #f]
                                              #:prefix-neutral-tone? [prefix-neutral-tone? #f]
+                                             #:syllable-separator [syllable-separator 'none]
                                              #:capitals/numerals [capitals/numerals 'fullwidth]
+                                             #:hyphen [hyphen 'none]
                                              #:space [space 'none]
                                              #:underscore [underscore 'halfwidth]
                                              #:punctuation [punctuation 'zh-TW]
@@ -112,10 +129,23 @@
   (λ (pin1yin1)
     (pin1yin1->html-fragment #:compound->html-fragment
                              (curry compound->html-fragment
-                                    #:sep/html-fragment '()
+                                    #:sep/html-fragment
+                                    (case hyphen
+                                      [(none) '()]
+                                      [(hyphen) '("-")]
+                                      [(hyphen/non-breaking) '(#x2011)]
+                                      [(zero-width) '(#x200B)]
+                                      [(zero-width/non-breaking) '(#x2060)] ; Word joiner
+                                      [(halfwidth) '(" ")]
+                                      [(halfwidth/non-breaking) '(#x00A0)]
+                                      [(fullwidth) '(#x3000)]
+                                      [(fullwidth/non-breaking) '(#x2060 #x3000 #x2060)])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
-                                           #:sep/html-fragment '()
+                                           #:sep/html-fragment
+                                           (case syllable-separator
+                                             [(none) '()]
+                                             [(zero-width/non-breaking) '(#x2060)]) ; Word joiner
                                            #:syllable->zhuyin/html-fragment
                                            (compose list
                                                     (curry syllable->zhuyin/span

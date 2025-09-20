@@ -12,7 +12,13 @@
                                      #:diacritic-n? boolean?
                                      #:diacritic-ng? boolean?
                                      #:explicit-neutral-tone? boolean?
+                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                     #:hyphen (or/c 'none
+                                                    'hyphen 'hyphen/non-breaking
+                                                    'zero-width 'zero-width/non-breaking
+                                                    'halfwidth 'halfwidth/non-breaking
+                                                    'fullwidth 'fullwidth/non-breaking)
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -28,7 +34,13 @@
                                      #:explicit-empty-rhyme? boolean?
                                      #:explicit-first-tone? boolean?
                                      #:prefix-neutral-tone? boolean?
+                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                     #:hyphen (or/c 'none
+                                                    'hyphen 'hyphen/non-breaking
+                                                    'zero-width 'zero-width/non-breaking
+                                                    'halfwidth 'halfwidth/non-breaking
+                                                    'fullwidth 'fullwidth/non-breaking)
                                      #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -43,7 +55,13 @@
                               #:diacritic-n? boolean?
                               #:diacritic-ng? boolean?
                               #:explicit-neutral-tone? boolean?
+                              #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                              #:hyphen (or/c 'none
+                                             'hyphen 'hyphen/non-breaking
+                                             'zero-width 'zero-width/non-breaking
+                                             'halfwidth 'halfwidth/non-breaking
+                                             'fullwidth 'fullwidth/non-breaking)
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -64,7 +82,13 @@
                               #:explicit-empty-rhyme? boolean?
                               #:explicit-first-tone? boolean?
                               #:prefix-neutral-tone? boolean?
+                              #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                              #:hyphen (or/c 'none
+                                             'hyphen 'hyphen/non-breaking
+                                             'zero-width 'zero-width/non-breaking
+                                             'halfwidth 'halfwidth/non-breaking
+                                             'fullwidth 'fullwidth/non-breaking)
                               #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -101,7 +125,13 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                #:hyphen (or/c 'none
+                                               'hyphen 'hyphen/non-breaking
+                                               'zero-width 'zero-width/non-breaking
+                                               'halfwidth 'halfwidth/non-breaking
+                                               'fullwidth 'fullwidth/non-breaking)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -114,7 +144,13 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                #:hyphen (or/c 'none
+                                               'hyphen 'hyphen/non-breaking
+                                               'zero-width 'zero-width/non-breaking
+                                               'halfwidth 'halfwidth/non-breaking
+                                               'fullwidth 'fullwidth/non-breaking)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
@@ -126,7 +162,13 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                #:hyphen (or/c 'none
+                                               'hyphen 'hyphen/non-breaking
+                                               'zero-width 'zero-width/non-breaking
+                                               'halfwidth 'halfwidth/non-breaking
+                                               'fullwidth 'fullwidth/non-breaking)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
@@ -144,7 +186,13 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
+                                #:hyphen (or/c 'none
+                                               'hyphen 'hyphen/non-breaking
+                                               'zero-width 'zero-width/non-breaking
+                                               'halfwidth 'halfwidth/non-breaking
+                                               'fullwidth 'fullwidth/non-breaking)
                                 #:space (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'fullwidth 'wbr)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
