@@ -32,6 +32,7 @@
                                [(none) ""]
                                [(hyphen) "-"]
                                [(hyphen/non-breaking) "\u2011"]
+                               [(hyphen/soft) "\u00AD"]
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
@@ -42,6 +43,7 @@
                                     #:sep
                                     (case syllable-separator
                                       [(none) ""]
+                                      [(hyphen/soft) "\u00AD"]
                                       [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                       [else syllable-separator])
                                     #:syllable->pinyin
@@ -97,6 +99,7 @@
                                [(none) ""]
                                [(hyphen) "-"]
                                [(hyphen/non-breaking) "\u2011"]
+                               [(hyphen/soft) "\u00AD"]
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
@@ -107,6 +110,7 @@
                                     #:sep
                                     (case syllable-separator
                                       [(none) ""]
+                                      [(hyphen/soft) "\u00AD"]
                                       [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                       [else syllable-separator])
                                     #:syllable->zhuyin

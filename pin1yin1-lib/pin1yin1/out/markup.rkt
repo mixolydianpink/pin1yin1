@@ -52,6 +52,7 @@
                                       [(none) '()]
                                       [(hyphen) '("-")]
                                       [(hyphen/non-breaking) '(#x2011)]
+                                      [(hyphen/soft) '(shy)]
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
@@ -62,6 +63,7 @@
                                            #:sep/html-fragment
                                            (case syllable-separator
                                              [(none) '()]
+                                             [(hyphen/soft) '(shy)]
                                              [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                              [else syllable-separator])
                                            #:syllable->pinyin/html-fragment
@@ -134,6 +136,7 @@
                                       [(none) '()]
                                       [(hyphen) '("-")]
                                       [(hyphen/non-breaking) '(#x2011)]
+                                      [(hyphen/soft) '(shy)]
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
@@ -144,6 +147,7 @@
                                            #:sep/html-fragment
                                            (case syllable-separator
                                              [(none) '()]
+                                             [(hyphen/soft) '(shy)]
                                              [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                              [else syllable-separator])
                                            #:syllable->zhuyin/html-fragment

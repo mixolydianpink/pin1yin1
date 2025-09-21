@@ -12,10 +12,10 @@
                                      #:diacritic-n? boolean?
                                      #:diacritic-ng? boolean?
                                      #:explicit-neutral-tone? boolean?
-                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
+                                     #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking string?)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:hyphen (or/c 'none
-                                                    'hyphen 'hyphen/non-breaking
+                                                    'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                     'zero-width 'zero-width/non-breaking
                                                     'halfwidth 'halfwidth/non-breaking
                                                     string?)
@@ -34,10 +34,10 @@
                                      #:explicit-empty-rhyme? boolean?
                                      #:explicit-first-tone? boolean?
                                      #:prefix-neutral-tone? boolean?
-                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
+                                     #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking string?)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:hyphen (or/c 'none
-                                                    'hyphen 'hyphen/non-breaking
+                                                    'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                     'zero-width 'zero-width/non-breaking
                                                     'halfwidth 'halfwidth/non-breaking
                                                     string?)
@@ -55,10 +55,10 @@
                               #:diacritic-n? boolean?
                               #:diacritic-ng? boolean?
                               #:explicit-neutral-tone? boolean?
-                              #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
+                              #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking (listof xexpr?))
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:hyphen (or/c 'none
-                                             'hyphen 'hyphen/non-breaking
+                                             'hyphen 'hyphen/non-breaking 'hyphen/soft
                                              'zero-width 'zero-width/non-breaking
                                              'halfwidth 'halfwidth/non-breaking
                                              (listof xexpr?))
@@ -82,10 +82,10 @@
                               #:explicit-empty-rhyme? boolean?
                               #:explicit-first-tone? boolean?
                               #:prefix-neutral-tone? boolean?
-                              #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
+                              #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking (listof xexpr?))
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:hyphen (or/c 'none
-                                             'hyphen 'hyphen/non-breaking
+                                             'hyphen 'hyphen/non-breaking 'hyphen/soft
                                              'zero-width 'zero-width/non-breaking
                                              'halfwidth 'halfwidth/non-breaking
                                              (listof xexpr?))
@@ -125,10 +125,10 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
+                                #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking string?)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
-                                               'hyphen 'hyphen/non-breaking
+                                               'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                'zero-width 'zero-width/non-breaking
                                                'halfwidth 'halfwidth/non-breaking
                                                string?)
@@ -144,10 +144,10 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
+                                #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking string?)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
-                                               'hyphen 'hyphen/non-breaking
+                                               'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                'zero-width 'zero-width/non-breaking
                                                'halfwidth 'halfwidth/non-breaking
                                                string?)
@@ -162,10 +162,10 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
+                                #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking (listof xexpr?))
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
-                                               'hyphen 'hyphen/non-breaking
+                                               'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                'zero-width 'zero-width/non-breaking
                                                'halfwidth 'halfwidth/non-breaking
                                                (listof xexpr?))
@@ -186,10 +186,10 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
+                                #:syllable-separator (or/c 'none 'hyphen/soft 'zero-width/non-breaking (listof xexpr?))
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
-                                               'hyphen 'hyphen/non-breaking
+                                               'hyphen 'hyphen/non-breaking 'hyphen/soft
                                                'zero-width 'zero-width/non-breaking
                                                'halfwidth 'halfwidth/non-breaking
                                                (listof xexpr?))
