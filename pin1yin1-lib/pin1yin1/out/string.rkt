@@ -35,13 +35,15 @@
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
-                               [(halfwidth/non-breaking) "\u00A0"])
+                               [(halfwidth/non-breaking) "\u00A0"]
+                               [else hyphen])
                              #:polysyllable->string
                              (curry polysyllable->pinyin
                                     #:sep
                                     (case syllable-separator
                                       [(none) ""]
-                                      [(zero-width/non-breaking) "\u2060"]) ; Word joiner
+                                      [(zero-width/non-breaking) "\u2060"] ; Word joiner
+                                      [else syllable-separator])
                                     #:syllable->pinyin
                                     (curry syllable->pinyin
                                            #:diacritic-e^? diacritic-e^?
@@ -59,12 +61,14 @@
                                                               (case space
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "])
+                                                                [(halfwidth) " "]
+                                                                [else space])
                                                               #:underscore
                                                               (case underscore
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "])
+                                                                [(halfwidth) " "]
+                                                                [else underscore])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"
@@ -96,13 +100,15 @@
                                [(zero-width) "\u200B"]
                                [(zero-width/non-breaking) "\u2060"] ; Word joiner
                                [(halfwidth) " "]
-                               [(halfwidth/non-breaking) "\u00A0"])
+                               [(halfwidth/non-breaking) "\u00A0"]
+                               [else hyphen])
                              #:polysyllable->string
                              (curry polysyllable->zhuyin
                                     #:sep
                                     (case syllable-separator
                                       [(none) ""]
-                                      [(zero-width/non-breaking) "\u2060"]) ; Word joiner
+                                      [(zero-width/non-breaking) "\u2060"] ; Word joiner
+                                      [else syllable-separator])
                                     #:syllable->zhuyin
                                     (curry syllable->zhuyin
                                            #:syllabic-m? syllabic-m?
@@ -121,12 +127,14 @@
                                                               (case space
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "])
+                                                                [(halfwidth) " "]
+                                                                [else space])
                                                               #:underscore
                                                               (case underscore
                                                                 [(none) ""]
                                                                 [(zero-width) "\u200B"]
-                                                                [(halfwidth) " "])
+                                                                [(halfwidth) " "]
+                                                                [else underscore])
                                                               #:explicit-space " "
                                                               #:zero-width-space "\u200B"
                                                               #:fullwidth-space "\u3000"

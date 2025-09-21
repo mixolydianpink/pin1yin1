@@ -12,14 +12,15 @@
                                      #:diacritic-n? boolean?
                                      #:diacritic-ng? boolean?
                                      #:explicit-neutral-tone? boolean?
-                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:hyphen (or/c 'none
                                                     'hyphen 'hyphen/non-breaking
                                                     'zero-width 'zero-width/non-breaking
-                                                    'halfwidth 'halfwidth/non-breaking)
-                                     #:space (or/c 'none 'zero-width 'halfwidth)
-                                     #:underscore (or/c 'none 'zero-width 'halfwidth)
+                                                    'halfwidth 'halfwidth/non-breaking
+                                                    string?)
+                                     #:space (or/c 'none 'zero-width 'halfwidth string?)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth string?)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (rename pin1yin1-string->zhuyin pin1yin1->zhuyin
@@ -33,14 +34,15 @@
                                      #:explicit-empty-rhyme? boolean?
                                      #:explicit-first-tone? boolean?
                                      #:prefix-neutral-tone? boolean?
-                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                     #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
                                      #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                      #:hyphen (or/c 'none
                                                     'hyphen 'hyphen/non-breaking
                                                     'zero-width 'zero-width/non-breaking
-                                                    'halfwidth 'halfwidth/non-breaking)
-                                     #:space (or/c 'none 'zero-width 'halfwidth)
-                                     #:underscore (or/c 'none 'zero-width 'halfwidth)
+                                                    'halfwidth 'halfwidth/non-breaking
+                                                    string?)
+                                     #:space (or/c 'none 'zero-width 'halfwidth string?)
+                                     #:underscore (or/c 'none 'zero-width 'halfwidth string?)
                                      #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                     (or/c string? #f)))
                        (pin1yin1->pinyin/html
@@ -53,14 +55,15 @@
                               #:diacritic-n? boolean?
                               #:diacritic-ng? boolean?
                               #:explicit-neutral-tone? boolean?
-                              #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                              #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:hyphen (or/c 'none
                                              'hyphen 'hyphen/non-breaking
                                              'zero-width 'zero-width/non-breaking
-                                             'halfwidth 'halfwidth/non-breaking)
-                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
-                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                             'halfwidth 'halfwidth/non-breaking
+                                             (listof xexpr?))
+                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -79,14 +82,15 @@
                               #:explicit-empty-rhyme? boolean?
                               #:explicit-first-tone? boolean?
                               #:prefix-neutral-tone? boolean?
-                              #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                              #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
                               #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                               #:hyphen (or/c 'none
                                              'hyphen 'hyphen/non-breaking
                                              'zero-width 'zero-width/non-breaking
-                                             'halfwidth 'halfwidth/non-breaking)
-                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
-                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                             'halfwidth 'halfwidth/non-breaking
+                                             (listof xexpr?))
+                              #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
+                              #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:syllable-first-tone-class (or/c string? #f)
                               #:syllable-second-tone-class (or/c string? #f)
@@ -121,14 +125,15 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth)
+                                               'halfwidth 'halfwidth/non-breaking
+                                               string?)
+                                #:space (or/c 'none 'zero-width 'halfwidth string?)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth string?)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->zhuyin
@@ -139,14 +144,15 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking string?)
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth)
+                                               'halfwidth 'halfwidth/non-breaking
+                                               string?)
+                                #:space (or/c 'none 'zero-width 'halfwidth string?)
+                                #:underscore (or/c 'none 'zero-width 'halfwidth string?)
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN))
                                (-> pin1yin1? string?)))
                          (make-pin1yin1->pinyin/html-fragment
@@ -156,14 +162,15 @@
                                 #:diacritic-n? boolean?
                                 #:diacritic-ng? boolean?
                                 #:explicit-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                               'halfwidth 'halfwidth/non-breaking
+                                               (listof xexpr?))
+                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)
@@ -179,14 +186,15 @@
                                 #:explicit-empty-rhyme? boolean?
                                 #:explicit-first-tone? boolean?
                                 #:prefix-neutral-tone? boolean?
-                                #:syllable-separator (or/c 'none 'zero-width/non-breaking)
+                                #:syllable-separator (or/c 'none 'zero-width/non-breaking (listof xexpr?))
                                 #:capitals/numerals (or/c 'halfwidth 'fullwidth)
                                 #:hyphen (or/c 'none
                                                'hyphen 'hyphen/non-breaking
                                                'zero-width 'zero-width/non-breaking
-                                               'halfwidth 'halfwidth/non-breaking)
-                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr)
-                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr)
+                                               'halfwidth 'halfwidth/non-breaking
+                                               (listof xexpr?))
+                                #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
+                                #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                                 #:syllable-first-tone-class (or/c string? #f)
                                 #:syllable-second-tone-class (or/c string? #f)
@@ -203,7 +211,10 @@
            pin1yin1/out/string
            pin1yin1/pin1yin1))
 
-(require pin1yin1/conversion/string
+(require (only-in xml
+                  xexpr?)
+
+         pin1yin1/conversion/string
          pin1yin1/conversion/markup
          pin1yin1/out/markup)
 

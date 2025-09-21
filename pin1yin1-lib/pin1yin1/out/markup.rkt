@@ -55,13 +55,15 @@
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
-                                      [(halfwidth/non-breaking) '(#x00A0)])
+                                      [(halfwidth/non-breaking) '(#x00A0)]
+                                      [else hyphen])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->pinyin/html-fragment
                                            #:sep/html-fragment
                                            (case syllable-separator
                                              [(none) '()]
-                                             [(zero-width/non-breaking) '(#x2060)]) ; Word joiner
+                                             [(zero-width/non-breaking) '(#x2060)] ; Word joiner
+                                             [else syllable-separator])
                                            #:syllable->pinyin/html-fragment
                                            (compose list
                                                     (curry syllable->pinyin/span
@@ -88,13 +90,15 @@
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(wbr) '((wbr))])
+                                                                       [(wbr) '((wbr))]
+                                                                       [else space])
                                                                      #:underscore
                                                                      (case underscore
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(wbr) '((wbr))])
+                                                                       [(wbr) '((wbr))]
+                                                                       [else underscore])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)
@@ -133,13 +137,15 @@
                                       [(zero-width) '(#x200B)]
                                       [(zero-width/non-breaking) '(#x2060)] ; Word joiner
                                       [(halfwidth) '(" ")]
-                                      [(halfwidth/non-breaking) '(#x00A0)])
+                                      [(halfwidth/non-breaking) '(#x00A0)]
+                                      [else hyphen])
                                     #:polysyllable->html-fragment
                                     (curry polysyllable->zhuyin/html-fragment
                                            #:sep/html-fragment
                                            (case syllable-separator
                                              [(none) '()]
-                                             [(zero-width/non-breaking) '(#x2060)]) ; Word joiner
+                                             [(zero-width/non-breaking) '(#x2060)] ; Word joiner
+                                             [else syllable-separator])
                                            #:syllable->zhuyin/html-fragment
                                            (compose list
                                                     (curry syllable->zhuyin/span
@@ -167,13 +173,15 @@
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(wbr) '((wbr))])
+                                                                       [(wbr) '((wbr))]
+                                                                       [else space])
                                                                      #:underscore
                                                                      (case underscore
                                                                        [(none) '()]
                                                                        [(zero-width) '(#x200B)]
                                                                        [(halfwidth) '(" ")]
-                                                                       [(wbr) '((wbr))])
+                                                                       [(wbr) '((wbr))]
+                                                                       [else underscore])
                                                                      #:explicit-space '(" ")
                                                                      #:zero-width-space '(#x200B)
                                                                      #:fullwidth-space '(#x3000)
