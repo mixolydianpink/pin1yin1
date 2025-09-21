@@ -35,8 +35,9 @@
 
 (define (whitespace-symbol? any)
   (match any
-    [(? symbol? symbol) #:when (assoc symbol whitespace-table)
-                        #t]
+    [(? symbol? symbol)
+     #:when (assoc symbol whitespace-table)
+     #t]
     [_ #f]))
 
 (define (make-whitespace-> #:space space
@@ -82,8 +83,9 @@
 
 (define (punctuation-symbol? any)
   (match any
-    [(? symbol? symbol) #:when (assoc symbol punctuation-table)
-                        #t]
+    [(? symbol? symbol)
+     #:when (assoc symbol punctuation-table)
+     #t]
     [_ #f]))
 
 (define (non-phonetic? any)
