@@ -19,6 +19,7 @@
          pin1yin1/non-phonetic
          pin1yin1/non-phonetic/markup
          pin1yin1/non-phonetic/string
+         pin1yin1/phonetic
          pin1yin1/phonetic/markup
          pin1yin1/pin1yin1/markup
          pin1yin1/string)
@@ -68,17 +69,22 @@
                                              [else syllable-separator])
                                            #:syllable->pinyin/html-fragment
                                            (compose list
-                                                    (curry syllable->pinyin/span
-                                                           #:diacritic-e^? diacritic-e^?
-                                                           #:diacritic-m? diacritic-m?
-                                                           #:diacritic-n? diacritic-n?
-                                                           #:diacritic-ng? diacritic-ng?
-                                                           #:explicit-neutral-tone? explicit-neutral-tone?
-                                                           #:first-tone-class syllable-first-tone-class
-                                                           #:second-tone-class syllable-second-tone-class
-                                                           #:third-tone-class syllable-third-tone-class
-                                                           #:fourth-tone-class syllable-fourth-tone-class
-                                                           #:neutral-tone-class syllable-neutral-tone-class)))
+                                                    (λ (#:suppress-leading-apostrophe? suppress-leading-apostrophe?
+                                                        syllable)
+                                                      (let ([class (case (syllable-tone syllable)
+                                                                     [(0) syllable-neutral-tone-class]
+                                                                     [(1) syllable-first-tone-class]
+                                                                     [(2) syllable-second-tone-class]
+                                                                     [(3) syllable-third-tone-class]
+                                                                     [(4) syllable-fourth-tone-class])])
+                                                        (syllable->pinyin/span #:diacritic-e^? diacritic-e^?
+                                                                               #:diacritic-m? diacritic-m?
+                                                                               #:diacritic-n? diacritic-n?
+                                                                               #:diacritic-ng? diacritic-ng?
+                                                                               #:explicit-neutral-tone? explicit-neutral-tone?
+                                                                               #:class class
+                                                                               #:suppress-leading-apostrophe? suppress-leading-apostrophe?
+                                                                               syllable)))))
                                     #:string->html-fragment
                                     (compose string->html-fragment
                                              (case capitals/numerals
@@ -152,18 +158,21 @@
                                              [else syllable-separator])
                                            #:syllable->zhuyin/html-fragment
                                            (compose list
-                                                    (curry syllable->zhuyin/span
-                                                           #:syllabic-m? syllabic-m?
-                                                           #:syllabic-n? syllabic-n?
-                                                           #:syllabic-ng? syllabic-ng?
-                                                           #:explicit-empty-rhyme? explicit-empty-rhyme?
-                                                           #:explicit-first-tone? explicit-first-tone?
-                                                           #:prefix-neutral-tone? prefix-neutral-tone?
-                                                           #:first-tone-class syllable-first-tone-class
-                                                           #:second-tone-class syllable-second-tone-class
-                                                           #:third-tone-class syllable-third-tone-class
-                                                           #:fourth-tone-class syllable-fourth-tone-class
-                                                           #:neutral-tone-class syllable-neutral-tone-class)))
+                                                    (λ (syllable)
+                                                      (let ([class (case (syllable-tone syllable)
+                                                                     [(0) syllable-neutral-tone-class]
+                                                                     [(1) syllable-first-tone-class]
+                                                                     [(2) syllable-second-tone-class]
+                                                                     [(3) syllable-third-tone-class]
+                                                                     [(4) syllable-fourth-tone-class])])
+                                                        (syllable->zhuyin/span #:syllabic-m? syllabic-m?
+                                                                               #:syllabic-n? syllabic-n?
+                                                                               #:syllabic-ng? syllabic-ng?
+                                                                               #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                                                               #:explicit-first-tone? explicit-first-tone?
+                                                                               #:prefix-neutral-tone? prefix-neutral-tone?
+                                                                               #:class class
+                                                                               syllable)))))
                                     #:string->html-fragment
                                     (compose string->html-fragment
                                              (case capitals/numerals
