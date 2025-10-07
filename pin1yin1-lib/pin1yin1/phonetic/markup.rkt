@@ -1,7 +1,9 @@
 #lang racket/base
 
 (provide syllable->pinyin/span
+         syllable->pinyin/span/structured
          syllable->zhuyin/span
+         syllable->zhuyin/span/structured
          polysyllable->pinyin/html-fragment
          polysyllable->zhuyin/html-fragment
          compound->html-fragment)
@@ -15,6 +17,7 @@
          pin1yin1/list
          pin1yin1/markup
          pin1yin1/phonetic
+         pin1yin1/phonetic/string
          pin1yin1/string)
 
 (define (syllable->pinyin/span #:diacritic-e^? diacritic-e^?
@@ -25,6 +28,24 @@
                                #:class class
                                #:suppress-leading-apostrophe? suppress-leading-apostrophe?
                                syllable)
+  (html-fragment->html #:tag 'span
+                       #:class class
+                       (list (syllable->pinyin #:diacritic-e^? diacritic-e^?
+                                               #:diacritic-m? diacritic-m?
+                                               #:diacritic-n? diacritic-n?
+                                               #:diacritic-ng? diacritic-ng?
+                                               #:explicit-neutral-tone? explicit-neutral-tone?
+                                               #:suppress-leading-apostrophe? suppress-leading-apostrophe?
+                                               syllable))))
+
+(define (syllable->pinyin/span/structured #:diacritic-e^? diacritic-e^?
+                                          #:diacritic-m? diacritic-m?
+                                          #:diacritic-n? diacritic-n?
+                                          #:diacritic-ng? diacritic-ng?
+                                          #:explicit-neutral-tone? explicit-neutral-tone?
+                                          #:class class
+                                          #:suppress-leading-apostrophe? suppress-leading-apostrophe?
+                                          syllable)
   (define (syllable->pin1yin1/html-fragment syllable)
     (let ([segments (list->string (syllable-segments syllable))]
           [erization/html-fragment
@@ -97,6 +118,24 @@
                                #:prefix-neutral-tone? prefix-neutral-tone?
                                #:class class
                                syllable)
+  (html-fragment->html #:tag 'span
+                       #:class class
+                       (list (syllable->zhuyin #:syllabic-m? syllabic-m?
+                                               #:syllabic-n? syllabic-n?
+                                               #:syllabic-ng? syllabic-ng?
+                                               #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                               #:explicit-first-tone? explicit-first-tone?
+                                               #:prefix-neutral-tone? prefix-neutral-tone?
+                                               syllable))))
+
+(define (syllable->zhuyin/span/structured #:syllabic-m? syllabic-m?
+                                          #:syllabic-n? syllabic-n?
+                                          #:syllabic-ng? syllabic-ng?
+                                          #:explicit-empty-rhyme? explicit-empty-rhyme?
+                                          #:explicit-first-tone? explicit-first-tone?
+                                          #:prefix-neutral-tone? prefix-neutral-tone?
+                                          #:class class
+                                          syllable)
   (let* ([core
           (syllable-zhuyin-core #:syllabic-m? syllabic-m?
                                 #:syllabic-n? syllabic-n?
