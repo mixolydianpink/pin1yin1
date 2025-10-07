@@ -20,11 +20,7 @@
                                                #:space [space 'halfwidth]
                                                #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-Latn]
-                                               #:syllable-first-tone-class [syllable-first-tone-class #f]
-                                               #:syllable-second-tone-class [syllable-second-tone-class #f]
-                                               #:syllable-third-tone-class [syllable-third-tone-class #f]
-                                               #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
-                                               #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
+                                               #:style [style (make-style)]
                                                string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
@@ -43,11 +39,7 @@
                                                #:space space
                                                #:underscore underscore
                                                #:punctuation punctuation
-                                               #:syllable-first-tone-class syllable-first-tone-class
-                                               #:syllable-second-tone-class syllable-second-tone-class
-                                               #:syllable-third-tone-class syllable-third-tone-class
-                                               #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                               #:syllable-neutral-tone-class syllable-neutral-tone-class)
+                                               #:style style)
           pin1yin1))))
 
 (define (pin1yin1-string->zhuyin/html-fragment #:interpret-e^-as-e-circumflex? [interpret-e^-as-e-circumflex? #t]
@@ -65,11 +57,7 @@
                                                #:space [space 'none]
                                                #:underscore [underscore 'halfwidth]
                                                #:punctuation [punctuation 'zh-TW]
-                                               #:syllable-first-tone-class [syllable-first-tone-class #f]
-                                               #:syllable-second-tone-class [syllable-second-tone-class #f]
-                                               #:syllable-third-tone-class [syllable-third-tone-class #f]
-                                               #:syllable-fourth-tone-class [syllable-fourth-tone-class #f]
-                                               #:syllable-neutral-tone-class [syllable-neutral-tone-class #f]
+                                               #:style [style (make-style)]
                                                string)
   (let ([pin1yin1
          (pin1yin1-string->pin1yin1 #:interpret-e^-as-e-circumflex? interpret-e^-as-e-circumflex?
@@ -89,9 +77,5 @@
                                                #:space space
                                                #:underscore underscore
                                                #:punctuation punctuation
-                                               #:syllable-first-tone-class syllable-first-tone-class
-                                               #:syllable-second-tone-class syllable-second-tone-class
-                                               #:syllable-third-tone-class syllable-third-tone-class
-                                               #:syllable-fourth-tone-class syllable-fourth-tone-class
-                                               #:syllable-neutral-tone-class syllable-neutral-tone-class)
+                                               #:style style)
           pin1yin1))))

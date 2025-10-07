@@ -65,11 +65,7 @@
                               #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
-                              #:syllable-first-tone-class (or/c string? #f)
-                              #:syllable-second-tone-class (or/c string? #f)
-                              #:syllable-third-tone-class (or/c string? #f)
-                              #:syllable-fourth-tone-class (or/c string? #f)
-                              #:syllable-neutral-tone-class (or/c string? #f))
+                              #:style style?)
                              (or/c string? #f)))
                        (pin1yin1->zhuyin/html
                         (->* (string?)
@@ -92,12 +88,23 @@
                               #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
-                              #:syllable-first-tone-class (or/c string? #f)
-                              #:syllable-second-tone-class (or/c string? #f)
-                              #:syllable-third-tone-class (or/c string? #f)
-                              #:syllable-fourth-tone-class (or/c string? #f)
-                              #:syllable-neutral-tone-class (or/c string? #f))
-                             (or/c string? #f)))))
+                              #:style style?)
+                             (or/c string? #f)))
+                       (make-style
+                        (->* ()
+                             (#:syllable (or/c 'plain syllable-style?)
+                              #:component/word (or/c 'spliced string?)
+                              #:compound/word (or/c 'spliced string?))
+                             style?))
+                       (make-syllable-style
+                        (->* ()
+                             (#:format (or/c 'plain 'structured)
+                              #:first-tone (or/c string? #f)
+                              #:second-tone (or/c string? #f)
+                              #:third-tone (or/c string? #f)
+                              #:fourth-tone (or/c string? #f)
+                              #:neutral-tone (or/c string? #f))
+                             syllable-style?))))
 
 (module in racket/base
   (require racket/contract)
@@ -172,11 +179,7 @@
                                 #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
-                                #:syllable-first-tone-class (or/c string? #f)
-                                #:syllable-second-tone-class (or/c string? #f)
-                                #:syllable-third-tone-class (or/c string? #f)
-                                #:syllable-fourth-tone-class (or/c string? #f)
-                                #:syllable-neutral-tone-class (or/c string? #f))
+                                #:style style?)
                                (-> pin1yin1? (listof xexpr?))))
                          (make-pin1yin1->zhuyin/html-fragment
                           (->* ()
@@ -196,12 +199,23 @@
                                 #:space (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:underscore (or/c 'none 'zero-width 'halfwidth 'wbr (listof xexpr?))
                                 #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
-                                #:syllable-first-tone-class (or/c string? #f)
-                                #:syllable-second-tone-class (or/c string? #f)
-                                #:syllable-third-tone-class (or/c string? #f)
-                                #:syllable-fourth-tone-class (or/c string? #f)
-                                #:syllable-neutral-tone-class (or/c string? #f))
+                                #:style style?)
                                (-> pin1yin1? (listof xexpr?))))
+                         (make-style
+                          (->* ()
+                               (#:syllable (or/c 'plain syllable-style?)
+                                #:component/word (or/c 'spliced string?)
+                                #:compound/word (or/c 'spliced string?))
+                               style?))
+                         (make-syllable-style
+                          (->* ()
+                               (#:format (or/c 'plain 'structured)
+                                #:first-tone (or/c string? #f)
+                                #:second-tone (or/c string? #f)
+                                #:third-tone (or/c string? #f)
+                                #:fourth-tone (or/c string? #f)
+                                #:neutral-tone (or/c string? #f))
+                               syllable-style?))
                          (html-fragment->string
                           (-> (listof xexpr?) string?))))
   (require (only-in xml
@@ -433,7 +447,10 @@
                 (check-regexp-match #rx"pīn.*yīn"
                                     (pin1yin1->pinyin/html "pin1yin1"))
                 (check-regexp-match #rx"class=\"first-tone\".*pīn.*yīn"
-                                    (pin1yin1->pinyin/html #:syllable-first-tone-class "first-tone"
+                                    (pin1yin1->pinyin/html #:style
+                                                           (make-style #:syllable
+                                                                       (make-syllable-style #:first-tone
+                                                                                            "first-tone"))
                                                            "pin1yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
                                     (pin1yin1->pinyin/html "#en-US|Hello|"))
@@ -448,7 +465,10 @@
                 (check-regexp-match #rx"ㄓㄨ.*ˋ.*ㄧㄣ"
                                     (pin1yin1->zhuyin/html "zhu4yin1"))
                 (check-regexp-match #rx"class=\"fourth-tone\".*ㄓㄨ.*ˋ.*ㄧㄣ"
-                                    (pin1yin1->zhuyin/html #:syllable-fourth-tone-class "fourth-tone"
+                                    (pin1yin1->zhuyin/html #:style
+                                                           (make-style #:syllable
+                                                                       (make-syllable-style #:fourth-tone
+                                                                                            "fourth-tone"))
                                                            "zhu4yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
                                     (pin1yin1->zhuyin/html "#en-US|Hello|"))
