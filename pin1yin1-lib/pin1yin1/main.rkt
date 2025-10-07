@@ -90,13 +90,13 @@
                               #:punctuation (or/c 'zh-Latn 'zh-TW 'zh-CN)
                               #:style style?)
                              (or/c string? #f)))
-                       (make-style
+                       (rename make-style style
                         (->* ()
                              (#:syllable (or/c 'plain syllable-style?)
                               #:component/word (or/c 'spliced string?)
                               #:compound/word (or/c 'spliced string?))
                              style?))
-                       (make-syllable-style
+                       (rename make-syllable-style syllable-style
                         (->* ()
                              (#:format (or/c 'plain 'structured)
                               #:first-tone (or/c string? #f)
@@ -448,9 +448,9 @@
                                     (pin1yin1->pinyin/html "pin1yin1"))
                 (check-regexp-match #rx"class=\"first-tone\".*pīn.*yīn"
                                     (pin1yin1->pinyin/html #:style
-                                                           (make-style #:syllable
-                                                                       (make-syllable-style #:first-tone
-                                                                                            "first-tone"))
+                                                           (style #:syllable
+                                                                  (syllable-style #:first-tone
+                                                                                  "first-tone"))
                                                            "pin1yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
                                     (pin1yin1->pinyin/html "#en-US|Hello|"))
@@ -466,9 +466,9 @@
                                     (pin1yin1->zhuyin/html "zhu4yin1"))
                 (check-regexp-match #rx"class=\"fourth-tone\".*ㄓㄨ.*ˋ.*ㄧㄣ"
                                     (pin1yin1->zhuyin/html #:style
-                                                           (make-style #:syllable
-                                                                       (make-syllable-style #:fourth-tone
-                                                                                            "fourth-tone"))
+                                                           (style #:syllable
+                                                                  (syllable-style #:fourth-tone
+                                                                                  "fourth-tone"))
                                                            "zhu4yin1"))
                 (check-regexp-match #rx"<span lang=\"en-US\">Hello</span>"
                                     (pin1yin1->zhuyin/html "#en-US|Hello|"))
