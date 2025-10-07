@@ -3,6 +3,11 @@
 (provide make-pin1yin1->pinyin/html-fragment
          make-pin1yin1->zhuyin/html-fragment
 
+         style
+         make-style
+         syllable-style
+         make-syllable-style
+
          html-fragment->string)
 
 (require (only-in racket/function
@@ -23,6 +28,23 @@
          pin1yin1/phonetic/markup
          pin1yin1/pin1yin1/markup
          pin1yin1/string)
+
+(struct style (syllable polysyllable compound))
+
+(define (make-style #:syllable [syllable 'plain]
+                    #:component/word [polysyllable 'spliced]
+                    #:compound/word [compound 'spliced])
+  (style syllable polysyllable compound))
+
+(struct syllable-style (style first-tone-class second-tone-class third-tone-class fourth-tone-class neutral-tone-class))
+
+(define (make-syllable-style #:style [style 'plain]
+                             #:first-tone first-tone-class
+                             #:second-tone second-tone-class
+                             #:third-tone third-tone-class
+                             #:fourth-tone fourth-tone-class
+                             #:neutral-tone neutral-tone-class)
+  (syllable-style style first-tone-class second-tone-class third-tone-class fourth-tone-class neutral-tone-class))
 
 (define (html-fragment->string fragment)
   (parameterize ([empty-tag-shorthand (cons 'wbr html-empty-tags)])
